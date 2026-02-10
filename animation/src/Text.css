@@ -1,0 +1,66 @@
+.textDiv {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hoverme {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text1,
+.text2 {
+    font-size: 64px;
+    font-family: "Anta";
+}
+
+.text1 {
+    margin-right: 5em;
+}
+.text2 {
+    margin-left: 5em;
+}
+.master {
+    color: #f30a49;
+}
+.btn-learnMore {
+    padding: 1em 5em;
+    font-family: "Anta";
+    color: white;
+    backdrop-filter: blur(10px);
+    background-image: linear-gradient(to right, #ffffff10, #ffffff40);
+    outline: none;
+    border: 1px solid #ffffff50;
+    border-radius: 10em;
+    background: transparent;
+    position: absolute;
+    bottom: -50%;
+    z-index: 5;
+}
+
+.btn-learnMore {
+    border: 1px solid #ffffff50;
+    /*border: none;*/
+}
+
+.btn-back-hide {
+    opacity: 0;
+    transform: rotateZ(0deg);
+    transition-duration: 0.5s;
+}
+.btn-back-show-1 {
+    transform: rotateZ(-15deg);
+    transition-duration: 0.5s;
+    opacity: 1;
+    z-index: 4;
+}
+.btn-back-show-2 {
+    transform: rotateZ(15deg);
+    transition-duration: 0.5s;
+    opacity: 1;
+    z-index: 3;
+}

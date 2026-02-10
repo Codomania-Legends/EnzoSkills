@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import Hyperspeed from "./Hyperspeed";
+import Text from "./Text";
 
 gsap.registerPlugin(SplitText);
 
@@ -142,7 +143,8 @@ function App() {
       <span ref={textRef} style={{ fontFamily: "Prata" }}>
         Enzo Skills
       </span>*/}
-      <button style={{ position: "relative", zIndex: 500 }}>Learn More</button>
+      <Text />
+      {/* <button style={{ position: "relative", zIndex: 500 }}>Learn More</button>*/}
     </>
   );
 }
