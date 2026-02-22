@@ -1,0 +1,75 @@
+.Navbar {
+    width: 80%;
+    height: 80px; /* Adjusted from 10% for better stability */
+    box-sizing: border-box;
+    justify-content: space-between;
+    font-family: "Plus Jakarta Sans", sans-serif
+}
+
+.logo img {
+    height: 40px; /* Adjust based on your logo design */
+    width: auto;
+}
+.center {
+    width: 40%;
+    justify-content: space-between;
+    font-weight: 600;
+}
+.nav-links {
+    list-style: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-links li {
+    position: relative;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+/* 1. Remove the rule targeting li.active to prevent double underlining or glitches */
+.nav-links li.active .underline {
+    width: 0; 
+}
+
+/* 2. Target the NavLink anchor tag specifically when it is active */
+.nav-links li a.active {
+    font-weight: 800; /* Moves the bold effect here */
+}
+
+.nav-links li a.active .underline {
+    width: 100%; /* Only the active NavLink shows the underline */
+}
+
+/* 3. Ensure the underline is inside the anchor for the logic to work */
+.underline {
+    position: absolute;
+    bottom: -2px; /* Adjusted slightly to sit below text */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #000;
+    transition: width 0.3s ease-in-out;
+}
+.right {
+    height: 50%;
+    width: 15%;
+    color: white;
+    font-size: small;
+    font-weight: 600;
+    font-family: "Plus Jakarta Sans", sans-serif
+}
+button.login-signup-btn {
+    height: 100%;
+    width: 80%;
+    border-radius: 0.7em;
+}
