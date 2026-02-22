@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Utilities/global.css"
+import "./Utility/global.css"
 
 function App() {
   return (
