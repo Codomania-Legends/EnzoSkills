@@ -43,3 +43,8 @@
 .big-box-shadow:active{
     scale: 0.9;
 }
+.love-light-regular {
+  font-family: "Love Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}

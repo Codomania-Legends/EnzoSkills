@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.MainHomePage{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.bgImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 1; 
+}
+
+.centerImg {
+    /* position: absolute; */
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.centerPart {
+    width: 80%;
+    height: auto;
+    position: absolute;
+    bottom: 0%;
+    left: -10%;
+}
+
+.imageBG {
+    width: 100%;
+    height: 100%;
+    position: relative; 
+    display: flex;
+    align-items: center; 
+}
+
+.leftContent {
+    position: absolute;
+    left: 5%;
+    z-index: 20;
+    color: rgb(0, 0, 0);
+    width: 21%;
+    font-size: larger;
+}
+
+.rightContent {
+    position: absolute;
+    right: 5%;
+    z-index: 20;
+    color: rgb(0, 0, 0);
+    width: 30%;
+    font-size: larger;
+    top: 40%;
+}
+
+.heading{
+    font-size: xx-large;
+    padding-left: 10%;
+}
+.sub-heading {
+    font-size: large;
+    padding-left: 50%;
+    font-weight: 600;
+}
+.rightBottomContent {
+    position: absolute;
+    z-index: 10;
+    right: 0%;
+    /* font-size: x-large; */
+    width: 40%;
+    bottom: 0%;
+}
+
+/* Adjusting the large script text sizes */
+.topContent.love-light-regular {
+    font-size: 14rem; 
+    line-height: 0.7;
+}
+
+.bottomContent.love-light-regular {
+    font-size: 7rem;
+    margin-top: -20px;
+    padding-left: 40%;
+}
+.leftContentBottom {
+    position: absolute;
+    z-index: 10;
+    bottom: 5%;
+    left: 15%;
+    color: white;
+    /* border-radius: 9em; */
+    width: 20%;
+    height: 10%;
+}
+.start-learning-btn {
+    border: none;
+    cursor: pointer;
+    /* font-size: larger; */
+    border-radius: 2em;
+    font-family: "Manrope", sans-serif;
+    width: 90%;
+    height: 65%;
+    padding-right: 5em;
+}
+.arrowPart {
+    position: absolute;
+    z-index: 10;
+    bottom: 75%;
+    left: 75%;
+}
+.navbar{
+    width: 100%;
+    height: 10%;
+    z-index: 100;
+    position: absolute;
+}
