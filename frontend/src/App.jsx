@@ -5,6 +5,7 @@ import MainHomePage from './Components/MainHome/MainHomePage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router';
 import Navbar from './Components/Navbar/Navbar';
 import AboutPage from './Components/AboutUS/AboutPage';
+import Dash_Navbar from './layout/Dash_Navbar';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainHomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/dashboard" element={<Dash_Navbar />} />
           {/* Create an AboutPage component for this to work */}
         </Routes>
       </Router>

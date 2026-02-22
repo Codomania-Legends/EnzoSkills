@@ -88,6 +88,10 @@
     align-items: center;
 }
 
+.dash-navbar-logo{
+    height: 2.5em;
+}
+
 .dash-navbar-profile{
     height: 100%;
     width: 1em;
@@ -102,4 +106,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.dash-navbar-searchbar {
+    display: flex;
+    align-items: center;
+    border-radius: 5em;
+    padding: 0.5em 1em;
+        width: 15%;
+    justify-self: end;
+}
+input.dash-navbar-input-search {
+    font-size: 10px;
+    margin-left: 5%;
+    color: white;
+    letter-spacing: 5%;
 }
