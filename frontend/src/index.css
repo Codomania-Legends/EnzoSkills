@@ -28,12 +28,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  font-family: 'Manrope', sans-serif;
 }
 
-div {
-  height: 10em;
-  width: 12em;
-  border-radius: 1em;
-  margin: auto;
+.app-container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
