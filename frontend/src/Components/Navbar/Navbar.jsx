@@ -37,7 +37,7 @@ function Navbar() {
       </div>
 
       <div className="right flex">
-        <button className='login-signup-btn big-box-shadow blue flex'>Login/Sign Up</button>
+        <button className='login-signup-btn small-box-shadow blue flex'>Login/Sign Up</button>
       </div>
     </div>
   );

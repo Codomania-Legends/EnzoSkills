@@ -32,7 +32,7 @@ function AboutPage() {
           <section className="right-section">
             <img src={AboutImg} alt="" className='about-img' />
             <div className="about-btn flex">
-              <button className='about-section-btn big-box-shadow blue flex'>Know More About Us</button>
+              <button className='about-section-btn small-box-shadow blue flex'>Know More About Us</button>
             </div>
 
           </section>
