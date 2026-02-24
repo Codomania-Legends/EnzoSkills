@@ -33,7 +33,7 @@
     flex-direction: column;
     width: 50%;
     justify-content: space-between;
-    padding-top: 15%;
+    padding-top: 10%;
     padding-bottom: 5%;
     font-family: "Manrope", sans-serif;
 }
@@ -45,7 +45,7 @@
     margin-right: 30%;
 }
 .leftContentBottom.flex {
-    height: 25%;
+    height: 35%;
     width: 60%;
     justify-content: end;
 }
@@ -59,8 +59,8 @@
 }
 img.arrowPart {
     position: absolute;
-    bottom: 17%;
-    right: 15%;
+    bottom: 23%;
+    right: 20%;
 }
 
 .main-home-content-div.flex {
@@ -75,8 +75,8 @@ img.arrowPart {
     justify-content: space-between;
 }
 .heading-section-home {
-    height: 60%;
-    width: 55%;
+    height: 40%;
+    width: 45%;
     flex-direction: column;
     margin-left: 20%;
 }
@@ -87,28 +87,32 @@ img.arrowPart {
 }
 .Right-content-heading.flex {
     justify-content: start;
-    font-size: xx-large;
+    font-size: x-large;
+    align-items: end;
 }
 .Right-content-sub-heading.flex {
     justify-content: end;
-    font-size: large;
+    font-size: medium;
+    align-items: start;
 }
 
 .rightBottomContent.flex {
-    height: 40%;
+    height: 60%;
     width: 70%;
     flex-direction: column;
 }
 
 .Home-right-topContent {
-    height: 60%;
+    height: 50%;
     width: 85%;
     font-size: 12em;
     justify-content: start;
+    align-items: start;
 }
 .Home-right-bottomContent {
-    height: 40%;
+    height: 50%;
     width: 85%;
     font-size: 7em;
     justify-content: end;
+    align-items: start;
 }

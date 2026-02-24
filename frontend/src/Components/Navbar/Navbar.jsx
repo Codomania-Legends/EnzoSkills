@@ -13,19 +13,16 @@ function Navbar() {
 
   return (
     <div className='Navbar flex'>
-      <div className="left">
-        <div className="logo">
-          <img src={Logo} alt="Logo" />
-        </div>
+      <div className="Navbar-left flex">
+          <img src={Logo} alt="Logo" className='Logo-icon'/>
       </div>
 
-      <div className="center flex">
+      <div className="Navbar-center flex">
         <ul className="nav-links flex">
           {navLinks.map((link) => (
             <li key={link.name}>
               <NavLink 
                 to={link.path} 
-                // isActive is a built-in property of NavLink in react-router-dom
                 className={({ isActive }) => (isActive ? 'active' : '')}
               >
                 {link.name}
@@ -36,7 +33,7 @@ function Navbar() {
         </ul>
       </div>
 
-      <div className="right flex">
+      <div className="Navbar-right flex">
         <button className='login-signup-btn small-box-shadow blue flex'>Login/Sign Up</button>
       </div>
     </div>
