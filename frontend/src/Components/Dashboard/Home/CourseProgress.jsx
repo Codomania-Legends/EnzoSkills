@@ -18,20 +18,20 @@ function CourseProgress({Courses}) {
                                         
                                         <div className='relative flex justify-center items-center flex-col w-[30%] lg:w-auto'>
                                             <p className='font-bold text-xs md:text-sm'>{course.overall_progress}</p>
-                                            <span className='text-[10px] md:text-xs text-center'>Overall Progress</span>
-                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#27C84050] -z-10 rounded" />
+                                            <span className='text-[8px] md:text-xxs text-center'>Overall Progress</span>
+                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#27C84050]" />
                                         </div>
                                         
                                         <div className='relative flex justify-center items-center flex-col w-[30%] lg:w-auto'>
                                             <p className='font-bold text-xs md:text-sm'>{course.assignments[0]} / {course.assignments[1]}</p>
-                                            <span className='text-[10px] md:text-xs text-center'>Assignments</span>
-                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#6073FF50] -z-10 rounded" />
+                                            <span className='text-[8px] md:text-xxs text-center'>Assignments</span>
+                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#6073FF50]" />
                                         </div>
                                         
                                         <div className='relative flex justify-center items-center flex-col w-[30%] lg:w-auto'>
                                             <p className='font-bold text-xs md:text-sm'>{course.assessments[0]} / {course.assessments[1]}</p>
-                                            <span className='text-[10px] md:text-xs text-center'>Assessments</span>
-                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#FF383C50] -z-10 rounded" />
+                                            <span className='text-[8px] md:text-xxs text-center'>Assessments</span>
+                                            <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#FF383C50]" />
                                         </div>
                                         
                                         {/* Adjusted side options position for mobile */}
