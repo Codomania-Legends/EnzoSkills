@@ -1,6 +1,5 @@
 import React from 'react'
 import "./MainHomePage.css"
-import HomeArrow from "../../../public/HomeImg/HomeArrow.svg"
 import "./MainHomePage.css"
 import "../../Utility/global.css"
 import Navbar from '../Navbar/Navbar'
@@ -22,7 +21,7 @@ function MainHomePage() {
         </div>
         {/* left bottom side  */}
         <div className="leftContentBottom flex">
-          <img src={HomeArrow} alt="Arrow Decoration" className='arrowPart' />
+          <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart' />
           <button className='start-learning-btn small-box-shadow black'>Start Learning</button>
         </div>
       </div>

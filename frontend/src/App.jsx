@@ -7,7 +7,7 @@ import Dash_Navbar from './layout/Dash_Navbar';
 import Home from './Components/Dashboard/Home/Home';
 
 const HomeLayout = () => (
-  <div className='main-container'>
+  <div className='home-main-container'>
     <img src="/HomeImg/HomeBG.svg" alt="Background" className='bgImg' />
     <Outlet />
   </div>
