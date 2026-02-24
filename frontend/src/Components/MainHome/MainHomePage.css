@@ -63,42 +63,52 @@ img.arrowPart {
     right: 15%;
 }
 
-.rightContent {
-    position: relative;
-    right: 5%;
-    z-index: 20;
-    color: rgb(0, 0, 0);
-    width: 30%;
-    font-size: larger;
-    top: 40%;
+.main-home-content-div.flex {
+    height: 100%;
 }
-
-.heading{
+.Home-rightContent.flex {
+    position: relative;
+    z-index: 100;
+    height: 90%;
+    width: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.heading-section-home {
+    height: 60%;
+    width: 55%;
+    flex-direction: column;
+    margin-left: 20%;
+}
+.Right-content-sub-heading, .Right-content-heading{
+    font-family: "Manrope", sans-serif;
+    height: 10%;
+    width: 100%;
+}
+.Right-content-heading.flex {
+    justify-content: start;
     font-size: xx-large;
-    padding-left: 10%;
 }
-.sub-heading {
+.Right-content-sub-heading.flex {
+    justify-content: end;
     font-size: large;
-    padding-left: 50%;
-    font-weight: 600;
-}
-.rightBottomContent {
-    position: relative;
-    z-index: 10;
-    right: 0%;
-    /* font-size: x-large; */
-    width: 40%;
-    bottom: 0%;
 }
 
-/* Adjusting the large script text sizes */
-.topContent.love-light-regular {
-    font-size: 14rem; 
-    line-height: 0.7;
+.rightBottomContent.flex {
+    height: 40%;
+    width: 70%;
+    flex-direction: column;
 }
 
-.bottomContent.love-light-regular {
-    font-size: 7rem;
-    margin-top: -20px;
-    padding-left: 40%;
+.Home-right-topContent {
+    height: 60%;
+    width: 85%;
+    font-size: 12em;
+    justify-content: start;
+}
+.Home-right-bottomContent {
+    height: 40%;
+    width: 85%;
+    font-size: 7em;
+    justify-content: end;
 }
