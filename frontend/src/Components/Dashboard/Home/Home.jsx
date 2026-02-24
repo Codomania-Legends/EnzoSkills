@@ -1,6 +1,5 @@
 import React from 'react'
 import Dash_Layout from '../../../layout/Dash_Layout'
-import "./home.css"
 import Greet from './Greet'
 import CourseProgress from './CourseProgress'
 import ProgressBox from './ProgressBox'
@@ -25,14 +24,21 @@ function Home() {
     ]
     return (
     <Dash_Layout>
-        <div className='dash-home-container'>
-            <div className='dash-home-left'>
+        {/* Made container scrollable on mobile, fixed height on desktop */}
+        <div className='min-h-screen md:h-full w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-0 py-8 md:py-0'>
+            
+            {/* Left Column: Full width on mobile, 50% on desktop */}
+            <div className='h-auto md:h-full w-full md:w-1/2 flex flex-col justify-around items-center md:items-start px-4 md:px-8 gap-8 md:gap-0'>
                 <Greet />
-                <div className='dash-home-course-progress dark-blue medium-box-shadow'>
+                
+                {/* Course Progress Container */}
+                <div className='max-h-[400px] md:max-h-[60%] w-full md:w-[90%] rounded-[2em] overflow-y-scroll py-8 px-4 [&::-webkit-scrollbar]:hidden dark-blue medium-box-shadow'>
                     <CourseProgress Courses={Courses}/>
                 </div>
             </div>
-            <div className='dash-home-right'>
+            
+            {/* Right Column: Full width on mobile, 50% on desktop */}
+            <div className='h-auto md:h-full w-full md:w-1/2 flex flex-col justify-around items-center md:items-start px-4 md:px-0 gap-8 md:gap-0'>
                 <ProgressBox />
                 <ActivityGraph />
             </div>
