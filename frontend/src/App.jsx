@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
 import MainHomePage from './Components/MainHome/MainHomePage';
 import AboutPage from './Components/AboutUS/AboutPage';
 import Dash_Navbar from './layout/Dash_Navbar';
+import Home from './Components/Dashboard/Home/Home';
 
 const HomeLayout = () => (
   <div className='main-container'>
@@ -20,7 +21,7 @@ function App() {
           <Route path="/" element={<MainHomePage />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>
-        <Route path="/dashboard" element={<Dash_Navbar />} />
+        <Route path="/dashboard/home" element={<Home />} />
       </Routes>
     </Router>
   );
