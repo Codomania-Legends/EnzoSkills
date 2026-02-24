@@ -3,9 +3,9 @@
     overflow-x: hidden;
     background-color: var(--boxColor);
     box-shadow:
-        35px 35px 68px #3a3e6c50,
-        inset 0 12px 30px #ffffff50,
-        inset -12px -12px 30px #3a3e6c60;
+        35px 35px 68px rgba(58, 62, 108, 0.5),
+        inset 0 12px 30px rgba(255, 255, 255, 0.5),
+        inset -12px -12px 30px rgba(58, 62, 108, 0.6);
 }
 
 .medium-box-shadow {
@@ -13,9 +13,9 @@
     overflow-x: hidden;
     background-color: var(--boxColor);
     box-shadow:
-        20px 20px 40px #3a3e6c50,
-        inset 0 10px 20px #ffffff50,
-        inset -10px -10px 20px #3a3e6c60
+        20px 20px 40px rgba(58, 62, 108, 0.5),
+        inset 0 10px 20px rgba(255, 255, 255, 0.5),
+        inset -10px -10px 20px rgba(58, 62, 108, 0.6)
 }
 
 .small-box-shadow {
@@ -23,9 +23,9 @@
     overflow-x: hidden;
     background-color: var(--boxColor);
     box-shadow:
-        10px 10px 20px #3a3e6c50,
-        inset 0 5px 10px #ffffff50,
-        inset -5px -5px 10px #3a3e6c60;
+        10px 10px 20px rgba(58, 62, 108, 0.5),
+        inset 0 5px 10px rgba(255, 255, 255, 0.5),
+        inset -5px -5px 10px rgba(58, 62, 108, 0.6);
 }
 
 .white{ --boxColor: #FFFFFF; }

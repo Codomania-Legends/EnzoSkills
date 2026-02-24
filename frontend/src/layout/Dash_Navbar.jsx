@@ -33,7 +33,7 @@ function Dash_Navbar({active}) {
         </div>
 
             {/* Searchbar only for Courses Section */}
-            <div className={active ? 'flex-1' : 'flex-1'}>
+            <div className={active ? 'flex-1' : 'hidden'}>
                 <div className='dash-navbar-searchbar small-box-shadow blue'>
                     <img src='/Dashboard/search.svg' />
                     <input type="text" placeholder='Search' className='dash-navbar-input-search' />

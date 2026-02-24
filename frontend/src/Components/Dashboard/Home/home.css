@@ -1,0 +1,157 @@
+/* Main Home Container */
+.dash-home-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dash-home-left{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.dash-home-right{
+    height: 100%;
+    width: 50%;
+}
+/* Main Home Container */
+
+/* Left Container */
+
+.dash-home-greet {
+    border-left: 5px solid #212121;
+    padding: 0em 1em 1em 1em;
+    border-radius: 0em;
+}
+
+h1.greet-name {
+    font-family: "Syne";
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+p.greet-motivation {
+    font-family: "Plus Jakarta Sans";
+    font-size: smaller;
+    font-weight: 600;
+}
+/* Left Container */
+
+/* Course Progress Container */
+.dash-home-course-progress {
+    max-height: 60%;
+    width: 90%;
+    border-radius: 2em;
+    overflow-y: scroll;
+    padding: 2em 1em;
+}
+
+.dash-home-course-progress h2 {
+    font-family: "Plus Jakarta Sans";
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.dash-home-course-progress::-webkit-scrollbar {
+    display: none;
+}
+
+.dash-home-course-progress-content {
+    display: grid;
+    grid-row-gap: 1em;
+    padding: 0em 2em;
+}
+/* Course Progress Container */
+
+/* Course Progress Item */
+.dash-home-course-progress-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1em;
+    padding: 1em;
+    position: relative;
+}
+.dash-home-course-progress-items-Details {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+.dash-home-course-progress-item-content {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+h3.dash-home-course-name {
+    font-weight: bold;
+    font-family: "Plus Jakarta Sans";
+}
+.course-progress-items p{
+    font-weight: bold;
+    font-size: small;
+}
+
+.course-progress-items{
+    position: relative;
+}
+
+.course-progress-marker{
+    height: 0.5em;
+    width: 60%;
+    position: absolute;
+    top: 30%;
+}
+
+.side-options-dash-home {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 10%;
+}
+/* Course Progress Item */
+
+/* Progress Box */
+.home-progress-box-container {
+    width: 50%;
+    border-radius: 2em;
+    padding: 2em 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-progress-box-container .progress-box-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+}
+.progress-box-title ~ p {
+    font-size: x-large;
+    font-weight: bold;
+    font-family: "Plus Jakarta Sans";
+}
+.progress-box-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: small;
+    font-weight: 600;
+    font-family: "Manrope";
+}
+/* Progress Box */
