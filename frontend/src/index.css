@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-}
 
 .flex-prop{
   display: flex;
@@ -19,12 +15,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  /* Light Theme */
   background-image: linear-gradient(135deg, #fff, #7A85BC);
-  /* Light Theme */
-  /* Dark Theme */
-  /* background-image: linear-gradient( 135deg , #4e5a94 , #7A85BC );  */
-  /* Dark Theme */
   display: flex;
   justify-content: center;
   align-items: center;
