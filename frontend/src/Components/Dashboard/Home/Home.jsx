@@ -4,8 +4,15 @@ import Greet from './Greet'
 import CourseProgress from './CourseProgress'
 import ProgressBox from './ProgressBox'
 import ActivityGraph from './ActivityGraph'
+import { useGSAP } from '@gsap/react'
+import { Fade_in, Slide_up } from '../../../Animations/Basic'
+import { useRef } from 'react'
 
 function Home() {
+    const containerRef = useRef(null);
+    useGSAP(() => {
+        Slide_up(containerRef.current)
+    }, {scope : containerRef})
     const Courses = [
         {
             name: "Learning React",
@@ -23,13 +30,12 @@ function Home() {
         },
     ]
     return (
-    <Dash_Layout>
-        <div className='min-h-screen md:h-full w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-0 py-8 md:py-0'>
+        <div ref={containerRef} className='min-h-screen md:h-full w-full flex flex-col md:flex-row justify-center items-center gap-8 md:gap-0 py-8 md:py-0'>
             
             <div className='h-auto md:h-full w-full md:w-1/2 flex flex-col justify-around items-center md:items-start px-4 md:px-8 gap-8 md:gap-0'>
                 <Greet />
                 
-                <div className='max-h-[400px] md:max-h-[60%] w-full md:w-[90%] rounded-[2em] overflow-y-scroll py-8 px-4 [&::-webkit-scrollbar]:hidden dark-blue medium-box-shadow'>
+                <div className='slide-up max-h-[400px] md:max-h-[60%] w-full md:w-[90%] rounded-[2em] overflow-y-scroll py-8 px-4 [&::-webkit-scrollbar]:hidden dark-blue medium-box-shadow'>
                     <CourseProgress Courses={Courses}/>
                 </div>
             </div>
@@ -39,7 +45,6 @@ function Home() {
                 <ActivityGraph />
             </div>
         </div>
-    </Dash_Layout>
     )
 }
 

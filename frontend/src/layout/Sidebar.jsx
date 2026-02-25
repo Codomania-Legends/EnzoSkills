@@ -1,38 +1,58 @@
 import React from 'react'
 import "../Utility/global.css"
 import "./layout.css"
+import { NavLink } from 'react-router'
 
 function Sidebar({active}) {
+    const pages = [
+        {
+            name: "Home",
+            icon: "/Sidebar/home.svg",
+            path: "/dashboard/home"
+        },
+        {
+            name: "Courses",
+            icon: "/Sidebar/courses.svg",
+            path: "/dashboard/courses"
+        },
+        {
+            name: "Library",
+            icon: "/Sidebar/library.svg",
+            path: "/dashboard/library"
+        },
+        {
+            name: "Project",
+            icon: "/Sidebar/project.svg",
+            path: "/dashboard/project"
+        },
+        {
+            name: "Room",
+            icon: "/Sidebar/room.svg",
+            path: "/dashboard/room"
+        },
+        {
+            name: "AI",
+            icon: "/Sidebar/AI.svg",
+            path: "/dashboard/AI"
+        },
+        {
+            name: "Records",
+            icon: "/Sidebar/records.svg",
+            path: "/dashboard/records"
+        }
+    ]
     return (
         <div className="sidebar-container medium-box-shadow white p-5">
-            <div className={`${active == null ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/home.svg' />
-                <p className='text-block small-box-shadow'>Home</p>
-            </div>
-            <div className={`${active === 'courses' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/courses.svg' />
-                <p className='text-block small-box-shadow'>Courses</p>
-            </div>
-            <div className={`${active === 'library' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/library.svg' />
-                <p className='text-block small-box-shadow'>Library</p>
-            </div>
-            <div className={`${active === 'project' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/project.svg' />
-                <p className='text-block small-box-shadow'>Project</p>
-            </div>
-            <div className={`${active === 'room' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/room.svg' />
-                <p className='text-block small-box-shadow'>Room</p>
-            </div>
-            <div className={`${active === 'AI' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/AI.svg' />
-                <p className='text-block small-box-shadow'>Cloura</p>
-            </div>
-            <div className={`${active === 'records' ? 'sidebar-box-active' : 'sidebar-box'}`}>
-                <img src='/Sidebar/records.svg' />
-                <p className='text-block small-box-shadow'>Records</p>
-            </div>
+            {pages.map((page, index) => (
+                <NavLink 
+                    to={page.path} 
+                    key={index + page.name} 
+                    className={({ isActive }) => isActive ? 'sidebar-box-active' : 'sidebar-box'}
+                >
+                    <img src={page.icon} alt={page.name} />
+                    <p className='text-block small-box-shadow'>{page.name}</p>
+                </NavLink>
+            ))}
         </div>
     )
 }
