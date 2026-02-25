@@ -1,11 +1,6 @@
 @import "tailwindcss";
 
 
-.flex-prop{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 #root{
   width: 100vw;
   height: 100vh;
@@ -47,3 +42,8 @@ input , button , textarea , select {
   outline: none;
   border: none;
 }
+  .flex-prop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

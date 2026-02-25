@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
 import MainHomePage from './Components/MainHome/MainHomePage';
 import Home from './Components/Dashboard/Home/Home';
 import AboutPage from './Components/AboutUS/AboutPage';
+import MoreAboutUS from './Components/AboutUS/MoreAboutUS';
 import Courses from './Components/Dashboard/Courses/Courses';
 import Dash_Layout from './layout/Dash_Layout';
 import Library from './Components/Dashboard/Library/Library';

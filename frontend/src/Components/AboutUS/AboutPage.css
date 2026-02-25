@@ -75,7 +75,7 @@ img.About-comp-img {
     width: 100%;
     flex-direction: column;
 }
-.KnowMore-div.flex-prop {
+.KnowMore-div {
     height: 90%;
     width: 100%;
     position: relative;
@@ -85,7 +85,7 @@ img.About-comp-img {
 .KnowMore-div::-webkit-scrollbar {
     display: none;
 }
-.KnowMore-Content.flex-prop {
+.KnowMore-Content {
     width: 90%;
     height: 200vh;
     border-radius: 2em;
