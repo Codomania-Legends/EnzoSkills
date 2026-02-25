@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
+import { NavLink, useLocation, useNavigate } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
 
 function Dash_Navbar() {
     const location = useLocation(); 
+    const navigate = useNavigate()
     
     // Check the actual URL to see if we are on the Learning/Courses page 🕵️‍♂️
     const isCoursesPage = location.pathname === '/dashboard/courses';
@@ -17,8 +18,8 @@ function Dash_Navbar() {
 
     return (
         <div className='dash-navbar-container'>
-            <div className='dash-navbar-left'>
-                <img src="/full-logo.png" alt="Logo" className='dash-navbar-logo'/>
+            <div className='dash-navbar-left cursor-pointer' onClick={() => navigate("/")}>
+                <img src="/full-logo.png" alt="Logo" className='dash-navbar-logo' />
             </div>
 
             {/* Navigation links should generally remain visible so users can navigate 🧭 */}

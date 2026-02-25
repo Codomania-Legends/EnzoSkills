@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../Utility/global.css"
 import "./layout.css"
 import { NavLink } from 'react-router'
+import { useGSAP } from '@gsap/react'
+import { Fade_in, Slide_left } from '../Animations/Basic'
+import gsap from 'gsap'
 
-function Sidebar({active}) {
+function Sidebar() {
+    const containerRef = useRef(null)
+    useGSAP( () => {
+        Fade_in()
+        Slide_left()
+    } , {scope : containerRef} )
     const pages = [
         {
             name: "Home",
@@ -42,15 +50,17 @@ function Sidebar({active}) {
         }
     ]
     return (
-        <div className="sidebar-container medium-box-shadow white p-5">
+        <div ref={containerRef} className="sidebar-container medium-box-shadow white p-5">
             {pages.map((page, index) => (
                 <NavLink 
                     to={page.path} 
                     key={index + page.name} 
-                    className={({ isActive }) => isActive ? 'sidebar-box-active' : 'sidebar-box'}
+                    className={({ isActive }) => `${isActive ? 'sidebar-box-active' : 'sidebar-box'}`}
                 >
-                    <img src={page.icon} alt={page.name} />
-                    <p className='text-block small-box-shadow'>{page.name}</p>
+                    <div className='overflow-hidden'>
+                        <img className='slide_left' src={page.icon} alt={page.name} />
+                    </div>
+                    <p className='z-10 text-block small-box-shadow'>{page.name}</p>
                 </NavLink>
             ))}
         </div>

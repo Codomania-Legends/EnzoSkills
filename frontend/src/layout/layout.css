@@ -51,12 +51,14 @@
 
 .sidebar-box:hover .text-block {
     padding: 0.5em 1em;
+    z-index: 5;
     transform: translateX(calc(100% + 1em));
     opacity: 1;
     transition: all 0.3s ease-in-out;
 }
 .sidebar-box-active:hover .text-block{
     padding: 0.5em 1em;
+    z-index: 5;
     transform: translateX(calc(100% + 1em));
     opacity: 1;
     transition: all 0.3s ease-in-out;
