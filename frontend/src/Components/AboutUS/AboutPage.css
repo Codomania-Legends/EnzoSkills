@@ -77,21 +77,58 @@ img.About-comp-img {
 }
 .KnowMore-div {
     height: 90%;
-    width: 100%;
+    width: 90%;
     position: relative;
     z-index: 10;
     overflow-x: scroll;
+    border-radius: 2em;
+    margin-bottom: 2em;
 }
 .KnowMore-div::-webkit-scrollbar {
     display: none;
 }
 .KnowMore-Content {
-    width: 90%;
+    position: absolute;
+    top: 0;
+    width: 100%;
     height: 200vh;
     border-radius: 2em;
     backdrop-filter: blur(15em);
     /* overflow: scroll; */
     /* margin-top: 60em; */
-    position: absolute;
-    top: 0;
+}
+.know-more-top-descip{
+    height: 20%;
+    width: 100%;
+}
+.know-more-top-heading{
+    font-size: xxx-large;
+    font-family: "Syne", sans-serif;
+    font-weight: 600;
+    height: 30%;
+    justify-content: end;
+}
+.know-more-top-sub-heading {
+    height: 60%;
+    width: 70%;
+    font-size: larger;
+    text-align: center;
+    line-height: 30px;
+    letter-spacing: 2%;
+}
+.About-Team-details{
+    height: 45%;
+    width: 100%;
+}
+.Team-Detail-Description{
+    height: 35%;
+    width: 100%;
+}
+.container-vidhi, .container-anshul, .container-anjali, .container-mohini {
+    height: 20%;
+    /* width: 60%; */
+}
+.detail-name-container.flex.justify-start.items-center {
+    font-size: x-large;
+    gap: 1%;
 }
