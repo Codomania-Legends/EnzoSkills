@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 
-.flex--center{
+.flex-prop{
   display: flex;
   justify-content: center;
   align-items: center;

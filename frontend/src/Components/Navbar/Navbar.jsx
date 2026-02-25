@@ -12,13 +12,13 @@ function Navbar() {
   ];
 
   return (
-    <div className='Navbar flex'>
-      <div className="Navbar-left flex">
+    <div className='Navbar flex-prop'>
+      <div className="Navbar-left flex-prop">
           <img src={Logo} alt="Logo" className='Logo-icon'/>
       </div>
 
-      <div className="Navbar-center flex">
-        <ul className="nav-links flex">
+      <div className="Navbar-center flex-prop">
+        <ul className="nav-links flex-prop">
           {navLinks.map((link) => (
             <li key={link.name}>
               <NavLink 
@@ -33,8 +33,8 @@ function Navbar() {
         </ul>
       </div>
 
-      <div className="Navbar-right flex">
-        <button className='login-signup-btn small-box-shadow blue flex'>Login/Sign Up</button>
+      <div className="Navbar-right flex-prop">
+        <button className='login-signup-btn small-box-shadow blue flex-prop'>Login/Sign Up</button>
       </div>
     </div>
   );
