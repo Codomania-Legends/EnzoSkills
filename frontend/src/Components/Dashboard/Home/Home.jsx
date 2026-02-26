@@ -35,7 +35,7 @@ function Home() {
             <div className='h-auto md:h-full w-full md:w-1/2 flex flex-col justify-around items-center md:items-start px-4 md:px-8 gap-8 md:gap-0'>
                 <Greet />
                 
-                <div className='slide-up max-h-[400px] md:max-h-[60%] w-full md:w-[90%] rounded-[2em] overflow-y-scroll py-8 px-4 [&::-webkit-scrollbar]:hidden dark-blue medium-box-shadow'>
+                <div className='slide-up max-h-[400px] md:h-[45%] w-full md:w-[100%] rounded-[2em] overflow-y-scroll py-6 px-8 [&::-webkit-scrollbar]:hidden dark-blue medium-box-shadow'>
                     <CourseProgress Courses={Courses}/>
                 </div>
             </div>

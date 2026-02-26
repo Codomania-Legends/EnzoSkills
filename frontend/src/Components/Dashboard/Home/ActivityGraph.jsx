@@ -79,7 +79,7 @@ function ActivityGraph() {
 
     return (
         // 3. FIX: Changed to 'opacity-0' and removed 'show_me_chart' 🧹
-        <div ref={container} className='opacity-0 overflow-hidden medium-box-shadow w-full md:w-[85%] rounded-[2em] p-4 md:p-8 mb-4 md:mb-[5%] text-white text-center font-bold shadow-[inset_0_10px_20px_#ffffff25,inset_-10px_-10px_20px_#000,20px_20px_50px_#21212150] relative'>
+        <div ref={container} className='opacity-0 overflow-hidden medium-box-shadow w-full md:w-[95%] rounded-[2em] p-2 md:p-6 mb-4 md:mb-[5%] text-white text-center font-bold shadow-[inset_0_10px_20px_#ffffff25,inset_-10px_-10px_20px_#000,20px_20px_50px_#21212150] relative'>
             
             {/* The white block starts way off to the left now! */}
             <div className='reveal-block absolute top-0 left-[-100%] w-full h-full bg-white z-10' />
