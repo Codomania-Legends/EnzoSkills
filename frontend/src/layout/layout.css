@@ -11,7 +11,6 @@
 .sidebar-box{
     padding: 0.5em;
     border-radius: 50%;
-    display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease-in-out;
@@ -28,7 +27,6 @@
 .sidebar-box-active{
     padding: 0.5em;
     border-radius: 50%;
-    display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease-in-out;

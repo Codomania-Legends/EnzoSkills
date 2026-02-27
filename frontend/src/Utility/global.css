@@ -32,6 +32,7 @@
 .blue{ --boxColor: #7F77FF; }
 .off-blue{ --boxColor: #D4D2FF; }
 .dark-blue{ --boxColor: #8387C3; }
+.darker-blue{ --boxColor: #534DB4; }
 .red{ --boxColor: #FF7768; }
 .yellow{ --boxColor: #F2C248; }
 .green{ --boxColor: #54F248; }

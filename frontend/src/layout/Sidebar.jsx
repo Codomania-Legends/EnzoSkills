@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "../Utility/global.css"
 import "./layout.css"
 import { NavLink } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import { Fade_in, Slide_left } from '../Animations/Basic'
-import gsap from 'gsap'
 
 function Sidebar() {
     const containerRef = useRef(null)
+    const [show , setShow] = useState(false)
     useGSAP( () => {
         Fade_in()
         Slide_left()
@@ -55,7 +55,7 @@ function Sidebar() {
                 <NavLink 
                     to={page.path} 
                     key={index + page.name} 
-                    className={({ isActive }) => `${isActive ? 'sidebar-box-active' : 'sidebar-box'}`}
+                    className={({ isActive }) => `hidden md:flex ${isActive ? 'sidebar-box-active' : 'sidebar-box'}`}
                 >
                     <div className='overflow-hidden'>
                         <img className='slide_left' src={page.icon} alt={page.name} />
@@ -63,6 +63,22 @@ function Sidebar() {
                     <p className='z-10 text-block small-box-shadow'>{page.name}</p>
                 </NavLink>
             ))}
+            <button className='fade_in flex flex-col justify-around md:hidden items-center h-10 w-10'>
+                <img src="/Dashboard/menu.png" onClick={() => setShow(!show)} alt="Menu"className='h-5 w-5 md:hidden' />
+                {show && 
+                    pages.map((page, index) => (
+                        <NavLink 
+                            to={page.path} 
+                            key={index + page.name} 
+                            className={({ isActive }) => `${isActive ? 'sidebar-box-active' : 'sidebar-box'}`}
+                        >
+                            <div className='overflow-hidden'>
+                                <img className='slide_left' src={page.icon} alt={page.name} />
+                            </div>
+                            <p className='z-10 text-block small-box-shadow'>{page.name}</p>
+                        </NavLink>
+                ))}
+            </button>
         </div>
     )
 }
