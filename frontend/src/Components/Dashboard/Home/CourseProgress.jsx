@@ -13,7 +13,7 @@ function CourseProgress({Courses}) {
     return (
         <>
             <h2 className=' font-["Plus_Jakarta_Sans"] text-base font-semibold mb-4 text-center md:text-left'>Course Progress</h2>
-                <div ref={container} className='fade_in grid gap-y-4 px-2 md:px-8'>
+                <div ref={container} className='fade_in grid gap-y-6 px-2 md:px-8'>
                     {
                         Courses.map((course , index) => (
                             <div className='fade_in w-full flex flex-col lg:flex-row justify-between items-center rounded-2xl p-4 gap-4 relative white small-box-shadow' key={index}>

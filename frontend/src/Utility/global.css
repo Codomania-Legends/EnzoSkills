@@ -14,8 +14,8 @@
     background-color: var(--boxColor);
     box-shadow:
         20px 20px 40px rgba(58, 62, 108, 0.5),
-        inset 0 10px 20px rgba(255, 255, 255, 0.5),
-        inset -10px -10px 20px rgba(58, 62, 108, 0.6)
+        inset 15px 15px 25px rgba(255, 255, 255, 0.5),
+        inset -15px -15px 25px rgba(58, 62, 108, 0.6)
 }
 
 .small-box-shadow {
@@ -25,7 +25,7 @@
     box-shadow:
         10px 10px 20px rgba(58, 62, 108, 0.5),
         inset 0 5px 10px rgba(255, 255, 255, 0.5),
-        inset -5px -5px 10px rgba(58, 62, 108, 0.6);
+        inset -10px -10px 20px rgba(58, 62, 108, 0.6);
 }
 
 .white{ --boxColor: #FFFFFF; }
