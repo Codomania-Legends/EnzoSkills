@@ -75,43 +75,67 @@ img.About-comp-img {
     width: 100%;
     flex-direction: column;
 }
+
 .KnowMore-div {
     height: 90%;
     width: 90%;
     position: relative;
     z-index: 10;
-    overflow-x: scroll;
+    
+    /* 🚀 FIX 6: Changed from overflow-x to overflow-y so vertical scrolling works properly! */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
     border-radius: 2em;
     margin-bottom: 2em;
+    
+    /* 🚀 FIX 7: Native smooth scrolling replaces your heavy React onClick function! */
+    scroll-behavior: smooth; 
+    
+    /* 🚀 FIX 8: Hardware acceleration for the main scroll container */
+    will-change: scroll-position; 
 }
+
 .KnowMore-div::-webkit-scrollbar {
     display: none;
 }
+
 .KnowMore-Content {
     position: absolute;
     top: 0;
     width: 100%;
     border-radius: 2em;
 }
+
+/* 🚀 FIX 9: New utility class to offload box-shadow & animation repaints to the GPU */
+.will-change-transform {
+    will-change: transform;
+}
+
 .know-more-top-descip{
     width: 100%;
 }
+
 .know-more-top-heading{
     font-size: xxx-large;
     font-family: "Syne", sans-serif;
     font-weight: 600;
     justify-content: end;
 }
+
 .know-more-top-sub-heading {
     width: 70%;
     font-size: larger;
     text-align: center;
     line-height: 30px;
-    letter-spacing: 2%;
+    /* Note: letter-spacing '2%' is fine, but '0.02em' is more universally supported by older browsers! */
+    letter-spacing: 2%; 
 }
+
 .About-Team-details{
     width: 100%;
 }
+
 .Team-Detail-Description{
     width: 100%;
 }
@@ -119,4 +143,35 @@ img.About-comp-img {
 .detail-name-container.flex.justify-start.items-center {
     font-size: x-large;
     gap: 1%;
+}
+.EnzoSkills-heading-aboutus {
+    font-size: xxx-large;
+    font-family: "Syne", sans-serif;
+    font-weight: 900;
+    
+    /* 1. Create a large gradient using your EnzoSkills brand colors! 💜 */
+    background: linear-gradient(270deg, #7F77FF, #534DB4, #9b95ff, #7F77FF);
+    background-size: 300% 300%;
+    
+    /* 2. Clip the background so it only shows through the text! ✂️ */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    
+    /* 3. Attach the infinite animation! 🎬 */
+    animation: gradientMove 6s ease infinite;
+}
+
+/* 4. Define the keyframes to pan the background back and forth! 🪀 */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
