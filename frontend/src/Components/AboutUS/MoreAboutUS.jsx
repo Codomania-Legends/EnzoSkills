@@ -158,7 +158,7 @@ function MoreAboutUS() {
                   <div 
                     className={`
                       relative w-full md:w-2/3
-                      h-full
+                      h-2/3
                       flex justify-end items-center 
                       bg-[#7F77FF] 
                       blue
@@ -172,7 +172,7 @@ function MoreAboutUS() {
                   >
                     <div className="member-image flex justify-center items-center p-1 absolute -left-10 bg-[#534DB4] rounded-2xl">
                       {/* 🚀 FIX 5: Added loading="lazy" to ALL images! */}
-                      <img src={member.image} alt={member.name} loading="lazy" className="member-image aspect-square h-40 rounded-full md:rounded-2xl lg:rounded-xl"/>
+                      <img src={member.image} alt={member.name} loading="lazy" className="member-image aspect-square h-30 rounded-full md:rounded-2xl lg:rounded-xl"/>
                     </div>
                     <div className="member-details flex items-center flex-col w-3/4 h-[80%] text-white justify-evenly pr-5 pl-5 text-sm">
                       <div className="member-name flex justify-center items-center">
