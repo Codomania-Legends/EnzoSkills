@@ -15,9 +15,14 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Manrope', sans-serif;
+  cursor: url("/cursor.svg"), auto;
 }
 html {
   scroll-behavior: smooth;
+}
+::selection{
+  background-color: #7A85BC;
+  color: #fff;
 }
 .app-container{
   height: 100vh;
