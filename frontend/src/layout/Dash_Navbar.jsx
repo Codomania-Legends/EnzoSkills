@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
+import Profile from '../Components/Profile/Profile';
 
 function Dash_Navbar() {
     const location = useLocation(); 
@@ -7,6 +8,11 @@ function Dash_Navbar() {
     
     // Check the actual URL to see if we are on the Learning/Courses page 🕵️‍♂️
     const isCoursesPage = location.pathname === '/dashboard/courses';
+    const [showProfile, setShowProfile] = useState(false);
+
+    useEffect(() => {
+        console.log(showProfile);
+    }, [showProfile]);
 
     const navLinks = [
         { name: "Overview", path: "/dashboard" },
@@ -47,14 +53,15 @@ function Dash_Navbar() {
                 </div>
             </div>
 
-            <div className='dash-navbar-right'>
-                <div className='dash-navbar-profile'>
-                    <img src='/Dashboard/profile.png' alt="Profile" />
+            <div className='dash-navbar-right'>     
+                <div onClick={() => setShowProfile(!showProfile)} className='z-10 dash-navbar-profile p-1 box-content'>
+                    <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" />
                 </div>
                 <div className='dash-navbar-menu'>
                     <img src='/Dashboard/menu.png' alt="Menu" />
                 </div>
             </div>
+            <Profile showProfile={showProfile} />
         </div>
     );
 }
