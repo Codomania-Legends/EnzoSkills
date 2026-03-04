@@ -11,11 +11,9 @@
     height : 50%;
 }
 .Navbar-left {
-    width: 15%;
     height: 100%;
 }
 .Navbar-center {
-    width: 40%;
     justify-content: space-between;
     height: 100%;
 }
@@ -28,7 +26,6 @@
 .nav-links li {
     position: relative;
     cursor: pointer;
-    font-size: small;
     color: #333;
     padding: 5px 0;
     transition: color 0.3s ease;
@@ -66,13 +63,11 @@
 }
 .Navbar-right {
     height: 100%;
-    width: 15%;
     color: white;
-    font-size: small;
     font-weight: 600;
     font-family: "Plus Jakarta Sans", sans-serif;
 }
-button.login-signup-btn {
+/* button.login-signup-btn {
     border-radius: 0.7em;
     padding: 1em 2em;
-}
+} */

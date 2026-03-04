@@ -12,6 +12,7 @@ import Project from './Components/Dashboard/Project/Project';
 import Room from './Components/Dashboard/Room/Room';
 import AI from './Components/Dashboard/AI/AI';
 import Records from './Components/Dashboard/Records/Records';
+import "./index.css";
 
 const HomeLayout = () => (
   <div className='home-main-container'>
