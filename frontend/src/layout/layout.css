@@ -66,7 +66,7 @@
 /* DashBoard */
 
 .dash-navbar-container{
-    height: 10%;
+    /* position: relative; */
     width: 100%;
     display: flex;
     justify-content: space-between;
