@@ -1,15 +1,10 @@
 @import "tailwindcss";
 
 
-#root{
+body , #root {
   width: 100vw;
   height: 100vh;
-  overflow-x: hidden;
-}
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   background-image: linear-gradient(135deg, #fff, #7A85BC);
   display: flex;
   justify-content: center;

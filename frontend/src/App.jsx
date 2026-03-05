@@ -13,6 +13,7 @@ import Room from './Dashboard/Room/Room';
 import AI from './Dashboard/AI/AI';
 import Records from './Dashboard/Records/Records';
 import DashHome from './Dashboard/Home/DashHome';
+import Loading from './Utility/Loading/Loading';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -39,6 +40,7 @@ function App() {
           <Route path="/dashboard/AI" element={<AI />} />
           <Route path="/dashboard/records" element={<Records />} />
         </Route>
+        <Route path='/loading' element={<Loading/>}/>
       </Routes>
     </Router>
   );

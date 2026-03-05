@@ -1,0 +1,125 @@
+/* I fixed a slight typo here from transfromMe to transformMe! */
+.transformMe {
+    animation: transformMe 1s ease-in-out 1 forwards;
+    animation-delay: 1.5s;
+    opacity: 0;
+    border-radius: 0;
+}
+
+@keyframes transformMe {
+    0% {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0.75em) rotate(60deg);
+        border-radius: 2.5em;
+        opacity: 1;
+    }
+}
+
+.span-loading {
+    display: inline-block; 
+    --rot: 0deg;
+    animation: span-loading 0.5s ease-in-out 1 forwards;
+    animation-delay: 1.5s;
+    transform: translateX(-100px) rotate(var(--rot)); 
+    opacity: 0;
+}
+
+/* Update variables instead of overwriting the whole transform! */
+.span-loading:nth-child(2) {
+    animation-delay: 1.6s;
+    --rot: 10deg; 
+}
+.span-loading:nth-child(3) {
+    animation-delay: 1.7s;
+    --rot: 20deg;
+}
+.span-loading:nth-child(4) {
+    animation-delay: 1.8s;
+    --rot: 30deg;
+}
+.span-loading:nth-child(5) {
+    animation-delay: 1.9s;
+    --rot: 40deg;
+}
+.span-loading:nth-child(6) {
+    animation-delay: 2s;
+    --rot: 50deg;
+}
+.span-loading:nth-child(7) {
+    animation-delay: 2.1s;
+    --rot: 60deg;   
+}
+.span-loading:nth-child(8) {
+    animation-delay: 2.2s;
+    --rot: 70deg;
+}
+.span-loading:nth-child(9) {
+    animation-delay: 2.3s;
+    --rot: 80deg;
+}
+
+@keyframes span-loading {
+    0% {
+        transform: translateX(100px) rotate(var(--rot));
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.e-block-1 {
+    animation: e-block-1 0.5s ease-in-out 1 forwards;
+    animation-delay: 0s;
+}
+
+@keyframes e-block-1 {
+    0% {
+        transform: translateY(150%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.e-block-2 {
+    animation: e-block-2 0.5s ease-in-out 1 forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+@keyframes e-block-2 {
+    0% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.e-block-3 {
+    animation: e-block-3 0.5s ease-in-out 1 forwards;
+    animation-delay: 1s;
+    opacity: 0;
+}
+
+@keyframes e-block-3 {
+    0% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
