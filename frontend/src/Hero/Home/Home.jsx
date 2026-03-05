@@ -1,10 +1,9 @@
 import React from 'react'
-import "./MainHomePage.css"
-import "./MainHomePage.css"
+import "./Home.css"
 import "../../Utility/global.css"
 import Navbar from '../Navbar/Navbar'
 
-function MainHomePage() {
+function Home() {
   return (
     <div className='MainHomePage'>
       <div className="navbar flex justify-center items-center">
@@ -57,4 +56,4 @@ function MainHomePage() {
   )
 }
 
-export default MainHomePage
+export default Home

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import "../Utility/global.css"
+import "../../Utility/global.css"
 import "./layout.css"
 import { NavLink } from 'react-router'
 import { useGSAP } from '@gsap/react'
-import { Fade_in, Slide_left } from '../Animations/Basic'
+import { Fade_in, Slide_left } from '../../Utility/Animations/Basic'
 
 function Sidebar() {
     const containerRef = useRef(null)

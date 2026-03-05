@@ -1,13 +1,13 @@
 import React from 'react'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react';
-import { Fade_in, Slide_down, Slide_up } from '../../../Animations/Basic';
+import { Fade_in, Slide_down, Slide_up } from '../../Utility/Animations/Basic';
 
 function CourseProgress({Courses}) {
     const container = useRef()
 
     useGSAP(() => {
-        Fade_in()
+        Fade_in()   
     } , {scope : container})
     
     return (

@@ -1,6 +1,6 @@
 import { useGSAP } from '@gsap/react'
 import React, { useRef } from 'react'
-import { Slide_right, Slide_left, Slide_up } from '../../../Animations/Basic'
+import { Slide_right, Slide_left, Slide_up } from '../../Utility/Animations/Basic'
 
 function ProgressBox() {
     const containerRef = useRef(null)

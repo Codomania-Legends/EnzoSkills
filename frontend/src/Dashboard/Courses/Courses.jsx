@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react';
-import { Fade_in, Slide_left, Slide_right } from '../../../Animations/Basic';
+import { Fade_in, Slide_left, Slide_right } from '../../Utility/Animations/Basic';
 
-function Courses() {
+function Courses() {    
     const coursesData = [
         {
             id: 1,

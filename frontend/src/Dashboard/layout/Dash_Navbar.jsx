@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
-import Profile from '../Components/Profile/Profile';
+import Profile from './Profile/Profile';
 
 function Dash_Navbar() {
     const location = useLocation(); 

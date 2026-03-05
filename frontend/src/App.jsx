@@ -1,17 +1,18 @@
 import React from 'react';
 import "./Utility/global.css";
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
-import MainHomePage from './Components/MainHome/MainHomePage';
-import Home from './Components/Dashboard/Home/Home';
-import AboutPage from './Components/AboutUS/AboutPage';
-import MoreAboutUS from './Components/AboutUS/MoreAboutUS';
-import Courses from './Components/Dashboard/Courses/Courses';
-import Dash_Layout from './layout/Dash_Layout';
-import Library from './Components/Dashboard/Library/Library';
-import Project from './Components/Dashboard/Project/Project';
-import Room from './Components/Dashboard/Room/Room';
-import AI from './Components/Dashboard/AI/AI';
-import Records from './Components/Dashboard/Records/Records';
+
+import Home from './Hero/Home/Home';
+import AboutPage from './Hero/AboutUS/AboutPage';
+import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
+import Dash_Layout from './Dashboard/layout/Dash_Layout';
+import Courses from './Dashboard/Courses/Courses';
+import Library from './Dashboard/Library/Library';
+import Project from './Dashboard/Project/Project';
+import Room from './Dashboard/Room/Room';
+import AI from './Dashboard/AI/AI';
+import Records from './Dashboard/Records/Records';
+import DashHome from './Dashboard/Home/DashHome';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -25,12 +26,12 @@ function App() {
     <Router>
       <Routes>
         <Route element={<HomeLayout />}>
-          <Route path="/" element={<MainHomePage />} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/about/more" element={<MoreAboutUS />} />
         </Route>
         <Route element={<Dash_Layout />}>
-          <Route path="/dashboard/home" element={<Home />} />
+          <Route path="/dashboard/home" element={<DashHome />} />
           <Route path="/dashboard/courses" element={<Courses />} />
           <Route path="/dashboard/library" element={<Library />} />
           <Route path="/dashboard/project" element={<Project />} />

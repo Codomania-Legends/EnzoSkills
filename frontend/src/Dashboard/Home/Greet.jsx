@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Slide_up } from '../../../Animations/Basic'
+import { Slide_up } from '../../Utility/Animations/Basic'
 import { useGSAP } from '@gsap/react';
 
 function Greet() {
