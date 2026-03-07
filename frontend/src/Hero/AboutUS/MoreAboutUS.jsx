@@ -148,7 +148,7 @@ function MoreAboutUS() {
             </a>
           </div>
           
-          <div id='Our_Team' className="more-about-us-teamsContainer h-[100vh] lg:h-[90vh] md:h-[60vh] flex justify-evenly items-center flex-col">
+          <div id='Our_Team' className="more-about-us-teamsContainer h-[90vh] lg:h-[90vh] md:h-[60vh] flex justify-evenly items-center flex-col">
             <div className="know-more-top-heading text-5xl flex justify-center items-center">
               <p><b className='text-4xl'>Our Team</b></p>
             </div>
