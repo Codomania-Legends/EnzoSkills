@@ -148,41 +148,41 @@ function MoreAboutUS() {
             </a>
           </div>
           
-          <div id='Our_Team' className="more-about-us-teamsContainer h-[90vh] flex justify-evenly items-center flex-col">
+          <div id='Our_Team' className="more-about-us-teamsContainer h-[100vh] lg:h-[90vh] md:h-[60vh] flex justify-evenly items-center flex-col">
             <div className="know-more-top-heading text-5xl flex justify-center items-center">
               <p><b className='text-4xl'>Our Team</b></p>
             </div>
-            <div className="About-Team-Description grid grid-cols-1 md:grid-cols-2 gap-10 h-3/4">
+            <div className="About-Team-Description grid grid-cols-1 md:grid-cols-2 gap-10 md:h-[70%] h-[80%]  lg:h-3/4">
               {members.map((member, index) => (
-                <div key={index + member.name} className="team-card member-container w-full flex justify-center items-center">
+                <div key={index + member.name} className="team-card member-container w-full h-full flex justify-center items-center">
                   <div 
                     className={`
-                      relative w-full md:w-2/3
-                      h-2/3
+                      relative w-[90%] h-full md:h-[70%] md:w-[80%] lg:w-2/3
+                      lg:h-2/3
                       flex justify-end items-center 
                       bg-[#7F77FF] 
                       blue
                       mr-0 ml-0 rounded-2xl medium-box-shadow
                       will-change-transform 
-                      ${index === 0 ? "md:-mr-30" : 
-                        index === 1 ? "md:-ml-30" : 
-                        index === 2 ? "md:mr-5" : 
-                        "md:ml-5"}
+                      ${index === 0 ? "lg:-mr-30 md:-mr-10 " : 
+                        index === 1 ? "lg:-ml-30 md:-ml-10" : 
+                        index === 2 ? "md:mr-10" : 
+                        "md:ml-15"}
                     `}
                   >
-                    <div className="member-image flex justify-center items-center p-1 absolute -left-10 bg-[#534DB4] rounded-2xl">
+                    <div className="member-image flex justify-center items-center p-1 absolute -left-4 md:-left-5 lg:-left-10 bg-[#534DB4] rounded-2xl">
                       {/* 🚀 FIX 5: Added loading="lazy" to ALL images! */}
-                      <img src={member.image} alt={member.name} loading="lazy" className="member-image aspect-square h-30 rounded-full md:rounded-2xl lg:rounded-xl"/>
+                      <img src={member.image} alt={member.name} loading="lazy" className="member-image aspect-square lg:h-30 h-20 md:rounded-2xl rounded-xl"/>
                     </div>
-                    <div className="member-details flex items-center flex-col w-3/4 h-[80%] text-white justify-evenly pr-5 pl-5 text-sm">
-                      <div className="member-name flex justify-center items-center">
-                        <p className='text-lg font-bold'>{member.name}</p>
+                    <div className="member-details flex items-center flex-col lg:w-3/4 md:w-[80%] lg:h-[80%] md:h-[70%] w-[80%] text-white justify-evenly pr-5 pl-5 text-sm">
+                      <div className="member-name text-center flex justify-center items-center">
+                        <p className='text-md md:text-lg font-bold'>{member.name}</p>
                       </div>
                       <div className="member-role flex justify-center items-center">
-                        <p className='text-md'>{member.role}</p>
+                        <p className='text-sm md:text-md font-semibold'>{member.role}</p>
                       </div>
                       <div className="member-description flex justify-center items-center">
-                        <p className='text-xs text-center'>{member.description}</p>
+                        <p className='text-[10px] lg:text-xs  text-center'>{member.description}</p>
                       </div>
                       <div className="member-links flex justify-evenly items-center w-3/4">
                         <a href={member.links.github} target="_blank" rel="noopener noreferrer">
@@ -207,7 +207,7 @@ function MoreAboutUS() {
               {members.map( (member , index) => (
                 <div key={member.role + index} className="w-full more-about-us-team-description flex justify-center items-start flex-col">
                   <div className="w-full text-lg font-bold more-about-us-team-description-name-role flex justify-between items-center">
-                    <div className='flex justify-start items-center w-full'>
+                    <div className='flex justify-start items-center w-[full]'>
                       <p className='dot w-2 aspect-square rounded-full bg-black mr-5'></p>
                       {member.name} | {member.role}
                     </div>

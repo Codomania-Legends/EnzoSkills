@@ -75,7 +75,7 @@ img.About-comp-img {
     overflow-y: auto; 
     overflow-x: hidden;
     
-    border-radius: 2em;
+    /* border-radius: 2em; */
     margin-bottom: 2em;
     
     /* 🚀 FIX 7: Native smooth scrolling replaces your heavy React onClick function! */
@@ -93,7 +93,7 @@ img.About-comp-img {
     position: absolute;
     top: 0;
     width: 100%;
-    border-radius: 2em;
+    /* border-radius: 2em; */
 }
 
 /* 🚀 FIX 9: New utility class to offload box-shadow & animation repaints to the GPU */
