@@ -2,10 +2,21 @@ import React, { useEffect } from 'react'
 import "./Home.css"
 import "../../Utility/global.css"
 import Navbar from '../Navbar/Navbar'
+import gsap from 'gsap'
 
 function Home() {
+  useEffect( () => {
+    gsap.fromTo( ".middleSquare" , {scale : 90 , opacity : 1} , 
+      {
+        scale : 0, ease : "power2.inOut", duration : 1
+      }
+    )
+  } , [] )
   return (
     <div className='MainHomePage'>
+      <div className='h-screen w-screen absolute flex justify-center items-center'>
+        <div className='middleSquare aspect-square h-5 w-5 bg-white rounded-full'></div>
+      </div>
       <div className="navbar flex justify-center items-center">
         <Navbar />
       </div>
