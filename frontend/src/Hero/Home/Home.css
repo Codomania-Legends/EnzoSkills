@@ -8,14 +8,9 @@
 .centerImg {
     position: absolute;
     z-index: 10;
-    height: 90%;
-    bottom: 0;
-    width: 100%;
 }
 
-.center-bg-img {
-    height: 100%;
-}
+
 .navbar{
     width: 100%;
     height: 10%;
@@ -35,29 +30,13 @@
     font-family: "Manrope", sans-serif;
 }
 .leftContentTop {
-    width: 45%;
-    font-size: medium;
     letter-spacing: 2px;
     line-height: 2em;
-    margin-right: 30%;
-}
-.leftContentBottom {
-    height: 35%;
-    width: 60%;
-    justify-content: end;
+
 }
 
-.start-learning-btn {
-    color: white;
-    border-radius: 3em;
-    padding: 1em 8em 1em 3em;
-    font-size: medium;
-    font-weight: 500;
-}
 img.arrowPart {
     position: absolute;
-    bottom: 23%;
-    right: 20%;
 }
 
 .main-home-content-div {
@@ -66,50 +45,17 @@ img.arrowPart {
 .Home-rightContent {
     position: relative;
     z-index: 100;
-    height: 90%;
-    width: 50%;
     flex-direction: column;
-    justify-content: space-between;
 }
 .heading-section-home {
-    height: 40%;
-    width: 45%;
     flex-direction: column;
-    margin-left: 20%;
+    
 }
 .Right-content-sub-heading, .Right-content-heading{
     font-family: "Manrope", sans-serif;
     height: 10%;
     width: 100%;
 }
-.Right-content-heading {
-    justify-content: start;
-    font-size: x-large;
-    align-items: end;
-}
-.Right-content-sub-heading {
-    justify-content: end;
-    font-size: medium;
-    align-items: start;
-}
 
-.rightBottomContent {
-    height: 60%;
-    width: 70%;
-    flex-direction: column;
-}
 
-.Home-right-topContent {
-    height: 50%;
-    width: 85%;
-    font-size: 12em;
-    justify-content: start;
-    align-items: start;
-}
-.Home-right-bottomContent {
-    height: 50%;
-    width: 85%;
-    font-size: 7em;
-    justify-content: end;
-    align-items: start;
-}
+
