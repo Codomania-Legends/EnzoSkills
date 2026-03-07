@@ -10,8 +10,8 @@ function Home() {
         <Navbar />
       </div>
       
-      <div className="centerImg h-[40%] w-[80%] top-[15%] mt-[15%] md:mt-[20%] lg:mt-0 md:h-[60%] md:w-[70%] lg:h-[90%] lg:w-[100%] lg:bottom-0 flex justify-center items-center ml-[25%] md:ml-[30%] lg:ml-0">
-        <img src="/HomeImg/HomeCenterImg.svg" alt="Center Decoration" className='center-bg-img h-[100%]' />
+      <div className="centerImg h-[40%] w-[80%] top-[15%] mt-[15%] md:mt-[20%] lg:mt-0 md:h-[60%] md:w-[70%] lg:h-[90%] lg:w-full lg:bottom-0 flex justify-center items-center ml-[25%] md:ml-[30%] lg:ml-0">
+        <img src="/HomeImg/HomeCenterImg.svg" alt="Center Decoration" className='center-bg-img h-full' />
       </div>
 
       <div className="main-home-content-div flex justify-center items-center">
@@ -29,7 +29,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="Home-rightContent  md:h-[100%] lg:h-[90%] md:w-[100%] lg:w-[50%] h-[70%] w-[100%] flex md:justify-start justify-center items-center">
+        <div className="Home-rightContent  md:h-full lg:h-[90%] md:w-full lg:w-[50%] h-[70%] w-full flex md:justify-start justify-center items-center">
 
           <div className="heading-section-home mt-[-25%] lg:mt-0 md:mt-0 md:h-[10%] md:w-[50%] lg:h-[40%] lg:w-[50%] h-[30%] w-[60%] md:ml-[20%] ml-[-10%] flex justify-start md:justify-center items-center">
             <div className="Right-content-heading md:text-2xl text-l flex justify-start items-end">
@@ -44,7 +44,7 @@ function Home() {
             <p>Don't waste time figuring out where to start. <b>EnzoSkills</b> curates the perfect learning path for your goals, providing a powerful, unified dashboard to visualize your journey from beginner to expert.</p>
           </div>
 
-          <div className="rightBottomContent mt-8 md:mt-0 h-[30%] w-[90%] md:h-[40%] md:w-[60%] lg:h-[60%] lg:w-[60%] flex flex-col md:mr-[30%] lg:mr-0 md:mt-[30%] lg:mt-0 justify-end items-start">
+          <div className="rightBottomContent mt-8 h-[30%] w-[90%] md:h-[40%] md:w-[60%] lg:h-[60%] lg:w-[60%] flex flex-col md:mr-[30%] lg:mr-0 md:mt-[30%] lg:mt-0 justify-end items-start">
             <div className="Home-right-topContent md:text-[10em] lg:text-[12em] text-[6em] h-[70%] w-[55%] md:h-[40%] lg:h-[50%] md:w-[70%] flex justify-start items-start love-light-regular">
               <p>Path</p>
             </div>
