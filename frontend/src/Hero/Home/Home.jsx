@@ -9,44 +9,54 @@ function Home() {
       <div className="navbar flex justify-center items-center">
         <Navbar />
       </div>
-      <div className="centerImg flex justify-center items-center">
-        <img src="/HomeImg/HomeCenterImg.svg" alt="Center Decoration" className='center-bg-img' />
+      
+      <div className="centerImg h-[40%] w-[80%] top-[15%] mt-[15%] md:mt-[20%] lg:mt-0 md:h-[60%] md:w-[70%] lg:h-[90%] lg:w-[100%] lg:bottom-0 flex justify-center items-center ml-[25%] md:ml-[30%] lg:ml-0">
+        <img src="/HomeImg/HomeCenterImg.svg" alt="Center Decoration" className='center-bg-img h-[100%]' />
       </div>
 
       <div className="main-home-content-div flex justify-center items-center">
 
-        <div className="Home-leftContent flex justify-center items-center">
+        <div className="Home-leftContent hidden  lg:flex justify-center items-center">
           {/* left top side  */}
-          <div className="leftContentTop flex justify-center items-center">
+          <div className="leftContentTop md:w-[45%] mr-[30%] lg:w-[45%] text-md flex justify-center items-center">
             <p>Don't waste time figuring out where to start. <b>EnzoSkills</b> curates the perfect learning path for your goals, providing a powerful, unified dashboard to visualize your journey from beginner to expert.</p>
           </div>
+          
           {/* left bottom side  */}
-          <div className="leftContentBottom flex justify-center items-center">
-            <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart' />
-            <button className='start-learning-btn small-box-shadow black'>Start Learning</button>
+          <div className="leftContentBottom h-[20%] w-[50%] md:h-[35%] md:w-[60%] flex justify-end items-center">
+            <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart bottom-[23%] right-[20%]' />
+            <button className='start-learning-btn text-white rounded-full pt-[1em] pr-[8em] pb-[1em] pl-[3em] small-box-shadow black md:text-xl text-sm '>Start Learning</button>
           </div>
         </div>
 
-        <div className="Home-rightContent flex justify-center items-center">
+        <div className="Home-rightContent  md:h-[100%] lg:h-[90%] md:w-[100%] lg:w-[50%] h-[70%] w-[100%] flex md:justify-start justify-center items-center">
 
-          <div className="heading-section-home flex justify-center items-center">
-            <div className="Right-content-heading flex justify-center items-center">
+          <div className="heading-section-home mt-[-25%] lg:mt-0 md:mt-0 md:h-[10%] md:w-[50%] lg:h-[40%] lg:w-[50%] h-[30%] w-[60%] md:ml-[20%] ml-[-10%] flex justify-start md:justify-center items-center">
+            <div className="Right-content-heading md:text-2xl text-l flex justify-start items-end">
               <b>Master Your Next Skill</b>
             </div>
-            <div className="Right-content-sub-heading flex justify-center items-center">
+            <div className="Right-content-sub-heading md:text-xl text-sm flex justify-end items-start">
               <p>with Absolute Confidence.</p>
             </div>
           </div>
 
-          <div className="rightBottomContent flex justify-center items-center">
-            <div className="Home-right-topContent flex justify-center items-center love-light-regular">
+          <div className="leftContentTop md:w-[90%] md:text-center md:h-[10%] text-md md:flex hidden lg:hidden justify-center items-start">
+            <p>Don't waste time figuring out where to start. <b>EnzoSkills</b> curates the perfect learning path for your goals, providing a powerful, unified dashboard to visualize your journey from beginner to expert.</p>
+          </div>
+
+          <div className="rightBottomContent mt-8 md:mt-0 h-[30%] w-[90%] md:h-[40%] md:w-[60%] lg:h-[60%] lg:w-[60%] flex flex-col md:mr-[30%] lg:mr-0 md:mt-[30%] lg:mt-0 justify-end items-start">
+            <div className="Home-right-topContent md:text-[10em] lg:text-[12em] text-[6em] h-[70%] w-[55%] md:h-[40%] lg:h-[50%] md:w-[70%] flex justify-start items-start love-light-regular">
               <p>Path</p>
             </div>
-            <div className="Home-right-bottomContent flex justify-center items-center love-light-regular">
+            <div className="Home-right-bottomContent md:text-[5em] lg:text-[7em] text-[4em] h-[70%] w-[55%] md:h-[40%] lg:h-[50%] md:w-[70%] flex md:justify-end justify-start items-start love-light-regular">
               <p>Forge</p>
             </div>
           </div>
 
+          <div className="leftContentBottom h-[40%] w-[70%] md:h-[10%] md:w-[90%] lg:hidden flex justify-center md:justify-start items-center">
+            <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart bottom-[25%] md:hidden right-[15%]' />
+            <button className='start-learning-btn text-white rounded-full pt-[1em] pr-[8em] pb-[1em] pl-[3em] small-box-shadow black md:text-xl text-sm '>Start Learning</button>
+          </div>
         </div>
 
       </div>
