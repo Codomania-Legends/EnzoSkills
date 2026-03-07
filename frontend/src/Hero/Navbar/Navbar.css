@@ -61,13 +61,18 @@
     background-color: #000;
     transition: width 0.3s ease-in-out;
 }
+.nav-links li:hover .underline,
+.nav-links a.active .underline {
+  width: 100%;
+}
 .Navbar-right {
     height: 100%;
     color: white;
     font-weight: 600;
     font-family: "Plus Jakarta Sans", sans-serif;
 }
-/* button.login-signup-btn {
-    border-radius: 0.7em;
-    padding: 1em 2em;
-} */
+.login-signup-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+ 
