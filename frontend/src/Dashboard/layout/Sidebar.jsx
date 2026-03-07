@@ -4,6 +4,7 @@ import "./layout.css"
 import { NavLink } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import { Fade_in, Slide_left } from '../../Utility/Animations/Basic'
+import gsap from 'gsap'
 
 function Sidebar() {
     const containerRef = useRef(null)
@@ -12,6 +13,15 @@ function Sidebar() {
         Fade_in()
         Slide_left()
     } , {scope : containerRef} )
+    useEffect(() => {
+        gsap.fromTo(".sidebar-container", {
+            opacity: 0,
+        } , {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out"
+        })
+    }, [])
     const pages = [
         {
             name: "Home",

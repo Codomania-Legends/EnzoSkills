@@ -1,12 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router'; // Import NavLink
+import { Navigate, NavLink, useNavigate } from 'react-router'; // Import NavLink
 import "./Navbar.css";
 import Logo from "../../../public/LOGO/LOGO.svg";
 
 function Navbar() {
+  const navigate = useNavigate()
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Dashboard', path: '/dashboard/home' }, // Added path
+    { name: 'Dashboard', path: '/dashload' }, // Added path
     { name: 'About us', path: '/about' },
     { name: 'Features', path: '/features' }    // Added path
   ];
@@ -34,7 +35,7 @@ function Navbar() {
       </div>
 
       <div className="Navbar-right flex justify-center items-center">
-        <button className='login-signup-btn text-[0.5rem] md:text-sm py-2 px-4 rounded-lg small-box-shadow blue flex justify-center items-center'>Login <span className='hidden md:flex'>/Sign Up</span> </button>
+        <button onClick={() => navigate("/login")} className='login-signup-btn text-[0.5rem] md:text-sm py-2 px-4 rounded-lg small-box-shadow blue flex justify-center items-center'>Login <span className='hidden md:flex'>/Sign Up</span> </button>
       </div>
     </div>
   );

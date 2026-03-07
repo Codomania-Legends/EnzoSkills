@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
 import Profile from './Profile/Profile';
+import gsap from 'gsap';
 
 function Dash_Navbar() {
     const location = useLocation(); 
@@ -11,8 +12,16 @@ function Dash_Navbar() {
     const [showProfile, setShowProfile] = useState(false);
 
     useEffect(() => {
-        console.log(showProfile);
-    }, [showProfile]);
+        gsap.fromTo(".dash-nav-ani", {
+            opacity: 0,
+        } , {
+            opacity: 1,
+            duration: 1,
+            stagger : 0.05,
+            delay : 2,
+            ease: "power2.out",
+        })
+    }, [])
 
     const navLinks = [
         { name: "Overview", path: "/dashboard" },
@@ -25,7 +34,7 @@ function Dash_Navbar() {
     return (
         <div className='dash-navbar-container'>
             <div className='dash-navbar-left cursor-pointer' onClick={() => navigate("/")}>
-                <img src="/full-logo.png" alt="Logo" className='dash-navbar-logo' />
+                <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
             </div>
 
             {/* Navigation links should generally remain visible so users can navigate 🧭 */}
@@ -35,7 +44,7 @@ function Dash_Navbar() {
                         <li key={index + link.name}>
                             <NavLink 
                                 to={link.path}
-                                className={({ isActive }) => `text-xs ${isActive ? 'active' : ''}`}
+                                className={({ isActive }) => `dash-nav-ani text-xs ${isActive ? 'active' : ''}`}
                             >
                                 {link.name}
                                 <div className="underline"></div>
@@ -46,18 +55,18 @@ function Dash_Navbar() {
             </div>
 
             {/* Searchbar only for Courses Section 🔍 */}
-            <div className={isCoursesPage ? 'flex-1' : 'hidden'}>
-                <div className='dash-navbar-searchbar small-box-shadow blue'>
+            <div className={isCoursesPage ? 'flex-1 searchbar-div' : 'hidden'}>
+                <div className='dash-navbar-searchbar small-box-shadow blue dash-nav-ani'>
                     <img src='/Dashboard/search.svg' alt="Search Icon" />
                     <input type="text" placeholder='Search' className='dash-navbar-input-search' />
                 </div>
             </div>
 
             <div className='dash-navbar-right'>     
-                <div onClick={() => setShowProfile(!showProfile)} className='z-10 dash-navbar-profile p-1 box-content'>
+                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 dash-navbar-profile p-1 box-content'>
                     <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" />
                 </div>
-                <div className='dash-navbar-menu'>
+                <div className='dash-navbar-menu dash-nav-ani'>
                     <img src='/Dashboard/menu.png' alt="Menu" />
                 </div>
             </div>

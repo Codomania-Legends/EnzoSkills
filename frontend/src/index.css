@@ -44,8 +44,21 @@ input , button , textarea , select {
   outline: none;
   border: none;
 }
-  .flex-prop{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.flex-prop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button{
+  transition: all 0.3s ease-in-out;
+}
+button:hover{
+  cursor: pointer;
+  scale: 1.05;
+  transition: all 0.3s ease-in-out;
+}
+button:active{
+  scale: 0.95;
+  transition: all 0.1s ease-in-out;
+}
+

@@ -1,0 +1,7 @@
+.dashload-container{
+    background-image: linear-gradient(
+        var( --deg , 90deg),
+        #ffffff  var(--colorDeg1),
+        #7A85BC  var(--colorDeg2)
+    );
+}

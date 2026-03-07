@@ -14,6 +14,8 @@ import AI from './Dashboard/AI/AI';
 import Records from './Dashboard/Records/Records';
 import DashHome from './Dashboard/Home/DashHome';
 import Loading from './Utility/Loading/Loading';
+import DashLoad from './Utility/DashLoad/DashLoad';
+import Login from './Hero/Login_Signup/Login';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -26,8 +28,9 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<Loading/>} />
         <Route element={<HomeLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/about/more" element={<MoreAboutUS />} />
         </Route>
@@ -40,7 +43,8 @@ function App() {
           <Route path="/dashboard/AI" element={<AI />} />
           <Route path="/dashboard/records" element={<Records />} />
         </Route>
-        <Route path='/loading' element={<Loading/>}/>
+        <Route path='/dashload' element={<DashLoad/>} />
+        <Route path='/login' element={<Login/>}/>
       </Routes>
     </Router>
   );

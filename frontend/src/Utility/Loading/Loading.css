@@ -16,7 +16,7 @@
         opacity: 1;
     }
     100% {
-        transform: translateX(0.75em) rotate(60deg);
+        transform: translateX(1.25em) rotate(60deg);
         border-radius: 2.5em;
         opacity: 1;
     }
