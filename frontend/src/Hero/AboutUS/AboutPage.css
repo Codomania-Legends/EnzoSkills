@@ -10,6 +10,8 @@
     position: relative;
 }
 
+
+
 .main-about-container {
     height: 90%;
     width: 100%;
@@ -27,7 +29,7 @@
 .about-left-main-heading {
     width: 100%;
     font-family: "Syne", sans-serif;
-    font-weight: 600;
+    font-weight: 900;
 }
 .about-left-sub-heading {
     width: 100%;
