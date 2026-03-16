@@ -43,6 +43,8 @@ function Profile({ showProfile }) {
     const [experienceIndex, setExperienceIndex] = useState(0)
     const [projectIndex, setProjectIndex] = useState(0)
 
+    const [theme , setTheme] = useState("light")
+
     const handleEducationClick = () => {
         setEducationIndex((prev) => prev === education.length - 1 ? 0 : prev + 1)
     }
@@ -140,7 +142,7 @@ function Profile({ showProfile }) {
                         <button className="signout-button text-sm font-[Manrope] text-white cursor-pointer">Sign Out</button>
                         <img src='/Dashboard/signout.svg' alt="sign out" className='h-5 w-5 cursor-pointer' />
                     </div>
-                    <img src='/Dashboard/light.svg' alt="light mode" className='h-7 w-7 cursor-pointer' />
+                    <img onClick={() => setTheme((prev) => prev === "light" ? "dark" : "light")} src={theme === "light" ? "/Dashboard/light.svg" : "/Dashboard/dark.svg"}  alt="light mode" className='h-7 w-7 cursor-pointer' />
                 </div>
             </div>
         </div>

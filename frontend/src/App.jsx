@@ -16,10 +16,16 @@ import DashHome from './Dashboard/Home/DashHome';
 import Loading from './Utility/Loading/Loading';
 import DashLoad from './Utility/DashLoad/DashLoad';
 import Login from './Hero/Login_Signup/Login';
+import Features from './Hero/Features/Features';
+import Navbar from './Hero/Navbar/Navbar';
+import { Spin } from './Spin';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
     <img src="/HomeImg/HomeBG.svg" alt="Background" className='bgImg' />
+    <div className="navbar flex justify-center items-center h-1/10">
+      <Navbar />
+    </div>
     <Outlet />
   </div>
 );
@@ -33,6 +39,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/about/more" element={<MoreAboutUS />} />
+          <Route path="/features" element={<Features />} />
         </Route>
         <Route element={<Dash_Layout />}>
           <Route path="/dashboard/home" element={<DashHome />} />
@@ -45,6 +52,7 @@ function App() {
         </Route>
         <Route path='/dashload' element={<DashLoad/>} />
         <Route path='/login' element={<Login/>}/>
+        <Route path='/spin' element={<Spin/>}/>
       </Routes>
     </Router>
   );
