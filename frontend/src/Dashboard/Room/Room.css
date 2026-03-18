@@ -1,0 +1,5 @@
+.id_value_buttons{
+    box-shadow: 5px 5px 14px rgb(13, 13, 13,0.2),
+    inset 0px 2px 5px #fff,
+    inset -2px -2px 5px rgb(13, 13, 13,0.2);
+}
