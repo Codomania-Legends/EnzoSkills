@@ -12,96 +12,78 @@ function Home() {
   const containerRef = useRef();
 
   useGSAP(() => {
-    // 1. Create ONE master timeline to control performance
     const tl = gsap.timeline();
 
-    // 2. Initial Square Animation (Starts immediately)
-    tl.fromTo(".middleSquare", 
-      { scale: 90, opacity: 1 }, 
-      { scale: 0, ease: "power2.inOut", duration: 1 }
-    );
-
-    // 3. Set up SplitText
     const splitLeft = new SplitText(".leftContentTop", { type: "words" });
     const splitHeading = new SplitText(".Right-content-heading", { type: "words" });
     const splitSub = new SplitText(".Right-content-sub-heading", { type: "words" });
+    gsap.set(".path-text", { x: -50, opacity: 0 }); 
+    gsap.set(".forge-text", { x: 50, opacity: 0 }); 
 
-    // 4. Set initial states for Path/Forge before they animate
-    gsap.set(".path-text", { x: -100, opacity: 0, skewX: -20 });
-    gsap.set(".forge-text", { x: 100, opacity: 0, skewX: 20 });
-
-    // 5. Add a label to start all these animations at the exact same time
     tl.addLabel("mainContentReveal")
-      .from(splitLeft.words, {
-        duration: 1,
-        y: -100,
-        opacity: 0,
-        ease: "power3.inOut",
-        stagger: 0.05,
-        onComplete: () => splitLeft.revert() // 🧹 cleans up the DOM after animating!
-      }, "mainContentReveal")
       
       .from(splitHeading.words, { 
         opacity: 0,
-        x: 20,
-        duration: 1.5,
-        ease: "power4.easeOut",
-        stagger: 0.05,
-        onComplete: () => splitHeading.revert() // 🧹 cleans up the DOM!
+        y: 10, 
+        duration: 0.8,
+        ease: "power2.out", 
+        stagger: 0.02, 
+        onComplete: () => splitHeading.revert() 
       }, "mainContentReveal")
       
       .from(splitSub.words, { 
         opacity: 0,
-        x: -20,
-        duration: 1.5,
-        ease: "power4.easeOut",
-        stagger: 0.05,
-        onComplete: () => splitSub.revert() // 🧹 cleans up the DOM!
-      }, "mainContentReveal")
+        y: 10,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.02,
+        onComplete: () => splitSub.revert() 
+      }, "mainContentReveal+=0.1") 
       
-      .fromTo(".arrowPart", 
-        { opacity: 0, y: 20 },
-        { opacity: 1, duration: 1, ease: "power4.easeOut", y: -5 },
-        "mainContentReveal"
-      )
+      .from(splitLeft.words, {
+        duration: 0.8,
+        opacity: 0,
+        ease: "power2.out",
+        stagger: 0.01, 
+        onComplete: () => splitLeft.revert() 
+      }, "mainContentReveal+=0.2") 
       
       .fromTo(".center-bg-img", 
         { opacity: 0 },
-        { opacity: 1, duration: 1, ease: "sine.inOut" },
+        { opacity: 1, duration: 1, ease: "power1.inOut" },
         "mainContentReveal"
       )
 
-      // 6. Path / Forge Animations (Starts slightly after the reveal begins)
+      .fromTo(".arrowPart", 
+        { opacity: 0, y: 10 },
+        { opacity: 1, duration: 0.6, ease: "power2.out", y: 0 },
+        "mainContentReveal+=0.4"
+      )
+
       .to(".path-text", {
         x: 0,
         opacity: 1,
-        skewX: 0,
-        duration: 1.5,
-        ease: "power4.out"
-      }, "mainContentReveal+=0.5")
+        duration: 1,
+        ease: "power3.out"
+      }, "mainContentReveal+=0.3")
       
       .to(".forge-text", {
         x: 0,
         opacity: 1,
-        skewX: 0,
-        duration: 1.5,
-        ease: "power4.out"
-      }, "<0.3") // '<' means start relative to the PREVIOUS animation 
+        duration: 1,
+        ease: "power3.out"
+      }, "<0.2") 
       
       .from(".path-text, .forge-text", {
-        scale: 0.9,
-        duration: 2,
-        ease: "elastic.out(1, 0.3)",
-      }, "<0.2");
+        scale: 0.95, 
+        duration: 1.2,
+        ease: "power2.out", 
+      }, "<0.1");
 
   }, { scope: containerRef });
 
   return (
     <div className='MainHomePage' ref={containerRef}>
-      <div className='h-screen w-screen absolute flex justify-center items-center'>
-        <div className='middleSquare aspect-square h-5 w-5 bg-white rounded-full'></div>
-      </div>
-      
       <div className="centerImg h-[40%] w-[80%] top-[15%] mt-[15%] md:mt-[20%] lg:mt-0 md:h-[60%] md:w-[70%] lg:h-[90%] lg:w-full lg:bottom-0 flex justify-center items-center ml-[25%] md:ml-[30%] lg:ml-0">
         <img src="/HomeImg/HomeCenterImg.svg" alt="Center Decoration" className='center-bg-img h-full' />
       </div>

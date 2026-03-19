@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Utility/global.css";
+import "./index.css"
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
 
 import Home from './Hero/Home/Home';

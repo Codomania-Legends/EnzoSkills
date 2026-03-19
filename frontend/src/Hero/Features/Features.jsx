@@ -38,8 +38,8 @@ function Features() {
             </div>
             <div className="features-content h-8/10 grid grid-cols-3 w-9/10 overflow-hidden">
                 {features.map( (feature , index) => (
-                    <div className={`feature-card card${index+1} flex flex-col justify-center items-center w-9/10`} key={feature.title + index}>
-                        <div className='flex flex-col justify-between items-start off-blue small-box-shadow px-4 py-4 rounded-2xl'>
+                    <div className={`feature-card card${index+1} flex flex-col justify-center items-center w-full h-full`} key={feature.title + index}>
+                        <div className='flex flex-col features-card justify-between items-start off-blue small-box-shadow px-4 py-4 rounded-2xl w-9/10'>
                             <h4 className='text-lg font-semibold pb-1'>{feature.title}</h4>
                             <p className="text-sm" > {feature.description}</p>
                         </div>

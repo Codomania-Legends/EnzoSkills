@@ -7,11 +7,16 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { textAnimate } from '../../Utility/Animations/Text'
 import SplitText from 'gsap/SplitText'
+
 gsap.registerPlugin(SplitText)
+
 function AboutPage() {
+
     const navigate = useNavigate();
     const textContainerRef = useRef(null)
+
     useGSAP( () => {
+        
         textAnimate()
 
         const splitLines = new SplitText(".about-main-content", { type: "lines" })
