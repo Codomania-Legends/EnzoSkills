@@ -11,6 +11,7 @@ import Courses from './Dashboard/Courses/Courses';
 import Library from './Dashboard/Library/Library';
 import Project from './Dashboard/Project/Project';
 import Room from './Dashboard/Room/Room';
+import Main_RoomPage from './Dashboard/Room/Main_RoomPage';
 import AI from './Dashboard/AI/AI';
 import Records from './Dashboard/Records/Records';
 import DashHome from './Dashboard/Home/DashHome';
@@ -50,6 +51,7 @@ function App() {
           <Route path="/dashboard/room" element={<Room />} />
           <Route path="/dashboard/AI" element={<AI />} />
           <Route path="/dashboard/records" element={<Records />} />
+          <Route path="/dashboard/room/:id" element={<Main_RoomPage />} />
         </Route>
         <Route path='/dashload' element={<DashLoad/>} />
         <Route path='/login' element={<Login/>}/>

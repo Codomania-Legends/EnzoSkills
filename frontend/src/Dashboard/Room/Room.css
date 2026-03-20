@@ -3,3 +3,13 @@
     inset 0px 2px 5px #fff,
     inset -2px -2px 5px rgb(13, 13, 13,0.2);
 }
+
+.button-room-section:hover{
+    transform: translateY(-5px) scale(1.02);
+    transition: all 0.2s ease-in-out;
+}
+
+.button-room-section:active{
+    transform: translateY(0px) scale(0.08);
+    transition: all 0.2s ease-in-out;
+}

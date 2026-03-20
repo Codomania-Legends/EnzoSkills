@@ -5,6 +5,7 @@ import { NavLink } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import { Fade_in, Slide_left } from '../../Utility/Animations/Basic'
 import gsap from 'gsap'
+import { motion } from 'framer-motion'
 
 function Sidebar() {
     const containerRef = useRef(null)
@@ -75,7 +76,14 @@ function Sidebar() {
                                 <p className='z-10 text-block small-box-shadow'>{page.name}</p>
                             </>
                     </NavLink>
-                    {page.name == "Courses" && <div className='h-30 w-0.5 bg-black rounded-full flex justify-center items-center relative top-2'><div className='h-1.5 w-1.5 aspect-square bg-black rounded-full absolute'></div></div>}
+                    {page.name == "Courses" && 
+                    <motion.div 
+                        initial={{x: 30, opacity: 0, scaleY: 0}}
+                        animate={{x: 0, opacity: 1, scaleY: 1}}
+                        transition={{duration: 1, ease: "power2.out"}}
+                        className='h-30 w-0.5 bg-black rounded-full flex justify-center items-center relative top-2'>
+                        <div className='h-1.5 w-1.5 aspect-square bg-black rounded-full absolute'></div>
+                    </motion.div>}
                 </div>
             ))}
             <button className='fade_in flex flex-col justify-around md:hidden items-center h-10 w-10'>
