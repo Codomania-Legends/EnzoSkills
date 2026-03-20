@@ -3,150 +3,100 @@ import "./Library.css"
 
 function Library() {
   const data = [
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "JS Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Java Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
-    {
-      image : "/Dashboard/book.svg",
-      BookName : "Python Basics", 
-    },
+    { image: "/Dashboard/book.svg", BookName: "JS Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Java Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
+    { image: "/Dashboard/book.svg", BookName: "Python Basics" },
   ]
 
-  const scrollRef = useRef(null);
+  // Separate refs for separate scroll sections
+  const scrollRefBooks = useRef(null);
+  const scrollRefVideos = useRef(null);
 
-  const scroll = (direction) => {
-    const { current } = scrollRef;
+  const handleScroll = (ref, direction) => {
+    const { current } = ref;
     if (current) {
-      // Adjust '300' to change how far it scrolls per click
       const scrollAmount = direction === 'left' ? -300 : 300;
       current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
-  
+
   return (
-    <>
-    <div className="library-dash-section container h-full mx-auto px-4 mt-5">
-      <div className="flex fade_in justify-evenly items-center w-1/10 mb-5">
-        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
-        <h1 className="text-2xl h-[10%] font-bold">Library</h1>
+    <div className="library-dash-section container mx-auto px-4 mt-5 h-full">
+      <div className="flex fade_in items-center gap-4 mb-5">
+        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
+        <h1 className="text-2xl font-bold">Library</h1>
       </div>
 
-      <div className="flex h-full lg:h-[85%] flex-col lg:flex-row w-full gap-10 md:justify-between">
-
-        <div className=" flex w-[90%] lg:w-[65%] h-full">
-          <div className="grid grid-col-1 w-full md:grid-row-2 gap-10">
-
-            <div className="white flex flex-col justify-around medium-box-shadow rounded-[2em] p-2  w-full px-10">
-              <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Books and PDFs</h1>
-                
-                {/* Navigation Buttons */}
-                <div className="flex gap-2">
-                  <button 
-                    onClick={() => scroll('left')}
-                    className="small-box-shadow rounded-full p-2 blue text-white transition"
-                  >
-                    ←
-                  </button>
-                  <button 
-                    onClick={() => scroll('right')}
-                    className="small-box-shadow rounded-4xl p-2 blue text-white transition"
-                  >
-                    →
-                  </button>
-                </div>
-              </div>
-
-              {/* Added 'ref' and 'scroll-smooth' */}
-              <div 
-                ref={scrollRef}
-                className="flex flex-nowrap overflow-x-scroll  no-scrollbar justify-start items-center gap-6 scroll-smooth"
-              >
-                {data.map((item, index) => (
-                  <div key={index} className="flex flex-col items-center gap-6 pb-2 flex-none">
-                    <img src={item.image} alt={item.BookName} className="h-20 w-20 object-contain" />
-                    <h2 className="text-md font-bold">{item.BookName}</h2>
-                  </div>
-                ))}
+      {/* Main Grid Container: 70/30 split */}
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-10 h-full lg:h-[85%]">
+        
+        {/* Left Column (70%) */}
+        <div className="lg:col-span-7 flex flex-col gap-10">
+          
+          {/* Section 1: Books */}
+          <div className="white flex flex-col h-1/2 justify-around medium-box-shadow rounded-[2em] p-6 px-10">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-2xl font-bold">Books and PDFs</h1>
+              <div className="flex gap-2">
+                <button onClick={() => handleScroll(scrollRefBooks, 'left')} className="small-box-shadow rounded-full p-2 blue text-white">←</button>
+                <button onClick={() => handleScroll(scrollRefBooks, 'right')} className="small-box-shadow rounded-full p-2 blue text-white">→</button>
               </div>
             </div>
-            
-            <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-10 relative">
-              <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Reference Videos</h1>
-                
-                {/* Navigation Buttons */}
-                <div className="flex gap-2">
-                  <button 
-                    onClick={() => scroll('left')}
-                    className="small-box-shadow rounded-full p-2 blue text-white transition"
-                  >
-                    ←
-                  </button>
-                  <button 
-                    onClick={() => scroll('right')}
-                    className="small-box-shadow rounded-4xl p-2 blue text-white transition"
-                  >
-                    →
-                  </button>
+            <div ref={scrollRefBooks} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-6 scroll-smooth">
+              {data.map((item, index) => (
+                <div key={index} className="flex flex-col items-center gap-4 flex-none">
+                  <img src={item.image} alt={item.BookName} className="h-20 w-20 object-contain" />
+                  <h2 className="text-md font-bold">{item.BookName}</h2>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {/* Added 'ref' and 'scroll-smooth' */}
-              <div 
-                ref={scrollRef}
-                className="flex flex-nowrap overflow-x-scroll  no-scrollbar justify-start items-center gap-6 scroll-smooth"
-              >
-                {data.map((item, index) => (
-                  <div key={index} className="flex flex-col items-center gap-6 flex-none">
-                    <img src={item.image} alt={item.BookName} className="h-20 w-20 object-contain" />
-                    <h2 className="text-md font-bold">{item.BookName}</h2>
-                  </div>
-                ))}
+          {/* Section 2: Videos */}
+          <div className="white flex flex-col h-1/2 justify-around medium-box-shadow rounded-[2em] p-6 px-10">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-2xl font-bold">Reference Videos</h1>
+              <div className="flex gap-2">
+                <button onClick={() => handleScroll(scrollRefVideos, 'left')} className="small-box-shadow rounded-full p-2 blue text-white">←</button>
+                <button onClick={() => handleScroll(scrollRefVideos, 'right')} className="small-box-shadow rounded-full p-2 blue text-white">→</button>
               </div>
+            </div>
+            <div ref={scrollRefVideos} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-6 scroll-smooth">
+              {data.map((item, index) => (
+                <div key={index} className="flex flex-col items-center gap-4 flex-none">
+                  <img src={item.image} alt={item.BookName} className="h-20 w-20 object-contain" />
+                  <h2 className="text-md font-bold">{item.BookName}</h2>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="flex w-[90%] lg:w-[30%] h-full">
-          <div className="grid grid-col-1 w-full md:grid-row-2 gap-10">
-            <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
-              
-            </div>
-            <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
-              
-            </div>
+        {/* Right Column (30%) */}
+        <div className="lg:col-span-3 flex flex-col gap-10">
+          <div className="white flex flex-col justify-center items-center medium-box-shadow rounded-[2em] p-8 h-1/2">
+            <h1 className="text-2xl font-bold mb-4">Need Help?</h1>
+            <img src="/Dashboard/CustomerHelp.svg" alt="Help" className='h-32 w-32 mb-4' />
+            <p className='text-center text-md font-bold'>Need help for doubt Solving</p>
           </div>
 
+          <div className="white flex flex-col justify-between medium-box-shadow rounded-[2em] p-8 h-1/2">
+            <h1 className="text-2xl font-bold">Ask Doubts</h1>
+            <div className='flex flex-col gap-2 font-bold'>
+              <p>• Doubts not solved</p>
+              <p>• Clear your Doubts with us</p>
+            </div>
+            <button className='font-bold medium-box-shadow blue text-white rounded-full py-3 mt-4'>Chat with AI</button>
+          </div>
         </div>
+
       </div>
     </div>
-    </>
   )
 }
 
