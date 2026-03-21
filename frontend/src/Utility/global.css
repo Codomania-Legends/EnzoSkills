@@ -48,3 +48,11 @@
     font-weight: 400;
     font-style: normal;
 }
+
+.notification-message-box{
+    border-top-left-radius: 0.5em !important;
+    border-bottom-left-radius: 0.5em !important;
+
+    border-top-right-radius: 3em !important;
+    border-bottom-right-radius: 3em !important;
+}

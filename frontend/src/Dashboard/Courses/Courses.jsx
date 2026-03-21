@@ -56,15 +56,15 @@ function Courses() {
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
                 <h1 className="text-2xl h-[10%] font-bold">Courses</h1>
             </div>
-            <div className="flex h-[90%] justify-between">
+            <div className="flex h-[80%] justify-between">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {coursesData.map((course) => (
-                        <div className='slide_right flex justify-center h-[90%]' key={course.id}>
+                        <div className='slide_right flex justify-center h-full items-center' key={course.id}>
                             <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
                                 <div className='flex justify-center'>
                                     <img src={course.image} alt={course.title} className="h-30 object-cover" />
                                 </div>
-                                <div>
+                                <div className='flex justify-evenly flex-col items-start h-[50%]'>
 
                                     <h3 className="text-md font-semibold mb-2">{course.title}</h3>
                                     <div className='flex items-center justify-between w-[90%]'>

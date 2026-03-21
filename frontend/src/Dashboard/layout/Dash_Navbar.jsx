@@ -32,7 +32,7 @@ function Dash_Navbar() {
     ];
 
     return (
-        <div className='dash-navbar-container'>
+        <div className='dash-navbar-container h-1/10'>
             <div className='dash-navbar-left cursor-pointer' onClick={() => navigate("/")}>
                 <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
             </div>

@@ -13,6 +13,15 @@ function Sidebar() {
     useGSAP( () => {
         Fade_in()
         Slide_left()
+        gsap.fromTo( ".sidebar-box-active" , {
+            scale : 0,
+            duration : 1,
+        } , {
+            scale : 1,
+            duration : 1,
+            delay : 1,
+            ease : "power2.out",
+        } )
     } , {scope : containerRef} )
     useEffect(() => {
         gsap.fromTo(".sidebar-container", {

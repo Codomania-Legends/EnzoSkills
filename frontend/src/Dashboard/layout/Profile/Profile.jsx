@@ -11,10 +11,10 @@ function Profile({ showProfile }) {
         showProfile ?
             gsap.fromTo(profileRef.current, {
                 opacity: 0,
-                x: 50,
+                xPercent : 100,
             }, {
                 opacity: 1,
-                x: 0,
+                xPercent : 0,
                 duration: 0.1,
                 ease: "power3.inOut",
                 onComplete: () => {
@@ -30,10 +30,10 @@ function Profile({ showProfile }) {
             :
             gsap.fromTo(profileRef.current, {
                 opacity: 1,
-                x: 0,
+                xPercent: 0,
             }, {
                 opacity: 0,
-                x: 50,
+                xPercent: 100,
                 duration: 0.1,
                 ease: "power3.inOut"
             })
@@ -57,7 +57,7 @@ function Profile({ showProfile }) {
     
 
     return (
-        <div ref={profileRef} className='profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 right-0 z-50 rounded-l-[3rem] h-[90%]'>
+        <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] h-[90%] right-0`}>
             <div className='flex flex-col items-center w-full h-full relative'>
                 
                 {/* TOP HALF - Info & Skills */}

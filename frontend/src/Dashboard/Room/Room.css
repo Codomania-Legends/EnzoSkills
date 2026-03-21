@@ -10,6 +10,6 @@
 }
 
 .button-room-section:active{
-    transform: translateY(0px) scale(0.08);
+    transform: translateY(0px) scale(0.9);
     transition: all 0.2s ease-in-out;
 }
