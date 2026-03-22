@@ -1,18 +1,24 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react';
 import { Fade_in, Slide_left, Slide_right } from '../../Utility/Animations/Basic';
+import CourseDetails from './CourseDetails';
+import gsap from 'gsap';
 
 function Courses() {    
     const coursesData = [
         {
             id: 1,
             title: "Advanced CSS & Tailwind",
-            image: "/Dashboard/Courses/Course_Image.png", // Replace with your actual image path 🖼️
+            image: "/Dashboard/Courses/Course_Image.png",
             duration: "3 Months",
             level: "Beginners",
             type: "Unpaid",
             rating: 4.7,
-            description: "Transform your raw HTML into stunning, responsive user interfaces. This course covers modern CSS Grid, Flexbox, and utility-first styling with Tailwind CSS. By the end, you will be able to clone any website design and ensure it looks perfect on mobile, tablet, and desktop screens."
+            badges: ["Trending", "Top Rated", "Free"], // 🏷️ Multiple badges
+            isEnrolled: true, 
+            progress: 65, // 📊 Completion percentage
+            skills: ["Responsive Design", "Tailwind CSS", "CSS Grid & Flexbox", "Mobile-First Workflow"],
+            description: "Transform your raw HTML into stunning, responsive user interfaces. This course covers modern CSS Grid, Flexbox, and utility-first styling with Tailwind CSS."
         },
         {
             id: 2,
@@ -22,7 +28,11 @@ function Courses() {
             level: "Intermediate",
             type: "Paid",
             rating: 4.9,
-            description: "Learn to build dynamic, single-page applications using the world's most popular UI library. We will cover hooks, state management, context API, and React Router. You will build highly interactive interfaces and connect them to external APIs, culminating in a robust e-commerce frontend project."
+            badges: ["Most Popular", "Bestseller", "Certificate"], // ⭐ High-value badges
+            isEnrolled: false,
+            progress: 0,
+            skills: ["React Hooks", "State Management", "API Integration", "React Router"],
+            description: "Learn to build dynamic, single-page applications using the world's most popular UI library. Includes Redux and Context API."
         },
         {
             id: 3,
@@ -32,7 +42,11 @@ function Courses() {
             level: "Intermediate",
             type: "Paid",
             rating: 4.8,
-            description: "Step over to the server side and learn how to build scalable APIs and microservices. This course dives into Node runtime, Express.js framework, middleware, and JWT authentication. You will learn how to handle user data securely and architect robust server environments for your web apps."
+            badges: ["Recommended", "Update Available"], // 👍 Direct user guidance
+            isEnrolled: false,
+            progress: 0,
+            skills: ["RESTful APIs", "JWT Authentication", "Middleware", "Express.js"],
+            description: "Step over to the server side and learn how to build scalable APIs and microservices using Node runtime."
         },
         {
             id: 4,
@@ -42,24 +56,42 @@ function Courses() {
             level: "All Levels",
             type: "Unpaid",
             rating: 4.6,
-            description: "Master NoSQL databases with MongoDB. Understand document-based storage, complex queries, aggregation pipelines, and data modeling. We will use Mongoose to interact with our database within a Node environment, giving you the final piece needed for complete MERN stack development."
+            badges: ["New", "Beginner Friendly"], // ✨ Fresh content markers
+            isEnrolled: true,
+            progress: 100, // ✅ Completed course
+            skills: ["NoSQL Modeling", "Mongoose ODM", "Aggregation Pipelines", "Database Security"],
+            description: "Master NoSQL databases with MongoDB. Understand document-based storage and complex queries."
         }
-    ]
+    ];
+
+    const [showDetails, setShowDetails] = useState([false , {}]);
+
     const containerRef = useRef(null);
     useGSAP( () => {
-        Slide_right()
-        Fade_in()
-    } )
+        gsap.from(".fade_in", {
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out"
+        })
+        gsap.from(".slide_right", {
+            opacity : 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out"
+        })
+    } , {scope: containerRef} )
     return (
         <div ref={containerRef} className="container h-full mx-auto px-4 mt-5">
             <div className="flex fade_in justify-evenly items-center w-1/10 mb-5">
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
                 <h1 className="text-2xl h-[10%] font-bold">Courses</h1>
             </div>
-            <div className="flex h-[80%] justify-between">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div className="flex h-[80%] justify-between relative items-center">
+                {showDetails[0] && <CourseDetails course={showDetails[1]} setShowDetails={setShowDetails} />}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">
                     {coursesData.map((course) => (
-                        <div className='slide_right flex justify-center h-full items-center' key={course.id}>
+                        <div onClick={() => setShowDetails([true, course])} className='slide_right flex justify-center h-full items-center' key={course.id}>
                             <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
                                 <div className='flex justify-center'>
                                     <img src={course.image} alt={course.title} className="h-30 object-cover" />
