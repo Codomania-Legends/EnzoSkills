@@ -1,7 +1,12 @@
 import React, { useRef } from 'react'
 import "./Library.css"
+import { useNavigate } from 'react-router'
+import AI from '../AI/AI'
+import { useGSAP } from '@gsap/react'
+import { Fade_in, Slide_left, } from '../../Utility/Animations/Basic'
 
 function Library() {
+  const navigate = useNavigate()
   const data = [
     { image: "/Dashboard/book.svg", BookName: "JS Basics" },
     { image: "/Dashboard/book.svg", BookName: "Java Basics" },
@@ -25,15 +30,19 @@ function Library() {
     }
   };
 
+  const containerRef = useRef(null);
+  useGSAP( () => {
+    Fade_in()
+  }, {scope: containerRef} )
   return (
-    <div className="library-dash-section container mx-auto px-4 mt-5 h-full">
+    <div ref={containerRef} className="library-dash-section container mx-auto px-4 mt-5 h-full">
       <div className="flex fade_in items-center gap-4 mb-5">
         <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
         <h1 className="text-2xl font-bold">Library</h1>
       </div>
 
       {/* Main Grid Container: 70/30 split */}
-      <div className="grid grid-cols-1 lg:grid-cols-10 gap-10 h-full lg:h-[85%]">
+      <div className="grid  grid-cols-1 lg:grid-cols-10 gap-10 h-full lg:h-[85%]">
         
         {/* Left Column (70%) */}
         <div className="lg:col-span-7 flex flex-col gap-10">
@@ -91,7 +100,7 @@ function Library() {
               <p>• Doubts not solved</p>
               <p>• Clear your Doubts with us</p>
             </div>
-            <button className='font-bold medium-box-shadow blue text-white rounded-full py-3 mt-4'>Chat with AI</button>
+            <button onClick={() => navigate('/dashboard/AI')} className='font-bold cursor-pointer medium-box-shadow blue text-white rounded-full py-3 mt-4'>Chat with AI</button>
           </div>
         </div>
 
