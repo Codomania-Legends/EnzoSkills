@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const userRouter = require("./Routes/User")
 const courseRouter = require("./Routes/Course")
+const libraryRouter = require("./Routes/Library")
 
 app.use(cors())
 
@@ -23,6 +24,9 @@ app.use( "/user", userRouter )
 
 //course router e.g. http://localhost:3000/courses/get
 app.use( "/courses", courseRouter )
+
+//library router e.g. http://localhost:3000/library/get
+app.use( "/library", libraryRouter )
 
 app.listen(3000, () => {
     console.log("Server started on port 3000")
