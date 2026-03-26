@@ -27,6 +27,27 @@ const handle_User_Signup = async ( req, res ) => {
 }
 }
 
+//login function for user
+const handle_User_Login = async ( req, res ) => {
+    try {
+        if( !req.body ) throw(new Error("Body not Found"))
+        
+            const { user_name, user_post, password  } = req.body
+            const findUser = await USER.find({
+                user_name : user_name,
+            user_post : user_post,
+            password : password
+        }) 
+        if( !findUser ) throw( new Error("No Login Credentials Available") )
+            res.json({
+        msg : "User LoggedIn Successfully",
+        user : findUser
+    })
+} catch (error) {
+    res.end(error.message)
+}
+}
+
 //function for updating all details of users
 const handle_All_User_Details = async ( req, res ) => {
     try {
@@ -50,40 +71,6 @@ const handle_All_User_Details = async ( req, res ) => {
     }
 }
 
-//login function for user
-const handle_User_Login = async ( req, res ) => {
-    try {
-        if( !req.body ) throw(new Error("Body not Found"))
-        
-        const { user_name, user_post, password  } = req.body
-        const findUser = await USER.find({
-            user_name : user_name,
-            user_post : user_post,
-            password : password
-        }) 
-        if( !findUser ) throw( new Error("No Login Credentials Available") )
-        res.json({
-            msg : "User LoggedIn Successfully",
-            user : findUser
-        })
-    } catch (error) {
-        res.end(error.message)
-    }
-}
-
-//getting all the users
-const get_All_Users = async ( req, res ) => {
-    try {
-        const getUsers = await USER.find( {} )
-        if( getUsers.length == 0 ) throw( new Error("No User Registered") )
-        res.json({
-            msg : "Users Fetched Successfully",
-            allUser : getUsers
-        })
-    } catch (error) {
-        res.end(error.message)
-    }
-}
 
 //updating skills for future
 const update_All_Skills = async (req, res) => {
@@ -95,7 +82,7 @@ const update_All_Skills = async (req, res) => {
         const { user_id, new_skills } = req.body; 
         
         const formattedSkills = new_skills.map(skill => ({ skills: skill }));
-
+        
         const updateSkills = await USER.findOneAndUpdate(
             { user_id : user_id },
             { 
@@ -148,7 +135,7 @@ const update_All_Projects = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ msg: "User not found" });
         }
-
+        
         res.json({
             msg: "New project added successfully",
             projects: updatedUser.projects 
@@ -165,7 +152,7 @@ const update_All_Experience = async ( req, res ) => {
         if (!req.body || !req.body.user_id) {
             return res.status(400).json({ msg: "User ID and experience are required" });
         }
-
+        
         const { user_id, experience } = req.body;
 
         const update_experience = await USER.findOneAndUpdate(
@@ -185,6 +172,20 @@ const update_All_Experience = async ( req, res ) => {
 
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+}
+
+//getting all the users
+const get_All_Users = async ( req, res ) => {
+    try {
+        const getUsers = await USER.find( {} )
+        if( getUsers.length == 0 ) throw( new Error("No User Registered") )
+        res.json({
+            msg : "Users Fetched Successfully",
+            allUser : getUsers
+        })
+    } catch (error) {
+        res.end(error.message)
     }
 }
 
