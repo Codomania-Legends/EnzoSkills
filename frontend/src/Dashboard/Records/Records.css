@@ -38,7 +38,7 @@
     transition-duration: 0.5s;
     background-color: var(--boxColor);
     box-shadow: 20px 20px 40px rgba(58, 62, 108, 0.5), inset 15px 15px 30px rgba(255, 255, 255, 0.5), inset -20px -20px 30px rgba(58, 62, 108, 0.6);
-    
+
 }
 #box{
     display: flex;
@@ -61,7 +61,7 @@
 }
 .image{
     height: 30vh;
-    width: 12vw;
+    width: 14vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,7 +120,7 @@
     justify-content: space-between;
     position: absolute;
     top: 20%;
-    left: 2%;
+    left: 1.5%;
     font-size: 16px;
     font-family: Modern Antiqua;
     color: #465abdc4;
@@ -159,6 +159,808 @@
     justify-content: space-between;
     position: absolute;
     top: 30%;
-    left: 2%;
+    left: 1.5%;
     font-size: 15px;
+}
+.star{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    top: 35%;
+    left: 1.5%;
+    font-size: 15px;
+}
+#star{
+    height: 1.5vh;
+    width: 1.5vw;
+}
+.review{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    top: 40%;
+    left: 1.5%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#level{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    top: 27%;
+    left: 1.7%;
+    border-radius: 10px;
+}
+#levels{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#line{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    top: 17.5%;
+    left: 1.7%;
+}
+#days1{
+    height: 8vh;
+    width: 12.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 5%;
+    left: 27.5%;
+}
+#line1{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    top: 17.5%;
+    left: 27.3%;
+}
+#tasks1{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    left: 27%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges1{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    left: 40.5%;
+    font-size: 15px;
+}
+#level1{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    top: 27%;
+    left: 27.35%;
+    border-radius: 10px;
+}
+#levels1{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent1{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    left: 43.5%;
+    font-size: 15px;
+}
+#score1{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    left: 27.25%;
+    font-size: 15px;
+}
+.star1{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    top: 35%;
+    left: 27.25%;
+    font-size: 15px;
+}
+.review1{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    top: 40%;
+    left: 27.25%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days2{
+    height: 8vh;
+    width: 12.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 5%;
+    right: 27.5%;
+}
+#line2{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    top: 17.5%;
+    right: 27.3%;
+}
+#tasks2{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    right: 39%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges2{
+    height: 4vh;
+    width: 3.7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    right: 27.5%;
+    font-size: 15px;
+}
+#level2{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    top: 27%;
+    right: 27.35%;
+    border-radius: 10px;
+}
+#levels2{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent2{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    right: 24.5%;
+    font-size: 15px;
+}
+#score2{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    right: 40.5%;
+    font-size: 15px;
+}
+.star2{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    top: 35%;
+    right: 36.5%;
+    font-size: 15px;
+}
+.review2{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    top: 40%;
+    right: 30.25%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days3{
+    height: 8vh;
+    width: 12.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 5%;
+    right: 2%;
+}
+#line3{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    top: 17.5%;
+    right: 1.6%;
+}
+#tasks3{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    right: 13.5%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges3{
+    height: 4vh;
+    width: 3.7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 20%;
+    right: 2%;
+    font-size: 15px;
+}
+#level3{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    top: 27%;
+    right: 2%;
+    border-radius: 10px;
+}
+#levels3{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent3{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    right: -1%;
+    font-size: 15px;
+}
+#score3{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    font-size: 15px;
+}
+.star3{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    top: 35%;
+    right: 10.7%;
+    font-size: 15px;
+}
+.review3{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    top: 40%;
+    right: 4.4%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days4{
+    height: 8vh;
+    width: 12.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 33%;
+    left: 2%;
+}
+#line4{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    bottom: 31.5%;
+    left: 1.6%;
+}
+#tasks4{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    left: 1.6%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges4{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    left: 14%;
+    font-size: 15px;
+}
+#level4{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    bottom: 20%;
+    left: 1.7%;
+    border-radius: 10px;
+}
+#levels4{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent4{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    left: 18%;
+    font-size: 15px;
+}
+#score4{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    left: 1.6%;
+    font-size: 15px;
+}
+.star4{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+    left: 1.6%;
+    font-size: 15px;
+}
+.review4{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    bottom: 7%;
+    left: 1.8%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days5{
+    height: 8vh;
+    width: 12.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 33%;
+    left: 27.4%;
+}
+#line5{
+    height: 0.1vh;
+    width: 12.9vw;
+    background-color: #7A85BC;
+    position: absolute;
+    bottom: 31.5%;
+    left: 27.2%;
+}
+#tasks5{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    left: 27.2%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges5{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    left: 39.5%;
+    font-size: 15px;
+}
+#level5{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    bottom: 20%;
+    left: 27.3%;
+    border-radius: 10px;
+}
+#levels5{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent5{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    left: 43.5%;
+    font-size: 15px;
+}
+#score5{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    left: 27.3%;
+    font-size: 15px;
+}
+.star5{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+    left: 27.35%;
+    font-size: 15px;
+}
+.review5{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    bottom: 7%;
+    left: 27.6%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days6{
+    height: 8vh;
+    width: 13.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 33%;
+    right: 26.5%;
+}
+#line6{
+    height: 0.1vh;
+    width: 13vw;
+    background-color: #7A85BC;
+    position: absolute;
+    bottom: 31.5%;
+    right: 27.2%;
+}
+#tasks6{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    right: 38.9%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges6{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    right: 27.9%;
+    font-size: 15px;
+}
+#level6{
+    height: 1.2vh;
+    width: 12.75vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    bottom: 20%;
+    right: 27.3%;
+    border-radius: 10px;
+}
+#levels6{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent6{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    right: 24.5%;
+    font-size: 15px;
+}
+#score6{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    right: 40.5%;
+    font-size: 15px;
+}
+.star6{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+    right: 36.2%;
+    font-size: 15px;
+}
+.review6{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    bottom: 7%;
+    right: 29.9%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#days7{
+    height: 8vh;
+    width: 13.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 33%;
+    right: 1.2%;
+}
+#line7{
+    height: 0.1vh;
+    width: 13.4vw;
+    background-color: #7A85BC;
+    position: absolute;
+    bottom: 31.5%;
+    right: 1.2%;
+}
+#tasks7{
+    height: 4vh;
+    width: 5.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    right: 13.7%;
+    font-size: 16px;
+    font-family: Modern Antiqua;
+    color: #465abdc4;
+}
+#badges7{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 23%;
+    right: 1.8%;
+    font-size: 15px;
+}
+#level7{
+    height: 1.2vh;
+    width: 12.9vw;
+    background-color: #C1C2C4;
+    position: absolute;
+    bottom: 20%;
+    right: 1.6%;
+    border-radius: 10px;
+}
+#levels7{
+    height: 1.2vh;
+    width: 10.5vw;
+    background-color: #7A85BC;
+    border-radius: 10px;
+}
+#percent7{
+    height: 4vh;
+    width: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    right: -1.4%;
+    font-size: 15px;
+}
+#score7{
+    height: 4vh;
+    width: 4.3vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 13%;
+    right: 14.8%;
+    font-size: 15px;
+}
+.star7{
+    height: 3vh;
+    width: 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+    right: 10.6%;
+    font-size: 15px;
+}
+.review7{
+    height: 2vh;
+    width: 11vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 12.5px;
+    position: absolute;
+    bottom: 7%;
+    right: 4.45%;
+    color: rgba(29, 29, 29, 0.847);
+}
+#image{
+    height: 7vh;
+    width: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 30.5%;
+}
+#many {
+    background-color: #8077ff;
+    box-shadow: 10px 10px 20px rgba(58, 62, 108, 0.5), inset 0 5px 10px rgba(255, 255, 255, 0.5), inset -10px -10px 20px rgba(58, 62, 108, 0.6);
+    height: 6vh;
+    width: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    position: absolute;
+    bottom: -5%;
+    left: 45%;
 }
