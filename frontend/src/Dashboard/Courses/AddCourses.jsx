@@ -43,25 +43,25 @@ function AddCourses() {
   return (
     <div>
         <div className="course-name">
-            <input type="text" placeholder="Course Name" />
+            <input type="text" placeholder="Course Name" className='small-box-shadow' />
         </div>
         <div className="course-image">
-            <input type="file" onChange={handleImages} />
+            <input type="file" onChange={handleImages} className='small-box-shadow' />
             {loading ? <p>Uploading...</p> : <img src={imageUrl} width="300px" />}
         </div>
         <div className="course-duration">
-            <input type="text" placeholder="Course Duration" />
+            <input type="text" placeholder="Course Duration" className='small-box-shadow' />
         </div>
         <div className="course-price">
-            <input type="text" placeholder="Course Price" />
+            <input type="text" placeholder="Course Price" className='small-box-shadow' />
         </div>
         <div className="course-rating">
-            <input type="text" placeholder="Course Rating" />
+            <input type="text" placeholder="Course Rating" className='small-box-shadow' />
         </div>
         <div className="course-description">
-            <input type="text" placeholder="Course Description" />
+            <input type="text" placeholder="Course Description" className='small-box-shadow' />
         </div>
-        <button>Add Course</button>
+        <button className='small-box-shadow'>Add Course</button>
     </div>
   )
 }
