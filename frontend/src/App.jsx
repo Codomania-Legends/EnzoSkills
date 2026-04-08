@@ -22,6 +22,7 @@ import Features from './Hero/Features/Features';
 import Navbar from './Hero/Navbar/Navbar';
 import { Spin } from './Spin';
 import { Toaster } from 'sileo';
+import AddCourses from './Dashboard/Courses/AddCourses';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -59,6 +60,7 @@ function App() {
           <Route path='/dashload' element={<DashLoad/>} />
           <Route path='/login' element={<Login/>}/>
           <Route path='/spin' element={<Spin/>}/>
+          <Route path='/addcourses' element={<AddCourses/>}/>
         </Routes>
       </Router>
     </>
