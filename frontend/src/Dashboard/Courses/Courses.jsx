@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react';
 import { Fade_in, Slide_left, Slide_right } from '../../Utility/Animations/Basic';
 import CourseDetails from './CourseDetails';
 import gsap from 'gsap';
-
+import axios from 'axios';
 function Courses() {    
     const coursesData = [
         {
             id: 1,
-            title: "Advanced CSS & Tailwind",
+            course_name: "Advanced CSS & Tailwind",
             image: "/Dashboard/Courses/Course_Image.png",
             duration: "3 Months",
             level: "Beginners",
@@ -22,7 +22,7 @@ function Courses() {
         },
         {
             id: 2,
-            title: "React.js Front-End Mastery",
+            course_name: "React.js Front-End Mastery",
             image: "/Dashboard/Courses/Course_Image.png", 
             duration: "6 Months",
             level: "Intermediate",
@@ -36,7 +36,7 @@ function Courses() {
         },
         {
             id: 3,
-            title: "Node.js & Express Backend",
+            course_name: "Node.js & Express Backend",
             image: "/Dashboard/Courses/Course_Image.png", 
             duration: "5 Months",
             level: "Intermediate",
@@ -50,7 +50,7 @@ function Courses() {
         },
         {
             id: 4,
-            title: "Database Design with MongoDB",
+            course_name: "Database Design with MongoDB",
             image: "/Dashboard/Courses/Course_Image.png", 
             duration: "2 Months",
             level: "All Levels",
@@ -66,21 +66,42 @@ function Courses() {
 
     const [showDetails, setShowDetails] = useState([false , {}]);
 
+    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+        const getAllCourses = async () => {
+            try {
+                const res = await axios.get("http://localhost:3000/courses/get");
+                console.log(res.data.course)
+                setCourses(res.data.course);
+            } catch (error) {
+                console.log(error)
+                setCourses(coursesData);
+                throw(error.message)
+            }
+        }
+        getAllCourses();
+    }, []);
+
     const containerRef = useRef(null);
-    useGSAP( () => {
-        gsap.from(".fade_in", {
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power2.out"
-        })
-        gsap.from(".slide_right", {
-            opacity : 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power2.out"
-        })
-    } , {scope: containerRef} )
+    useGSAP(() => {
+    // This will now trigger every time 'courses' is updated
+    // if (courses.length > 0) {
+    //     gsap.from(".slide_right", {
+    //         opacity: 0,
+    //         y: 30, // Subtle slide up looks great with fade
+    //         duration: 1,
+    //         stagger: 0.2,
+    //         ease: "power2.out"
+    //     });
+    // }
+
+    // gsap.from(".fade_in", {
+    //     opacity: 0,
+    //     duration: 1,
+    //     stagger: 0.2,
+    //     ease: "power2.out"
+    // });
+}, { scope: containerRef, dependencies: [courses] });
     return (
         <div ref={containerRef} className="container h-full mx-auto px-4 mt-5">
             <div className="flex fade_in justify-evenly items-center w-1/10 mb-5">
@@ -90,15 +111,15 @@ function Courses() {
             <div className="flex h-[80%] justify-between relative items-center">
                 {showDetails[0] && <CourseDetails course={showDetails[1]} setShowDetails={setShowDetails} />}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">
-                    {coursesData.map((course) => (
-                        <div onClick={() => setShowDetails([true, course])} className='slide_right flex justify-center h-full items-center' key={course.id}>
+                    {Array.isArray(courses) && courses.map((course) => (
+                        <div onClick={() => setShowDetails([true, course])} className='slide_right flex justify-center h-[90%] items-center' key={course.course_id}>
                             <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
                                 <div className='flex justify-center'>
-                                    <img src={course.image} alt={course.title} className="h-30 object-cover" />
+                                    <img src={course.image} alt={course.course_name} className="h-30 object-cover" />
                                 </div>
                                 <div className='flex justify-evenly flex-col items-start h-[50%]'>
 
-                                    <h3 className="text-md font-semibold mb-2">{course.title}</h3>
+                                    <h3 className="text-md font-semibold mb-2">{course.course_name}</h3>
                                     <div className='flex items-center justify-between w-[90%]'>
                                         <p className="text-black mb-2 gap-1 text-xs flex items-center justify-evenly font-semibold">
                                             <img src="/Dashboard/Courses/duration.svg" alt="Duration" className="h-2 w-2" />
@@ -108,10 +129,14 @@ function Courses() {
                                             <img src="/Dashboard/Courses/level.svg" alt="Level" className="h-2 w-2" />
                                             {course.level}
                                         </p>
+                                        {/* <p className="text-black mb-2 gap-1 text-xs flex items-center justify-evenly font-semibold">
+                                            <img src="/Dashboard/Courses/fee.svg" alt="Type" className="h-2 w-2" />
+                                            {course.price}
+                                        </p> */}
                                         <p className="text-black mb-2 gap-1 text-xs flex items-center justify-evenly font-semibold">
                                             <img src="/Dashboard/Courses/fee.svg" alt="Type" className="h-2 w-2" />
                                             {course.type}
-                                        </p>
+                                    </p>
                                     </div>
                                     <p className="flex items-center gap-1 text-black mb-2 text-xs">
                                         {Array.from({ length: parseInt(course.rating) }, (_, i) => (

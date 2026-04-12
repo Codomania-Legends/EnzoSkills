@@ -23,6 +23,7 @@ import Navbar from './Hero/Navbar/Navbar';
 import { Spin } from './Spin';
 import { Toaster } from 'sileo';
 import AddCourses from './Dashboard/Courses/AddCourses';
+import AddMaterial from './Dashboard/Courses/AddMaterial';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -61,6 +62,7 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/spin' element={<Spin/>}/>
           <Route path='/addcourses' element={<AddCourses/>}/>
+          <Route path='/addmaterial' element={<AddMaterial/>}/>
         </Routes>
       </Router>
     </>

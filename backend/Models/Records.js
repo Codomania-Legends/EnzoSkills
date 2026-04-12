@@ -17,6 +17,6 @@ const RecordsSchema = new Schema({
     score : Number
 })
 
-const RECORDS = model( "/records", RecordsSchema )
+const RECORDS = model( "records", RecordsSchema )
 
 module.exports = RECORDS
