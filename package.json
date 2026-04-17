@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "_install": "npm i && cd ./frontend && npm i && cd ../backend && npm i",
     "start": "concurrently \"cd ./frontend && npm run dev\" \"cd ./backend && npm start\" \"cd ./backend && npm run socket\"",
     "backend": "nodemon backend/server.js",
     "frontend": "npm start --prefix frontend",
