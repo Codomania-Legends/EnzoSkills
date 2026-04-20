@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import Cookies from 'js-cookie';
 
 // Initialize socket outside or inside useEffect to prevent recreation
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:4000");
 
 function Main_RoomPage() {
     const path = window.location.pathname; 

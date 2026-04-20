@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { sileo } from 'sileo';
+import { useNavigate } from 'react-router';
 
 function AddCourses() {
+    const navigate = useNavigate();
     const [allDetails, setAllDetails] = useState({
         course_name: "",
         image: "",
