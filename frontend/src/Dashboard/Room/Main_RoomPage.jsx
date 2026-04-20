@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { io } from "socket.io-client"; 
+import { io } from "socket.io-client";
 import Cookies from 'js-cookie';
 
 // Initialize socket outside or inside useEffect to prevent recreation
 const socket = io("http://localhost:4000");
 
 function Main_RoomPage() {
-    const path = window.location.pathname; 
+    const path = window.location.pathname;
     const roomID = path.split("/")[3];
 
     const [message, setMessage] = useState("");
@@ -58,11 +58,11 @@ function Main_RoomPage() {
                     </div>
                 ))}
             </div>
-            <input 
+            <input
                 type="text"
                 placeholder='Type your message...'
                 value={message}
-                onChange={(e) => setMessage(e.target.value)} 
+                onChange={(e) => setMessage(e.target.value)}
             />
             <button onClick={sendMessage}>Send</button>
         </div>

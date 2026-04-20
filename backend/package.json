@@ -7,7 +7,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index"
+    "start": "nodemon index",
+    "socket": "node Controllers/Room.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
