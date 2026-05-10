@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Utility/global.css";
 import "./index.css"
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
+import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router';
 
 import Home from './Hero/Home/Home';
 import AboutPage from './Hero/AboutUS/AboutPage';
@@ -23,6 +23,14 @@ import Features from './Hero/Features/Features';
 import Navbar from './Hero/Navbar/Navbar';
 import { Spin } from './Spin';
 import { Toaster } from 'sileo';
+import AddCourses from './Dashboard/Courses/AddCourses';
+import AddMaterial from './Dashboard/Courses/AddMaterial';
+import Overview from './Dashboard/CourseDetails/Overview';
+import Doubts from './Dashboard/CourseDetails/Doubts';
+import Assessment from './Dashboard/CourseDetails/Assessment';
+import Learning from './Dashboard/CourseDetails/Learning';
+import Roadmap from "./Dashboard/CourseDetails/Roadmap"
+import { CourseProvider } from './Utility/Course';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -37,10 +45,10 @@ const HomeLayout = () => (
 function App() {
   return (
     <>
-      <Toaster position='top-center'/>
+      <Toaster position='top-center' />
       <Router>
         <Routes>
-          <Route path='/' element={<Loading/>} />
+          <Route path='/' element={<Loading />} />
           <Route element={<HomeLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
@@ -49,19 +57,33 @@ function App() {
           </Route>
           <Route element={<Dash_Layout />}>
             <Route path="/dashboard/home" element={<DashHome />} />
-            <Route path="/dashboard/courses" element={<Courses />}>
-            <Route path="dashboard/learningcourse" element={<Courses />} />
-            </Route>
             <Route path="/dashboard/library" element={<Library />} />
             <Route path="/dashboard/project" element={<Project />} />
             <Route path="/dashboard/room" element={<Room />} />
             <Route path="/dashboard/AI" element={<AI />} />
             <Route path="/dashboard/records" element={<Records />} />
             <Route path="/dashboard/room/:id" element={<Main_RoomPage />} />
+
+            <Route path="/dashboard/courses" element={
+              <CourseProvider>
+                <Outlet />
+              </CourseProvider>
+            }>
+              <Route index element={<Courses />} />
+              <Route path="overview/:id" element={<Overview />} />
+              <Route path="learning/:id" element={<Learning />} />
+              <Route path="assessment/:id" element={<Assessment />} />
+              <Route path="roadmap/:id" element={<Roadmap />} />
+              <Route path="doubts/:id" element={<Doubts />} />
+            </Route>
           </Route>
-          <Route path='/dashload' element={<DashLoad/>} />
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/spin' element={<Spin/>}/>
+          <Route path='/dashload' element={<DashLoad />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/spin' element={<Spin />} />
+          <Route path='/addcourses' element={<AddCourses />} />
+          <Route path='/addmaterial' element={<AddMaterial />} />
+
+          {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
       </Router>
     </>

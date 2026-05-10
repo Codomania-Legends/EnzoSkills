@@ -24,7 +24,7 @@ const handle_Course_Creation = async ( req, res ) => {
             course : newCourse
         })
     } catch (error) {
-        res.end(error.message)
+        res.json({error : error.message})
     }
     
 }
@@ -139,8 +139,7 @@ const get_All_Courses = async ( req, res ) => {
             course : getCourses
         })
     } catch (error) {
-        res.end(error.message)
-        
+        res.status(500).json({error : error.message})
     }
 }
 

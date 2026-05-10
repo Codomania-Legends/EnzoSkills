@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router'; // Using react-router-dom for the useLocation hook 📍
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router';
 import Profile from './Profile/Profile';
 import gsap from 'gsap';
 
 function Dash_Navbar() {
-    const location = useLocation(); 
+    const location = useLocation();
     const navigate = useNavigate()
-    
-    // Check the actual URL to see if we are on the Learning/Courses page 🕵️‍♂️
-    const isCoursesPage = location.pathname === '/dashboard/courses';
+
+    let isCoursesPage = location.pathname.startsWith("/dashboard/courses");
+    const isCourseDetailsPage = location.pathname.split("/")[3]
+
+    if (isCourseDetailsPage) {
+        isCoursesPage = false;
+    }
     const [showProfile, setShowProfile] = useState(false);
+    const [id, setID] = useState(location.pathname.split("/")[2]);
+
+    const navLinks = [
+        { name: "Overview", path: "/dashboard/courses/overview/" },
+        { name: "Learning", path: "/dashboard/courses/learning/" },
+        { name: "Assessments", path: "/dashboard/courses/assessment/" },
+        { name: "Roadmap", path: "/dashboard/courses/roadmap/" },
+        { name: "Doubts", path: "/dashboard/courses/doubts/" },
+    ];
+    const params = useParams();
+
+    useEffect(() => {
+        setID(params.id ? params.id : 1);
+    }, [location.pathname]);
 
     useEffect(() => {
         gsap.fromTo(".dash-nav-ani", {
             opacity: 0,
-        } , {
+        }, {
             opacity: 1,
             duration: 1,
-            stagger : 0.05,
-            delay : 2,
+            stagger: 0.05,
+            delay: 2,
             ease: "power2.out",
         })
     }, [])
-
-    const navLinks = [
-        { name: "Overview", path: "/dashboard" },
-        { name: "Learning", path: "/dashboard/courses" },
-        { name: "Assessments", path: "/dashboard/about" },
-        { name: "Roadmap", path: "/dashboard/contact" },
-        { name: "Doubts", path: "/dashboard/contact" }, 
-    ];
 
     return (
         <div className='dash-navbar-container h-1/10'>
@@ -37,13 +47,12 @@ function Dash_Navbar() {
                 <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
             </div>
 
-            {/* Navigation links should generally remain visible so users can navigate 🧭 */}
-            <div className={"center flex " + (isCoursesPage ? 'hidden' : 'hidden')}>
+            <div className={"center flex " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
                 <ul className="nav-links flex">
                     {navLinks.map((link, index) => (
                         <li key={index + link.name}>
-                            <NavLink 
-                                to={link.path}
+                            <NavLink
+                                to={`${link.path}${id}`}
                                 className={({ isActive }) => `dash-nav-ani text-xs ${isActive ? 'active' : ''}`}
                             >
                                 {link.name}
@@ -62,7 +71,7 @@ function Dash_Navbar() {
                 </div>
             </div>
 
-            <div className='dash-navbar-right'>     
+            <div className='dash-navbar-right'>
                 <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 dash-navbar-profile p-1 box-content'>
                     <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" />
                 </div>

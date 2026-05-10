@@ -6,6 +6,8 @@ const CourseSchema = new mongoose.Schema({
     course_name: { type: String, required: true },
     duration: String,
     price: Number,
+    level: String,
+    type: String,
     rating: { type: Number, default: 0 }, // Changed to Number for easier sorting/filtering
     reviews: [{
         user_id: { type: String, required: true }, // Changed to String to match typical Auth IDs

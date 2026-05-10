@@ -12,8 +12,8 @@
     transition-duration: 0.5s;
     background-color: var(--boxColor);
     box-shadow:
-        20px 20px 40px rgba(58, 62, 108, 0.5), 
-        inset 15px 15px 30px rgba(255, 255, 255, 0.5), 
+        20px 20px 40px rgba(58, 62, 108, 0.5),
+        inset 15px 15px 30px rgba(255, 255, 255, 0.5),
         inset -20px -20px 30px rgba(58, 62, 108, 0.6)
 }
 
@@ -27,29 +27,78 @@
         inset -10px -10px 20px rgba(58, 62, 108, 0.6);
 }
 
-.white{ --boxColor: #FFFFFF; }
-.blue{ --boxColor: #7F77FF; }
-.off-blue{ --boxColor: #D4D2FF; }
-.dark-blue{ --boxColor: #8387C3; }
-.darker-blue{ --boxColor: #534DB4; }
-.red{ --boxColor: #FF7768; }
-.yellow{ --boxColor: #F2C248; }
-.green{ --boxColor: #54F248; }
-.black{ --boxColor: #212121; }
+.white {
+    --boxColor: #FFFFFF;
+}
 
-.big-box-shadow:hover{
+.blue {
+    --boxColor: #7F77FF;
+}
+
+.off-blue {
+    --boxColor: #D4D2FF;
+}
+
+.dark-blue {
+    --boxColor: #8387C3;
+}
+
+.darker-blue {
+    --boxColor: #534DB4;
+}
+
+.red {
+    --boxColor: #FF7768;
+}
+
+.yellow {
+    --boxColor: #F2C248;
+}
+
+.green {
+    --boxColor: #54F248;
+}
+
+.black {
+    --boxColor: #212121;
+}
+
+.pink {
+    --boxColor: #FF77B6;
+}
+
+.orange {
+    --boxColor: #FF9E77;
+}
+
+.purple {
+    --boxColor: #A577FF;
+}
+
+.gray {
+    --boxColor: #838383;
+}
+
+.noScale {
+    scale: 1 !important;
+    transition-duration: 0.5s;
+}
+
+.big-box-shadow:hover:not(.noScale) {
     scale: 1.02;
 }
-.big-box-shadow:active{
+
+.big-box-shadow:active:not(.noScale) {
     scale: 0.9;
 }
+
 .love-light-regular {
     font-family: "Love Light", cursive;
     font-weight: 400;
     font-style: normal;
 }
 
-.notification-message-box{
+.notification-message-box {
     border-top-left-radius: 0.5em !important;
     border-bottom-left-radius: 0.5em !important;
 
