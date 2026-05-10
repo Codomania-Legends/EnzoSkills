@@ -5,7 +5,7 @@
     "backend": "nodemon backend/server.js",
     "frontend": "npm start --prefix frontend",
     "socket": "nodemon socket/index.js",
-    "push": "git add ./ && git commit -a -m \"%npm_config_msg%\" && git push origin main"
+    "push": "node push.js"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
