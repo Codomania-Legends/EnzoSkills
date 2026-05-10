@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react';
 import { Fade_in, Slide_left, Slide_right } from '../../Utility/Animations/Basic';
 import CourseDetails from './CourseDetails';
 import gsap from 'gsap';
+import LearningCourse from './LearningCourse';
 
 function Courses() {    
     const coursesData = [
