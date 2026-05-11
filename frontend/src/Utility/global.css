@@ -36,6 +36,8 @@
 .yellow{ --boxColor: #F2C248; }
 .green{ --boxColor: #54F248; }
 .black{ --boxColor: #212121; }
+.purple{ --boxColor: #8132ff; }
+.gray { --boxColor: #e5e7eb; }
 
 .big-box-shadow:hover{
     scale: 1.02;

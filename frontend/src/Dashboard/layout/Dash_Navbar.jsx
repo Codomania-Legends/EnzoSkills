@@ -63,10 +63,10 @@ function Dash_Navbar() {
             </div>
 
             <div className='dash-navbar-right'>     
-                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 dash-navbar-profile p-1 box-content'>
+                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 dash-navbar-profile p-1 box-content cursor-pointer'>
                     <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" />
                 </div>
-                <div className='dash-navbar-menu dash-nav-ani'>
+                <div className='dash-navbar-menu dash-nav-ani cursor-pointer'>
                     <img src='/Dashboard/menu.png' alt="Menu" />
                 </div>
             </div>

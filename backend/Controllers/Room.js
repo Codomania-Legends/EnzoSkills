@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
     socket.on("send_message", (data) => {
         console.log("Data received:", data);
 
-        socket.to(data.roomID).emit("recieve-msg", data.message);
+        socket.to(data.roomID).emit("recieve-msg", data);
     });
 })
 
