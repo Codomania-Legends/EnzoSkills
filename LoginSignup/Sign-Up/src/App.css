@@ -1,0 +1,24 @@
+ *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app{
+  width: 100%;
+  min-height: 100vh;
+  background: black;
+  padding: 10px;
+}
+
+ .main-container{
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(to right,#7a6dff,#e6e2ff);
+}
+ 
+
+ 
