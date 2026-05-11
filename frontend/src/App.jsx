@@ -8,6 +8,7 @@ import AboutPage from './Hero/AboutUS/AboutPage';
 import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
 import Dash_Layout from './Dashboard/layout/Dash_Layout';
 import Courses from './Dashboard/Courses/Courses';
+import LearningCourse from './Dashboard/Courses/LearningCourse';
 import Library from './Dashboard/Library/Library';
 import Project from './Dashboard/Project/Project';
 import Room from './Dashboard/Room/Room';
