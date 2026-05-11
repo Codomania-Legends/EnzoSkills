@@ -2,7 +2,7 @@
 
 const { execSync } = require('child_process');
 
-const commitMessage = process.argv[2] || "Update";
+const commitMessage = process.argv[2] || "Update...";
 
 try {
     console.log(`Committing and pushing with message: "${commitMessage}"...`);
