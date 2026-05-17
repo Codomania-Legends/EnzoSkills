@@ -7,18 +7,7 @@ function Overview() {
     const { currentCourse, courseDetails, setCurrentCourse } = useCourse();
     const { id } = useParams();
 
-    useEffect(() => {
-        if (courseDetails && courseDetails.length > 0) {
-            // Using a random variable name as instructed! 🕵️‍♂️
-            const qz_matchedCourse = courseDetails.find((c_item) => c_item.id === Number(id) || c_item.id === id);
 
-            if (qz_matchedCourse) {
-                setCurrentCourse(qz_matchedCourse);
-            } else {
-                console.log("Course not found in the list! 🛑");
-            }
-        }
-    }, [id, courseDetails, setCurrentCourse]);
 
     if (!courseDetails) {
         return <div className="text-center mt-10 text-xl font-bold">Loading course list... ⏳</div>;

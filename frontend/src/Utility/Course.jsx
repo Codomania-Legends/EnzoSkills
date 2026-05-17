@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 export const courseContext = createContext();
 
@@ -98,30 +99,48 @@ export function CourseProvider({ children, id }) {
         }
     ];
 
+    const location = useLocation();
+    
+    // Extract ID from URL if we are on a detail page
+    const match = location.pathname.match(/\/dashboard\/courses\/(?:overview|learning|assessment|roadmap|doubts)\/([^/]+)/);
+    const idFromUrl = match ? match[1] : null;
+    const activeId = id || idFromUrl;
+
     useEffect(() => {
-        const fetchCourseData = async () => {
-            if (id) {
-                try {
-                    const singleResult = await axios.get(`http://localhost:3000/api/course/${id}/overview`);
-                    setCurrentCourse(singleResult.data.course);
-                } catch (error) {
-                    console.log("Error fetching single course:", error.message);
-                    const fallbackCourse = coursesData.find(c => c.id === Number(id));
-                    setCurrentCourse(fallbackCourse || null);
-                }
-            } else {
-                try {
-                    const allResults = await axios.get("http://localhost:3000/courses/get");
-                    setCourseDetails(allResults.data.course);
-                } catch (error) {
-                    console.log("Error fetching all courses:", error.message);
-                    setCourseDetails(coursesData);
-                }
+        const fetchAllCourses = async () => {
+            try {
+                const allResults = await axios.get("http://localhost:3000/courses/get");
+                setCourseDetails(allResults.data.course);
+            } catch (error) {
+                console.log("Error fetching all courses:", error.message);
+                setCourseDetails(coursesData);
             }
         };
+        fetchAllCourses();
+    }, []);
 
-        fetchCourseData();
-    }, [id]);
+    useEffect(() => {
+        if (activeId && courseDetails) {
+            const matchedCourse = courseDetails.find(c => String(c.id) === String(activeId));
+            if (matchedCourse) {
+                setCurrentCourse(matchedCourse);
+            } else {
+                const fetchSingle = async () => {
+                    try {
+                        const singleResult = await axios.get(`http://localhost:3000/api/course/${activeId}/overview`);
+                        setCurrentCourse(singleResult.data.course);
+                    } catch (error) {
+                        console.log("Error fetching single course:", error.message);
+                        const fallbackCourse = coursesData.find(c => String(c.id) === String(activeId));
+                        setCurrentCourse(fallbackCourse || null);
+                    }
+                };
+                fetchSingle();
+            }
+        } else if (!activeId) {
+            setCurrentCourse(null);
+        }
+    }, [activeId, courseDetails]);
 
     return (
         <courseContext.Provider value={{
