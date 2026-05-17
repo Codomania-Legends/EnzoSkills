@@ -24,6 +24,7 @@ import { Spin } from './Spin';
 import { Toaster } from 'sileo';
 import AddCourses from './Dashboard/Courses/AddCourses';
 import AddMaterial from './Dashboard/Courses/AddMaterial';
+import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
 import Assessment from './Dashboard/CourseDetails/Assessment';
@@ -78,6 +79,7 @@ function App() {
           </Route>
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/signform' element={<SignUpForm/>}/>
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />

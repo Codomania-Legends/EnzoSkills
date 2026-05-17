@@ -19,9 +19,11 @@ function Main_RoomPage() {
         }
 
         // Listen for messages
-        socket.on("recieve-msg", (msg) => {
+        socket.on("recieve-msg", (data) => {
             // msg here is just the string based on your backend logic
-            setReceivedMessages((prev) => [...prev, { message: msg, user: "Other" }]);
+            console.log(data);
+            // console.log(user)
+            setReceivedMessages((prev) => [...prev, { message: data.message, user: data.user }]);
         });
 
         // Cleanup on unmount

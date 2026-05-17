@@ -51,6 +51,10 @@
     --boxColor: #FF7768;
 }
 
+.purplish {
+    --boxColor: #7A85BC;
+}
+
 .yellow {
     --boxColor: #F2C248;
 }
@@ -63,20 +67,12 @@
     --boxColor: #212121;
 }
 
-.pink {
-    --boxColor: #FF77B6;
-}
-
-.orange {
-    --boxColor: #FF9E77;
-}
-
 .purple {
-    --boxColor: #A577FF;
+    --boxColor: #8132ff;
 }
 
 .gray {
-    --boxColor: #838383;
+    --boxColor: #e5e7eb;
 }
 
 .noScale {
