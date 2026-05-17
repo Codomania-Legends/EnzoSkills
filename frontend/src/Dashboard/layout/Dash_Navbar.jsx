@@ -47,7 +47,7 @@ function Dash_Navbar() {
                 <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
             </div>
 
-            <div className={"center flex " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
+            <div className={"center flex justify-evenly w-1/2 " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
                 <ul className="nav-links flex">
                     {navLinks.map((link, index) => (
                         <li key={index + link.name}>
