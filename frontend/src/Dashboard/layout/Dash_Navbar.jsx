@@ -19,7 +19,7 @@ function Dash_Navbar() {
     const navLinks = [
         { name: "Overview", path: "/dashboard/courses/overview/" },
         { name: "Learning", path: "/dashboard/courses/learning/" },
-        { name: "Assessments", path: "/dashboard/courses/assessment/" },
+        { name: "Assessments", path: "/dashboard/courses/assessment/topic/" },
         { name: "Roadmap", path: "/dashboard/courses/roadmap/" },
         { name: "Doubts", path: "/dashboard/courses/doubts/" },
     ];
@@ -47,7 +47,7 @@ function Dash_Navbar() {
                 <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
             </div>
 
-            <div className={"center flex " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
+            <div className={"center flex w-[50%] " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
                 <ul className="nav-links flex">
                     {navLinks.map((link, index) => (
                         <li key={index + link.name}>

@@ -96,7 +96,7 @@ function Library() {
         <div className="lg:col-span-7 flex flex-col gap-8">
           
           {/* Section 1: Books - Vertical Aspect Ratio */}
-          <div className="white flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 px-10">
+          <div className="white flex flex-col h-[35%] justify-around medium-box-shadow rounded-[2em] p-6 px-10">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">Books and PDFs</h1>
               <div className="flex gap-2">
@@ -117,7 +117,7 @@ function Library() {
           </div>
 
           {/* Section 2: Videos - Landscape Aspect Ratio */}
-          <div className="white flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 px-10">
+          <div className="white flex flex-col h-[40%] justify-around medium-box-shadow rounded-[2em] p-6 px-10">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">Reference Videos</h1>
               <div className="flex gap-2">
