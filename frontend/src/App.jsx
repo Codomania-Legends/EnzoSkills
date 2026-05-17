@@ -8,7 +8,6 @@ import AboutPage from './Hero/AboutUS/AboutPage';
 import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
 import Dash_Layout from './Dashboard/layout/Dash_Layout';
 import Courses from './Dashboard/Courses/Courses';
-import LearningCourse from './Dashboard/Courses/LearningCourse';
 import Library from './Dashboard/Library/Library';
 import Project from './Dashboard/Project/Project';
 import Room from './Dashboard/Room/Room';
@@ -76,7 +75,7 @@ function App() {
               <Route index element={<Courses />} />
               <Route path="overview/:id" element={<Overview />} />
               <Route path="learning/:id" element={<Learning />} />
-              {/* <Route path="assessment/:id" element={<Assessment />} /> */}
+              <Route path="assessment/:id" element={<Assessment />} />
               <Route path="assessment/topic/:id" element={<TopicAssessment />} />
               <Route path="assessment/final/:id" element={<FinalAssessment />} />
               <Route path="roadmap/:id" element={<Roadmap />} />
