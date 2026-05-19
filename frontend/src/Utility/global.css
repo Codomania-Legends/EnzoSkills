@@ -43,6 +43,10 @@
     --boxColor: #8387C3;
 }
 
+.cal-blue {
+    --boxColor: #0000AD;
+}
+
 .darker-blue {
     --boxColor: #534DB4;
 }

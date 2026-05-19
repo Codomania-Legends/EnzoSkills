@@ -32,6 +32,7 @@ import Assessment from './Dashboard/CourseDetails/Assessment';
 import Learning from './Dashboard/CourseDetails/Learning';
 import Roadmap from "./Dashboard/CourseDetails/Roadmap"
 import { CourseProvider } from './Utility/Course';
+import Calender from './Utility/Calender';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -80,10 +81,11 @@ function App() {
           </Route>
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/signform' element={<SignUpForm/>}/>
+          <Route path='/signform' element={<SignUpForm />} />
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
+          <Route path='/calender' element={<Calender />} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
