@@ -85,13 +85,13 @@ function Dash_Navbar() {
             </div>
 
             {/* Profile & Menu Controls */}
-            <div className='flex items-center justify-evenly h-full w-[10%] gap-3 mr-3 md:mr-0 flex-shrink-0'>
-                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 flex justify-center items-center h-full w-4 p-1 box-content cursor-pointer md:w-auto md:h-auto'>
+            <div className='flex items-center justify-end h-full w-[10%] flex-shrink-0'>
+                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 mr-2 md:mr-6 flex justify-end items-center h-full w-4 p-1 box-content cursor-pointer md:w-auto md:h-auto'>
                     <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" className="w-10 h-4 md:object-contain md:h-4 md:w-4 " />
                 </div>
-                <div className='flex justify-center items-center h-full w-4 dash-nav-ani cursor-pointer md:w-auto md:h-auto'>
+                {/* <div className='flex justify-center items-center h-full w-4 dash-nav-ani cursor-pointer md:w-auto md:h-auto'>
                     <img src='/Dashboard/menu.png' alt="Menu" className="w-3 h-3 md:object-contain md:h-4 md:w-4" />
-                </div>
+                </div> */}
             </div>
 
             <Profile showProfile={showProfile} />

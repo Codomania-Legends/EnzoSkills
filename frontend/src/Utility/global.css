@@ -40,6 +40,16 @@
         inset -5px -5px 10px 0px rgba(58, 62, 108, 0.6);
 }
 
+.violetBlue{
+    --boxColor: #112D55;
+}
+.formInputColor{
+    --boxColor: #6B7DB2;
+}
+.formBGColor{
+    --boxColor: #CCD4FB;
+}
+
 .blue {
     --boxColor: #7F77FF;
 }

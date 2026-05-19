@@ -45,8 +45,8 @@ function CourseProgress({Courses}) {
                                         
                                         {/* Adjusted side options position for mobile */}
                                         <div className="absolute top-2 right-2 lg:top-[10%] lg:right-[2%] flex justify-end gap-2 w-auto lg:w-[10%]">
-                                            <img src="/Dashboard/Courses/info.svg" alt="" className="w-4 lg:w-auto cursor-pointer" />
-                                            <img src="/Dashboard/Courses/menu.svg" alt="" className="w-4 lg:w-auto cursor-pointer" />
+                                            <img src="/Dashboard/Courses/info.svg" alt="" className="w-4 h-4 lg:w-auto cursor-pointer" />
+                                            <img src="/Dashboard/Courses/menu.svg" alt="" className="w-4 h-4 lg:w-auto cursor-pointer" />
                                         </div>
                                     </div>
                                 </div>

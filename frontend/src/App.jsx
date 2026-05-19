@@ -36,6 +36,7 @@ import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessmen
 import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
 import Assessment from './Dashboard/CourseDetails/Assessment';
 import Calender from './Utility/Calender';
+import AddProjectForm from './Dashboard/Project/AddProjectForm';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -93,6 +94,7 @@ function App() {
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
           <Route path='/calender' element={<Calender />} />
+          <Route path='/add-project' element={<AddProjectForm />} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
