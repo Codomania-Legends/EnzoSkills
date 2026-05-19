@@ -70,7 +70,7 @@ function Sidebar() {
         }
     ]
     return (
-        <div ref={containerRef} className="sidebar-container medium-box-shadow white p-5">
+        <div ref={containerRef} className="sidebar-container medium-box-shadow white ">
             {pages.map((page, index) => (
                 <div className='flex flex-col justify-center items-center'>
                     <NavLink 

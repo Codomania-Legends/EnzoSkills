@@ -37,15 +37,23 @@ function Project() {
   ]
 
   return (
-    <div className='h-full w-full'>
-      <div className="flex fade_in items-center gap-4 mb-8">
-        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
-        <h1 className="text-2xl font-bold">Project</h1>
+    <div className='h-full w-full overflow-y-auto pr-10 py-4 box-border pb-16 bg-transparent'>
+      <div className="flex justify-between items-center w-full mb-8">
+        <div className="flex items-center gap-4">
+          <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
+          <h1 className="text-3xl font-bold text-gray-900">My Project</h1>
+        </div>
+        
+        {/* Add Project Button Styling */}
+        <button className="text-xs font-semibold text-white px-5 py-2.5 rounded-xl shadow-lg cursor-pointer transition-all hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #3b4b7a, #202b4d)' }}>
+          Add Project +
+        </button>
       </div>
 
-      <div className="flex w-full flex-wrap gap-6 justify-start">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-md sm:max-w-none mx-auto">
         {data.map((item, index) => (
-          <div key={index} className="flex w-[23%] flex-col white medium-box-shadow rounded-[3em] py-8 px-4 gap-4 relative">
+          <div key={index} className="flex w-full flex-col white medium-box-shadow rounded-[2.5em] p-5 gap-3 relative">
             
             {/* Top Section: Project Image */}
             <div className="flex align-center justify-center h-[50%] overflow-hidden">

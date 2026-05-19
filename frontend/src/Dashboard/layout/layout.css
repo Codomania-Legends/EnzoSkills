@@ -163,12 +163,13 @@ input.dash-navbar-input-search {
 
 .dash-content{
     height: 100%;
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 5%;
+    padding-left: 4%;
     box-sizing: border-box  ;
+    background: transparent;
 }
 
 .dash-nav-ani{ opacity: 0; }

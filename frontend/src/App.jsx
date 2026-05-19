@@ -35,6 +35,7 @@ import Signup from './Hero/Login_Signup/Signup';
 import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
 import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
 import Assessment from './Dashboard/CourseDetails/Assessment';
+import Calender from './Utility/Calender';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -91,7 +92,7 @@ function App() {
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
-          <Route path='/calender' element={<Calender />} />
+          <Route path='/calender' element={<Calender/>} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
