@@ -8,7 +8,7 @@ function Dash_Layout() {
             <Dash_Navbar />
             <div className="main-container">
                 <Sidebar />
-                <div className='dash-content'>
+                <div className='dash-content md:overflow-visible overflow-scroll'>
                     <Outlet />
                 </div>
             </div>

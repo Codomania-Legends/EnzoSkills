@@ -19,15 +19,15 @@ function Courses() {
         });
     }, { scope: containerRef, dependencies: [courseDetails] });
     return (
-        <div ref={containerRef} className="container overflow-scroll md:overflow-hidden h-full md:h-full mx-auto px-4 mt-5">
+        <div ref={containerRef} className="container w-full sm:overflow-scroll md:overflow-visible h-full md:h-full mx-auto px-4 mt-5">
             <div className="flex justify-evenly items-center w-1/10 mb-5">
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
                 <h1 className="text-2xl h-[10%] font-bold">Courses</h1>
             </div>
             <div className="flex h-[80%] justify-between relative items-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">
+                <div className="flex flex-wrap justify-center gap-10 h-full">
                     {Array.isArray(courseDetails) && courseDetails.map((course) => (
-                        <div onClick={() => { setCurrentCourse(course.id); navigate(`/dashboard/courses/overview/${course.id}`); }} className='slide_right flex justify-center h-full md:h-[90%] items-center' key={course.id}>
+                        <div onClick={() => { setCurrentCourse(course.id); navigate(`/dashboard/courses/overview/${course.id}`); }} className='slide_right flex w-full md:w-[45%] lg:w-[22%] justify-center h-full md:h-[90%] items-center' key={course.id}>
                             <div className="white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
                                 <div className='flex justify-center'>
                                     <img src={course.image} alt={course.course_name} className="h-25 md:h-30 object-cover" />
