@@ -10,6 +10,12 @@ function Resource({ number, title }) {
   );
 }
 function Learning() {
+  const weeks = [
+    { week1: ["Test 1", "Test 2"] },
+    { week2: ["Test 3", "Test 4"] },
+    { week3: ["Test 5", "Test 6"] },
+    { week4: ["Test 7", "Test 8"] }
+  ]
   return (
     <div className='dash'>
       <div className='heading'>

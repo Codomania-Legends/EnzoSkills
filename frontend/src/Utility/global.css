@@ -40,6 +40,53 @@
         inset -5px -5px 10px 0px rgba(58, 62, 108, 0.6);
 }
 
+.blue {
+    --boxColor: #7F77FF;
+}
+
+.off-blue {
+    --boxColor: #D4D2FF;
+}
+
+.dark-blue {
+    --boxColor: #8387C3;
+}
+
+.cal-blue {
+    --boxColor: #0000AD;
+}
+
+.darker-blue {
+    --boxColor: #534DB4;
+}
+
+.red {
+    --boxColor: #FF7768;
+}
+
+.purplish {
+    --boxColor: #7A85BC;
+}
+
+.yellow {
+    --boxColor: #F2C248;
+}
+
+.green {
+    --boxColor: #54F248;
+}
+
+.black {
+    --boxColor: #212121;
+}
+
+.purple {
+    --boxColor: #8132ff;
+}
+
+.gray {
+    --boxColor: #e5e7eb;
+}
 .white{ --boxColor: #FFFFFF; }
 .blue{ --boxColor: #7F77FF; }
 .off-blue{ --boxColor: #D4D2FF; }

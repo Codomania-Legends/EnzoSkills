@@ -91,6 +91,7 @@ function App() {
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
+          <Route path='/calender' element={<Calender />} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
