@@ -34,6 +34,7 @@ import LoginForm from './Hero/Login_Signup/Login';
 import Signup from './Hero/Login_Signup/Signup';
 import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
 import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
+import Assessment from './Dashboard/CourseDetails/Assessment';
 
 const HomeLayout = () => (
   <div className='home-main-container'>

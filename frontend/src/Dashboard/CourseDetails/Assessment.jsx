@@ -19,7 +19,7 @@ function Assessment() {
               <button className="learnBtn small-box-shadow green">
                 Learn for Test
               </button>
-              <button className="startBtn small-box-shadow blue">
+              <button className="startBtn small-box-shadow blue" >
                 Start Test
               </button>
             </div>
