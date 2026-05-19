@@ -8,7 +8,6 @@ import AboutPage from './Hero/AboutUS/AboutPage';
 import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
 import Dash_Layout from './Dashboard/layout/Dash_Layout';
 import Courses from './Dashboard/Courses/Courses';
-import LearningCourse from './Dashboard/Courses/LearningCourse';
 import Library from './Dashboard/Library/Library';
 import Project from './Dashboard/Project/Project';
 import Room from './Dashboard/Room/Room';
@@ -28,11 +27,13 @@ import AddMaterial from './Dashboard/Courses/AddMaterial';
 import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
-import Assessment from './Dashboard/CourseDetails/Assessment';
 import Learning from './Dashboard/CourseDetails/Learning';
 import Roadmap from "./Dashboard/CourseDetails/Roadmap"
 import { CourseProvider } from './Utility/Course';
-import Calender from './Utility/Calender';
+import LoginForm from './Hero/Login_Signup/Login';
+import Signup from './Hero/Login_Signup/Signup';
+import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
+import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -75,13 +76,17 @@ function App() {
               <Route path="overview/:id" element={<Overview />} />
               <Route path="learning/:id" element={<Learning />} />
               <Route path="assessment/:id" element={<Assessment />} />
+              <Route path="assessment/topic/:id" element={<TopicAssessment />} />
+              <Route path="assessment/final/:id" element={<FinalAssessment />} />
               <Route path="roadmap/:id" element={<Roadmap />} />
               <Route path="doubts/:id" element={<Doubts />} />
             </Route>
           </Route>
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/signform' element={<SignUpForm />} />
+          <Route path='/login-page' element={<Login/>} />
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/signform' element={<SignUpForm/>}/>
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />

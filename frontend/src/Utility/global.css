@@ -27,8 +27,17 @@
         inset -10px -10px 20px rgba(58, 62, 108, 0.6);
 }
 
-.white {
-    --boxColor: #FFFFFF;
+.circle-box-shadow {
+    transition-duration: 0.5s;
+    box-shadow:
+        /* 1. Drop shadow: X:5, Y:5, Blur:20, Spread:0, Color: #3A3E6C at 25% */
+        5px 5px 20px 0px rgba(58, 62, 108, 0.25),
+        
+        /* 2. Inner shadow (Highlight): X:0, Y:5, Blur:10, Spread:0, Color: #FFFFFF at 50% */
+        inset 0px 5px 10px 0px rgba(255, 255, 255, 0.5),
+        
+        /* 3. Inner shadow (Deep): X:-5, Y:-5, Blur:10, Spread:0, Color: #3A3E6C at 60% */
+        inset -5px -5px 10px 0px rgba(58, 62, 108, 0.6);
 }
 
 .blue {
@@ -78,6 +87,19 @@
 .gray {
     --boxColor: #e5e7eb;
 }
+.white{ --boxColor: #FFFFFF; }
+.blue{ --boxColor: #7F77FF; }
+.off-blue{ --boxColor: #D4D2FF; }
+.dark-blue{ --boxColor: #8387C3; }
+.darker-blue{ --boxColor: #534DB4; }
+.red{ --boxColor: #FF7768; }
+.yellow{ --boxColor: #F2C248; }
+.green{ --boxColor: #54F248; }
+.dark-green{ --boxColor: #27C840; }
+.black{ --boxColor: #212121; }
+.purple{ --boxColor: #8132ff; }
+.gray { --boxColor: #e5e7eb; }
+.purple2{ --boxColor: #6C63FE; }
 
 .noScale {
     scale: 1 !important;

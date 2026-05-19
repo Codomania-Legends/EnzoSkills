@@ -122,7 +122,7 @@ function Records() {
     <>
       <div className="re">
         <span id="history">
-          <i className="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left" id="arrow"></i>
           <b>History</b>
         </span>
 
