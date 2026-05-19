@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import "./Library.css"
 import { useNavigate } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import { Fade_in } from '../../Utility/Animations/Basic'
+import gsap from 'gsap'
 
 // 📦 Moving static data outside the component to optimize performance
 const bookData = [
@@ -75,15 +76,25 @@ function Library() {
     }
   };
 
-  useGSAP(() => {
-    Fade_in();
-  }, { scope: containerRef });
+  useEffect(() => {
+
+    gsap.fromTo(".slide-left", { xPercent: -100 }, { xPercent: 0, duration: 1, ease: "power2.inOut" })
+    gsap.fromTo(".slide-right", { xPercent: 100 }, { xPercent: 0, duration: 1, ease: "power2.inOut" })
+
+    gsap.fromTo(".slide-top", { yPercent: -100 }, { yPercent: 0, duration: 1, ease: "power2.inOut" })
+    gsap.fromTo(".slide-bottom", { yPercent: 100 }, { yPercent: 0, duration: 1, ease: "power2.inOut" })
+
+  }, [])
+
+  // useGSAP(() => {
+  //   Fade_in();
+  // }, { scope: containerRef });
 
   return (
     <div ref={containerRef} className="container mx-auto px-4 h-full">
 
       {/* Header Section */}
-      <div className="flex items-center gap-4 mb-2">
+      <div className="flex items-center gap-4 mb-2 slide-top">
         <img
           src="/Dashboard/Courses/Back.svg"
           alt="Back"
@@ -93,15 +104,10 @@ function Library() {
         <h1 className="text-2xl font-bold">Library</h1>
       </div>
 
-      {/* 
-        Responsive Grid Layout:
-        - Mobile: 1 column
-        - Large Screens: 3 columns (Books/Videos span 2, Widgets span 1) 
-      */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full w-full pb-30">
 
         {/* Section 1: Books (Takes 2 columns on Desktop) 📚 */}
-        <div className="white flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
+        <div className="white slide-right flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Books and PDFs</h1>
             <div className="flex gap-2">
@@ -110,12 +116,11 @@ function Library() {
             </div>
           </div>
 
-          <div ref={scrollRefBooks} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
+          <div ref={scrollRefBooks} className="flex slide-left flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
             {bookData.map((item, index) => (
               <div key={index} onClick={() => window.open(item.book_pdf, "_blank")} className="flex flex-col items-center gap-3 flex-none w-36 cursor-pointer group">
-                {/* Changed h-30 to standard Tailwind h-32 */}
-                <div className="h-32 w-full overflow-hidden rounded-lg small-box-shadow transition-transform group-hover:scale-105">
-                  <img src={item.book_img} alt={item.book_name} className="h-full w-full object-cover" />
+                <div className="h-32 w-full overflow-hidden rounded-lg transition-transform group-hover:scale-105">
+                  <img src={item.book_img} alt={item.book_name} className="h-full w-full p-5 object-cover small-box-shadow" />
                 </div>
                 <h2 className="text-sm font-bold text-center line-clamp-2">{item.book_name}</h2>
               </div>
@@ -124,14 +129,14 @@ function Library() {
         </div>
 
         {/* Widget 1: Help (Takes 1 column on Desktop) 🙋 */}
-        <div className="white flex flex-col justify-center items-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
+        <div className="white flex flex-col slide-bottom justify-center items-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
           <h1 className="text-2xl font-bold mb-4">Need Help?</h1>
           <img src="/Dashboard/CustomerHelp.svg" alt="Help" className='h-32 w-32 mb-4 animate-bounce-slow' />
           <p className='text-center text-md font-bold'>Need help for doubt Solving</p>
         </div>
 
         {/* Section 2: Videos (Takes 2 columns on Desktop) 🎬 */}
-        <div className="white flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
+        <div className="white flex flex-col slide-left justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Reference Videos</h1>
             <div className="flex gap-2">
@@ -156,7 +161,7 @@ function Library() {
         </div>
 
         {/* Widget 2: Ask Doubts (Takes 1 column on Desktop) 🤖 */}
-        <div className="white flex flex-col justify-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
+        <div className="white slide-bottom flex flex-col justify-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
           <h1 className="text-2xl font-bold text-center">Ask Doubts</h1>
           <div className='flex flex-col gap-2 font-bold mt-6'>
             <p>• Doubts not solved?</p>

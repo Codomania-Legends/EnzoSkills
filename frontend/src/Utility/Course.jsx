@@ -100,8 +100,7 @@ export function CourseProvider({ children, id }) {
     ];
 
     const location = useLocation();
-    
-    // Extract ID from URL if we are on a detail page
+
     const match = location.pathname.match(/\/dashboard\/courses\/(?:overview|learning|assessment|roadmap|doubts)\/([^/]+)/);
     const idFromUrl = match ? match[1] : null;
     const activeId = id || idFromUrl;
@@ -109,8 +108,8 @@ export function CourseProvider({ children, id }) {
     useEffect(() => {
         const fetchAllCourses = async () => {
             try {
-                const allResults = await axios.get("http://localhost:3000/courses/get");
-                setCourseDetails(allResults.data.course);
+                // const allResults = await axios.get("http://localhost:3000/courses/get");
+                setCourseDetails(coursesData);
             } catch (error) {
                 console.log("Error fetching all courses:", error.message);
                 setCourseDetails(coursesData);

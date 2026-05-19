@@ -73,7 +73,7 @@ function App() {
               <CourseProvider>
                 <Outlet />
               </CourseProvider>
-            }>
+            } >
               <Route index element={<Courses />} />
               <Route path="overview/:id" element={<Overview />} />
               <Route path="learning/:id" element={<Learning />} />
@@ -86,13 +86,13 @@ function App() {
           </Route>
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/login-page' element={<Login/>} />
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/signform' element={<SignUpForm/>}/>
+          <Route path='/login-page' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/signform' element={<SignUpForm />} />
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
-          <Route path='/calender' element={<Calender/>} />
+          <Route path='/calender' element={<Calender />} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
