@@ -161,7 +161,7 @@ function Room() {
         <h1 className='text-2xl font-bold tracking-tight room-page-title'>Room</h1>
       </div>
 
-      <div className='grow w-full flex justify-center items-center p-2 pb-10 md:p-0'>
+      <div className='grow w-full flex justify-center items-left p-2 md:pb-10'>
         <div className='white-box-container w-full md:w-auto md:aspect-5/3 h-auto md:h-[80%] white small-box-shadow rounded-[2rem] md:rounded-[3rem] flex flex-col md:flex-row justify-between items-center p-6 md:p-12 relative gap-8 md:gap-0'>
 
           <div className='flex flex-col h-full justify-center gap-6 md:gap-10 items-center md:items-start text-center md:text-left w-full md:w-auto'>
