@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useCourse } from '../../Utility/Course';
 import { useNavigate } from 'react-router';
+import TitleAnimation from '../TitleAnimation';
 function Courses() {
 
     const { currentCourse, setCurrentCourse, courseDetails } = useCourse();
@@ -10,6 +11,12 @@ function Courses() {
     const navigate = useNavigate();
 
     const containerRef = useRef(null);
+
+    useGSAP(() => {
+        const tl = gsap.timeline();
+        TitleAnimation(tl, "courses-page-title");
+    }, { scope: containerRef });
+
     useEffect(() => {
         gsap.to(".fade_in", {
             opacity: 1,
@@ -23,7 +30,7 @@ function Courses() {
         <div ref={containerRef} className="container w-full sm:overflow-scroll md:overflow-visible h-full md:h-full mx-auto px-4 mt-5">
             <div className="flex justify-evenly items-center w-1/10 mb-5">
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
-                <h1 className="text-2xl h-[10%] font-bold">Courses</h1>
+                <h1 className="text-2xl h-[10%] font-bold courses-page-title">Courses</h1>
             </div>
             <div className="flex h-[80%] justify-between relative items-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">

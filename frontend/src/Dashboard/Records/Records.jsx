@@ -1,4 +1,7 @@
 import React from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import TitleAnimation from "../TitleAnimation";
 
 function Card(props) {
   return (
@@ -73,6 +76,11 @@ function Card(props) {
 }
 
 function Records() {
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    TitleAnimation(tl, "records-page-title");
+  });
+
   const data = [
     { day: "Day 1", course: "C/C++", badge: "Silver", badgeImage: "/Records/silver.png" },
     { day: "Day 2", course: "JavaScript", badge: "Silver", badgeImage: "/Records/silver.png" },
@@ -97,7 +105,7 @@ function Records() {
       */}
         <div className="flex items-center gap-4 mb-5">
           <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
-          <h1 className="text-3xl font-bold text-gray-900">My Records</h1>
+          <h1 className="text-2xl font-bold text-gray-900 records-page-title">My Records</h1>
         </div>
       <div className="flex flex-col md:flex-row justify-between w-full relative gap-6 md:gap-0 max-md:pt-14 max-md:px-4">
         

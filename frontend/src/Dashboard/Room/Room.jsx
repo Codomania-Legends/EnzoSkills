@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
+import TitleAnimation from '../TitleAnimation';
 
 gsap.registerPlugin(SplitText);
 
@@ -17,12 +18,14 @@ function Room() {
   const inputRefs = useRef([]);
 
   const handleCopy = () => {
-    if( idValue.join("") === "______" || idValue.join("") === "" ){
-      sileo.error( {title : "error", description : (
-        <p className='flex justify-center items-center font-semibold'>
-          Please Enter Room ID
-        </p>
-      )} )
+    if (idValue.join("") === "______" || idValue.join("") === "") {
+      sileo.error({
+        title: "error", description: (
+          <p className='flex justify-center items-center font-semibold'>
+            Please Enter Room ID
+          </p>
+        )
+      })
       return;
     }
     const fullId = idValue.join("");
@@ -46,8 +49,8 @@ function Room() {
   };
 
   const handleChange = (element, index) => {
-    const value = element.value.slice(-1);  
-    if (!value) return; 
+    const value = element.value.slice(-1);
+    if (!value) return;
 
     const newId = [...idValue];
     newId[index] = value;
@@ -66,9 +69,12 @@ function Room() {
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    tl.from(".white-box-container", {
-      scaleX: 0,
-      opacity: 0,
+
+    TitleAnimation(tl, "room-page-title");
+
+    tl.to(".white-box-container", {
+      scaleX: 1,
+      opacity: 1,
       duration: 0.8,
       transformOrigin: "center",
     });
@@ -84,10 +90,10 @@ function Room() {
 
     tl.fromTo(".button-room-section", {
       opacity: 0,
-      scale : 0,
-    },{
+      scale: 0,
+    }, {
       opacity: 1,
-      scale : 1,
+      scale: 1,
       duration: 0.2,
       stagger: 0.05,
       ease: "power4.out",
@@ -120,7 +126,7 @@ function Room() {
       opacity: 0,
       scale: 0,
       y: 0,
-    },{
+    }, {
       opacity: 1,
       scale: 1,
       y: -5,
@@ -131,7 +137,7 @@ function Room() {
   }, { scope: containerRef });
 
   useEffect(() => {
-    if(copied){
+    if (copied) {
       gsap.to(".copy-icon-room-fill", {
         y: 0,
         x: 0,
@@ -149,31 +155,28 @@ function Room() {
   }, [copied]);
 
   return (
-    <div ref={containerRef} className='flex h-full w-full flex-col p-8 overflow-hidden'>
+    <div ref={containerRef} className='flex h-full w-full flex-col pb-8 overflow-hidden'>
       <div className='flex items-center gap-4 w-full h-fit mb-4'>
         <img src="/Dashboard/Courses/Back.svg" alt="Back" className='w-5 h-5 cursor-pointer hover:scale-110 transition-transform' />
-        <h1 className='text-2xl font-bold tracking-tight'>Room</h1>
+        <h1 className='text-2xl font-bold tracking-tight room-page-title'>Room</h1>
       </div>
 
-      <div className='grow w-full flex justify-center items-center p-2 md:p-0'>
-        {/* Changed to flex-col on mobile, removed strict aspect ratio and height constraints for small screens */}
+      <div className='grow w-full flex justify-center items-center p-2 pb-10 md:p-0'>
         <div className='white-box-container w-full md:w-auto md:aspect-5/3 h-auto md:h-[80%] white small-box-shadow rounded-[2rem] md:rounded-[3rem] flex flex-col md:flex-row justify-between items-center p-6 md:p-12 relative gap-8 md:gap-0'>
-          
+
           <div className='flex flex-col h-full justify-center gap-6 md:gap-10 items-center md:items-start text-center md:text-left w-full md:w-auto'>
-            {/* Swapped hard breaks <br /> for responsive container widths */}
-            <div className='text-2xl md:text-4xl font-extrabold leading-[1.1] room-text max-w-xs md:max-w-none'>
+            <div className='text-2xl md:text-4xl font-extrabold leading-[1.1] room-text max-w-xs md:max-w-none pr-5'>
               Create or Join Room to chat with your Friends.
             </div>
 
-            {/* Centered code inputs and adjust copy-paste wrapper for narrow screens */}
             <div className='flex flex-wrap justify-center items-center gap-3 md:gap-4 w-full md:w-auto'>
               <div className='flex gap-1 md:gap-2' onPaste={handlePaste}>
                 {idValue.map((char, index) => (
-                  <input 
-                    key={index} 
+                  <input
+                    key={index}
                     ref={(el) => (inputRefs.current[index] = el)}
-                    className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors' 
-                    value={char} 
+                    className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
+                    value={char}
                     onChange={(e) => handleChange(e.target, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                   />
@@ -193,15 +196,15 @@ function Room() {
             </div>
           </div>
 
-          {/* Full width action buttons stacked vertically below the text on mobile */}
           <div className='w-full md:w-1/3 flex flex-col gap-4 md:gap-5 justify-center h-full'>
             <button
               onClick={() => {
-                if(idValue.join("") === "______"){
-                  sileo.error( {title : "Error", description : "Please Enter Room ID"} )
+                if (idValue.join("") === "______") {
+                  sileo.error({ title: "Error", description: "Please Enter Room ID" })
                   return;
                 }
-                navigate(`/dashboard/room/${idValue.join("")}`)}
+                navigate(`/dashboard/room/${idValue.join("")}`)
+              }
               }
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
@@ -210,16 +213,19 @@ function Room() {
 
             <button
               onClick={() => {
-                if(idValue.join("") === "______"){
+                if (idValue.join("") === "______") {
                   setIdValue(new Array(6).fill(0).map(() => Math.ceil(Math.random() * 9)));
-                  sileo.success( {title : "Success", description : (
-                    <p className='flex justify-center items-center font-semibold'>
-                      Room ID Created
-                    </p>
-                  ) } )
+                  sileo.success({
+                    title: "Success", description: (
+                      <p className='flex justify-center items-center font-semibold'>
+                        Room ID Created
+                      </p>
+                    )
+                  })
                   return;
                 }
-                navigate(`/dashboard/room/${idValue.join("")}`)}
+                navigate(`/dashboard/room/${idValue.join("")}`)
+              }
               }
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >

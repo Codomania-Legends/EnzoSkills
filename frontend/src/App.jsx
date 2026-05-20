@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import "./Utility/global.css";
 import "./index.css"
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router';
@@ -30,13 +30,13 @@ import Doubts from './Dashboard/CourseDetails/Doubts';
 import Learning from './Dashboard/CourseDetails/Learning';
 import Roadmap from "./Dashboard/CourseDetails/Roadmap"
 import { CourseProvider } from './Utility/Course';
-import LoginForm from './Hero/Login_Signup/Login';
 import Signup from './Hero/Login_Signup/Signup';
 import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
 import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
 import Assessment from './Dashboard/CourseDetails/Assessment';
 import Calender from './Utility/Calender';
 import AddProjectForm from './Dashboard/Project/AddProjectForm';
+import LoadImages from './Utility/Loading/LoadImages';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -49,6 +49,16 @@ const HomeLayout = () => (
 );
 
 function App() {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const images = [
+    "/Dashboard/projectImg.svg",
+  ]
+
+  useMemo(() => {
+    let loadedImages = LoadImages({ images });
+    setImagesLoaded(loadedImages);
+  }, []);
+
   return (
     <>
       <Toaster position='top-center' />

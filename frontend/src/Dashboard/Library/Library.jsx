@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import "./Library.css"
 import { useNavigate } from 'react-router'
-import { useGSAP } from '@gsap/react'
-import { Fade_in } from '../../Utility/Animations/Basic'
 import gsap from 'gsap'
+import { useGSAP } from "@gsap/react"
+import TitleAnimation from "../TitleAnimation"
 
 // 📦 Moving static data outside the component to optimize performance
 const bookData = [
@@ -76,38 +76,31 @@ function Library() {
     }
   };
 
-  useEffect(() => {
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    TitleAnimation(tl, "library-page-title");
+    tl.fromTo(".fade-in", { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.2, ease: "power2.inOut" })
 
-    gsap.fromTo(".slide-left", { xPercent: -100 }, { xPercent: 0, duration: 1, ease: "power2.inOut" })
-    gsap.fromTo(".slide-right", { xPercent: 100 }, { xPercent: 0, duration: 1, ease: "power2.inOut" })
-
-    gsap.fromTo(".slide-top", { yPercent: -100 }, { yPercent: 0, duration: 1, ease: "power2.inOut" })
-    gsap.fromTo(".slide-bottom", { yPercent: 100 }, { yPercent: 0, duration: 1, ease: "power2.inOut" })
-
-  }, [])
-
-  // useGSAP(() => {
-  //   Fade_in();
-  // }, { scope: containerRef });
+  }, { scope: containerRef })
 
   return (
     <div ref={containerRef} className="container mx-auto px-4 h-full">
 
       {/* Header Section */}
-      <div className="flex items-center gap-4 mb-2 slide-top">
+      <div className="flex items-center gap-4 mb-2">
         <img
           src="/Dashboard/Courses/Back.svg"
           alt="Back"
           className="h-4 w-4 cursor-pointer hover:scale-110 transition-transform"
           onClick={() => navigate(-1)}
         />
-        <h1 className="text-2xl font-bold">Library</h1>
+        <h1 className="text-2xl font-bold library-page-title">Library</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full w-full pb-30">
 
         {/* Section 1: Books (Takes 2 columns on Desktop) 📚 */}
-        <div className="white slide-right flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
+        <div className="white fade-in opacity-0 flex flex-col justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Books and PDFs</h1>
             <div className="flex gap-2">
@@ -116,7 +109,7 @@ function Library() {
             </div>
           </div>
 
-          <div ref={scrollRefBooks} className="flex slide-left flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
+          <div ref={scrollRefBooks} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
             {bookData.map((item, index) => (
               <div key={index} onClick={() => window.open(item.book_pdf, "_blank")} className="flex flex-col items-center gap-3 flex-none w-36 cursor-pointer group">
                 <div className="h-32 w-full overflow-hidden rounded-lg transition-transform group-hover:scale-105">
@@ -129,14 +122,14 @@ function Library() {
         </div>
 
         {/* Widget 1: Help (Takes 1 column on Desktop) 🙋 */}
-        <div className="white flex flex-col slide-bottom justify-center items-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
+        <div className="white fade-in opacity-0 flex flex-col justify-center items-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
           <h1 className="text-2xl font-bold mb-4">Need Help?</h1>
           <img src="/Dashboard/CustomerHelp.svg" alt="Help" className='h-32 w-32 mb-4 animate-bounce-slow' />
           <p className='text-center text-md font-bold'>Need help for doubt Solving</p>
         </div>
 
         {/* Section 2: Videos (Takes 2 columns on Desktop) 🎬 */}
-        <div className="white flex flex-col slide-left justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
+        <div className="white flex flex-col fade-in opacity-0 justify-around medium-box-shadow rounded-[2em] p-6 lg:col-span-3">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Reference Videos</h1>
             <div className="flex gap-2">
@@ -161,7 +154,7 @@ function Library() {
         </div>
 
         {/* Widget 2: Ask Doubts (Takes 1 column on Desktop) 🤖 */}
-        <div className="white slide-bottom flex flex-col justify-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
+        <div className="white fade-in opacity-0 flex flex-col justify-center medium-box-shadow rounded-[2em] p-8 lg:col-span-1">
           <h1 className="text-2xl font-bold text-center">Ask Doubts</h1>
           <div className='flex flex-col gap-2 font-bold mt-6'>
             <p>• Doubts not solved?</p>
