@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import "./Utility/global.css";
 import "./index.css"
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router';
@@ -27,10 +27,16 @@ import AddMaterial from './Dashboard/Courses/AddMaterial';
 import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
-import Assessment from './Dashboard/CourseDetails/Assessment';
 import Learning from './Dashboard/CourseDetails/Learning';
 import Roadmap from "./Dashboard/CourseDetails/Roadmap"
 import { CourseProvider } from './Utility/Course';
+import Signup from './Hero/Login_Signup/Signup';
+import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
+import FinalAssessment from './Dashboard/CourseDetails/Assessment/FinalAssessment';
+import Assessment from './Dashboard/CourseDetails/Assessment';
+import Calender from './Utility/Calender';
+import AddProjectForm from './Dashboard/Project/AddProjectForm';
+import LoadImages from './Utility/Loading/LoadImages';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -43,6 +49,16 @@ const HomeLayout = () => (
 );
 
 function App() {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const images = [
+    "/Dashboard/projectImg.svg",
+  ]
+
+  useMemo(() => {
+    let loadedImages = LoadImages({ images });
+    setImagesLoaded(loadedImages);
+  }, []);
+
   return (
     <>
       <Toaster position='top-center' />
@@ -68,21 +84,27 @@ function App() {
               <CourseProvider>
                 <Outlet />
               </CourseProvider>
-            }>
+            } >
               <Route index element={<Courses />} />
               <Route path="overview/:id" element={<Overview />} />
               <Route path="learning/:id" element={<Learning />} />
               <Route path="assessment/:id" element={<Assessment />} />
+              <Route path="assessment/topic/:id" element={<TopicAssessment />} />
+              <Route path="assessment/final/:id" element={<FinalAssessment />} />
               <Route path="roadmap/:id" element={<Roadmap />} />
               <Route path="doubts/:id" element={<Doubts />} />
             </Route>
           </Route>
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/signform' element={<SignUpForm/>}/>
+          <Route path='/login-page' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/signform' element={<SignUpForm />} />
           <Route path='/spin' element={<Spin />} />
           <Route path='/addcourses' element={<AddCourses />} />
           <Route path='/addmaterial' element={<AddMaterial />} />
+          <Route path='/calender' element={<Calender />} />
+          <Route path='/add-project' element={<AddProjectForm />} />
 
           {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>

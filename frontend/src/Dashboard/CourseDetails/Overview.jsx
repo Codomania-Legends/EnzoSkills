@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { useCourse } from '../../Utility/Course';
 import { useNavigate, useParams } from 'react-router';
+import TitleAnimation from '../TitleAnimation';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 function Overview() {
     const navigate = useNavigate();
     const { currentCourse, courseDetails, setCurrentCourse } = useCourse();
     const { id } = useParams();
 
-
+    useGSAP(() => {
+        const tl = gsap.timeline();
+        TitleAnimation(tl, "overview-page-title");
+    });
 
     if (!courseDetails) {
         return <div className="text-center mt-10 text-xl font-bold">Loading course list... ⏳</div>;
@@ -23,7 +29,7 @@ function Overview() {
             <div className="flex justify-start w-[90%] mb-5 cursor-pointer" onClick={() => navigate("/dashboard/courses")}>
                 <div className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                     <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
-                    <h1 className="text-2xl font-bold">Courses</h1>
+                    <h1 className="text-2xl font-bold overview-page-title">Courses</h1>
                 </div>
             </div>
 

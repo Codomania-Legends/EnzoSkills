@@ -5,81 +5,98 @@ import gsap from 'gsap';
 
 function Dash_Navbar() {
     const location = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const params = useParams();
 
-    let isCoursesPage = location.pathname.startsWith("/dashboard/courses");
-    const isCourseDetailsPage = location.pathname.split("/")[3]
+    const currentPath = location.pathname;
+    const pathSegments = currentPath.split("/").filter(Boolean);
 
-    if (isCourseDetailsPage) {
-        isCoursesPage = false;
-    }
+    const isCoursesPage = currentPath === "/dashboard/courses" || currentPath === "/dashboard/courses/";
+
+    const isCourseDetailsPage = currentPath.startsWith("/dashboard/courses/") && pathSegments.length > 2;
+
     const [showProfile, setShowProfile] = useState(false);
-    const [id, setID] = useState(location.pathname.split("/")[2]);
+
+    // Logic Optimization: Derived directly from params without useState/useEffect! 🧠
+    const id = params.id || 1;
 
     const navLinks = [
         { name: "Overview", path: "/dashboard/courses/overview/" },
         { name: "Learning", path: "/dashboard/courses/learning/" },
-        { name: "Assessments", path: "/dashboard/courses/assessment/" },
+        { name: "Assessments", path: "/dashboard/courses/assessment/topic/" },
         { name: "Roadmap", path: "/dashboard/courses/roadmap/" },
         { name: "Doubts", path: "/dashboard/courses/doubts/" },
     ];
-    const params = useParams();
 
+    // GSAP Optimization: Added context for cleanup! 🧹
     useEffect(() => {
-        setID(params.id ? params.id : 1);
-    }, [location.pathname]);
+        let ctx = gsap.context(() => {
+            gsap.fromTo(".dash-nav-ani", {
+                opacity: 0,
+            }, {
+                opacity: 1,
+                duration: 1,
+                stagger: 0.05,
+                delay: 2,
+                ease: "power2.out",
+            });
+        });
 
-    useEffect(() => {
-        gsap.fromTo(".dash-nav-ani", {
-            opacity: 0,
-        }, {
-            opacity: 1,
-            duration: 1,
-            stagger: 0.05,
-            delay: 2,
-            ease: "power2.out",
-        })
-    }, [])
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <div className='dash-navbar-container h-1/10'>
-            <div className='dash-navbar-left cursor-pointer' onClick={() => navigate("/")}>
-                <img src="/full-logo.png" alt="Logo" className='dash-nav-ani dash-navbar-logo' />
-            </div>
+        <div className='h-1/10'>
+            <div className='h-full flex items-center justify-between px-4 md:px-8 w-full relative box-border'>
 
-            <div className={"center flex justify-evenly w-1/2 " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
-                <ul className="nav-links flex">
-                    {navLinks.map((link, index) => (
-                        <li key={index + link.name}>
-                            <NavLink
-                                to={`${link.path}${id}`}
-                                className={({ isActive }) => `dash-nav-ani text-xs ${isActive ? 'active' : ''}`}
-                            >
-                                {link.name}
-                                <div className="underline"></div>
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                <div className='flex justify-start items-center h-full w-[15%] cursor-pointer flex-shrink-0' onClick={() => navigate("/")}>
+                    <img
+                        src="/full-logo.png"
+                        alt="Logo"
+                        className='dash-nav-ani h-2 pl-10 md:pl-7 sm:h-5 md:h-10 w-auto max-w-[160px] sm:max-w-[200px] md:max-w-none object-contain object-left'
+                    />
+                </div>
 
-            {/* Searchbar only for Courses Section 🔍 */}
-            <div className={isCoursesPage ? 'flex-1 searchbar-div' : 'hidden'}>
-                <div className='dash-navbar-searchbar small-box-shadow blue dash-nav-ani'>
-                    <img src='/Dashboard/search.svg' alt="Search Icon" />
-                    <input type="text" placeholder='Search' className='dash-navbar-input-search' />
+                {/* Links Section with updated flag 🚩 */}
+                <div className={"center max-w-[40%] md:max-w-none flex justify-evenly w-auto md:w-1/2 " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
+                    <ul className="nav-links flex items-center gap-4 md:gap-0 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden scroll-smooth">
+                        {navLinks.map((link, index) => (
+                            <li key={index + link.name} className="inline-block flex-shrink-0 text-xs">
+                                <NavLink
+                                    to={`${link.path}${id}`}
+                                    className={({ isActive }) => `dash-nav-ani text-xs md:text-sm px-2 md:px-0 ${isActive ? 'text-white font-bold' : 'text-gray-500'}`}
+                                >
+                                    <span className='text-xs'>{link.name}</span>
+                                    <div className="underline"></div>
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-            </div>
 
-            <div className='dash-navbar-right'>
-                <div onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 dash-navbar-profile p-1 box-content cursor-pointer'>
-                    <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" />
+                {/* Searchbar Only with updated flag 🎯 */}
+                <div className={isCoursesPage ? 'flex-1 flex justify-end px-2 sm:px-0' : 'hidden'}>
+                    <div className='small-box-shadow blue dash-nav-ani flex items-center gap-2 max-sm:max-w-[44px] max-sm:px-3 max-sm:rounded-full max-sm:overflow-hidden rounded-full px-4 py-3 w-[25%] justify-self-end focus-within:shadow-[0px_0px_20px_rgba(58,62,108,0.5),inset_0_5px_10px_rgba(255,255,255,0.5),inset_-10px_-10px_20px_rgba(58,62,108,0.6)] focus-within:transition-all focus-within:duration-300'>
+
+                        <img src='/Dashboard/search.svg' alt="Search Icon" className="w-3 h-3 flex-shrink-0" />
+                        <input
+                            type="text"
+                            placeholder='Search...'
+                            className='text-[10px] font-medium ml-[5%] text-white tracking-[0.05em] flex-1 max-sm:hidden bg-transparent outline-none w-full'
+                        />
+
+                    </div>
                 </div>
-                <div className='dash-navbar-menu dash-nav-ani cursor-pointer'>
-                    <img src='/Dashboard/menu.png' alt="Menu" />
+
+                {/* Profile & Menu Controls 👤 */}
+                <div className='flex items-center justify-end h-full w-[10%] flex-shrink-0'>
+                    <div style={{}} onMouseOver={(e) => e.target.style.setProperty("--boxColor", "#7a97ffff")} onMouseLeave={(e) => e.target.style.setProperty("--boxColor", "#e7ecfe")} onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 mr-2 md:mr-6 flex justify-end items-center h-full w-4 p-1 box-content cursor-pointer md:w-auto md:h-auto white small-box-shadow rounded-full p-2'>
+                        <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" className="w-10 h-4 md:object-contain md:h-4 md:w-4 " />
+                    </div>
                 </div>
+
+                <Profile showProfile={showProfile} />
             </div>
-            <Profile showProfile={showProfile} />
         </div>
     );
 }

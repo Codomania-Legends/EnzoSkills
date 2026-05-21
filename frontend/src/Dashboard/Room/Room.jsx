@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
+import TitleAnimation from '../TitleAnimation';
 
 gsap.registerPlugin(SplitText);
 
@@ -17,12 +18,14 @@ function Room() {
   const inputRefs = useRef([]);
 
   const handleCopy = () => {
-    if( idValue.join("") === "______" || idValue.join("") === "" ){
-      sileo.error( {title : "error", description : (
-        <p className='flex justify-center items-center font-semibold'>
-          Please Enter Room ID
-        </p>
-      )} )
+    if (idValue.join("") === "______" || idValue.join("") === "") {
+      sileo.error({
+        title: "error", description: (
+          <p className='flex justify-center items-center font-semibold'>
+            Please Enter Room ID
+          </p>
+        )
+      })
       return;
     }
     const fullId = idValue.join("");
@@ -46,8 +49,8 @@ function Room() {
   };
 
   const handleChange = (element, index) => {
-    const value = element.value.slice(-1);  
-    if (!value) return; 
+    const value = element.value.slice(-1);
+    if (!value) return;
 
     const newId = [...idValue];
     newId[index] = value;
@@ -66,9 +69,12 @@ function Room() {
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    tl.from(".white-box-container", {
-      scaleX: 0,
-      opacity: 0,
+
+    TitleAnimation(tl, "room-page-title");
+
+    tl.to(".white-box-container", {
+      scaleX: 1,
+      opacity: 1,
       duration: 0.8,
       transformOrigin: "center",
     });
@@ -84,10 +90,10 @@ function Room() {
 
     tl.fromTo(".button-room-section", {
       opacity: 0,
-      scale : 0,
-    },{
+      scale: 0,
+    }, {
       opacity: 1,
-      scale : 1,
+      scale: 1,
       duration: 0.2,
       stagger: 0.05,
       ease: "power4.out",
@@ -120,7 +126,7 @@ function Room() {
       opacity: 0,
       scale: 0,
       y: 0,
-    },{
+    }, {
       opacity: 1,
       scale: 1,
       y: -5,
@@ -131,7 +137,7 @@ function Room() {
   }, { scope: containerRef });
 
   useEffect(() => {
-    if(copied){
+    if (copied) {
       gsap.to(".copy-icon-room-fill", {
         y: 0,
         x: 0,
@@ -149,83 +155,79 @@ function Room() {
   }, [copied]);
 
   return (
-    <div ref={containerRef} className='flex h-full w-full flex-col p-8 overflow-hidden'>
+    <div ref={containerRef} className='flex h-full w-full flex-col pb-8 overflow-hidden'>
       <div className='flex items-center gap-4 w-full h-fit mb-4'>
         <img src="/Dashboard/Courses/Back.svg" alt="Back" className='w-5 h-5 cursor-pointer hover:scale-110 transition-transform' />
-        <h1 className='text-2xl font-bold tracking-tight'>Room</h1>
+        <h1 className='text-2xl font-bold tracking-tight room-page-title'>Room</h1>
       </div>
 
-      <div className='grow w-full flex justify-center items-center'>
-        <div className='white-box-container aspect-5/3 h-[80%] white small-box-shadow rounded-[3rem] flex justify-between items-center p-12 relative'>
-          
-          <div className='flex flex-col h-full justify-center gap-10'>
-            <div className='text-4xl font-extrabold leading-[1.1] room-text'>
-              Create or Join Room<br />
-              to chat with your<br />
-              Friends.
+      <div className='grow w-full flex justify-center items-left p-2 md:pb-10'>
+        <div className='white-box-container w-full md:w-auto md:aspect-5/3 h-auto md:h-[80%] white small-box-shadow rounded-[2rem] md:rounded-[3rem] flex flex-col md:flex-row justify-between items-center p-6 md:p-12 relative gap-8 md:gap-0'>
+
+          <div className='flex flex-col h-full justify-center gap-6 md:gap-10 items-center md:items-start text-center md:text-left w-full md:w-auto'>
+            <div className='text-2xl md:text-4xl font-extrabold leading-[1.1] room-text max-w-xs md:max-w-none pr-5'>
+              Create or Join Room to chat with your Friends.
             </div>
 
-            <div className='flex items-center gap-4'>
-              <div className='flex gap-2' onPaste={handlePaste}>
+            <div className='flex flex-wrap justify-center items-center gap-3 md:gap-4 w-full md:w-auto'>
+              <div className='flex gap-1 md:gap-2' onPaste={handlePaste}>
                 {idValue.map((char, index) => (
-                  <input 
-                    key={index} 
+                  <input
+                    key={index}
                     ref={(el) => (inputRefs.current[index] = el)}
-                    className='id-boxes font-black white w-12 h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-xl text-center outline-none focus:border-blue-500 transition-colors' 
-                    value={char} 
+                    className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
+                    value={char}
                     onChange={(e) => handleChange(e.target, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                   />
                 ))}
               </div>
 
-              <div className="relative w-7 h-7 cursor-pointer" onClick={handleCopy}>
-                <div 
-                  className="copy-icon-room-outline absolute inset-0 border-2 border-black rounded-md" 
-                />
-                <div 
-                  className="copy-icon-room-fill opacity-0 transition-all duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center"
-                />
+              <div className="relative w-5 h-5 md:w-7 md:h-7 cursor-pointer shrink-0" onClick={handleCopy}>
+                <div className="copy-icon-room-outline absolute inset-0 border-2 border-black rounded-md" />
+                <div className="copy-icon-room-fill opacity-0 transition-all duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center" />
               </div>
 
-                {copied && (
-                  <span 
-                    className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium'
-                  >
-                    Copied to clipboard! ✅
-                  </span>
-                )}
+              {copied && (
+                <span className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0'>
+                  Copied to clipboard! ✅
+                </span>
+              )}
             </div>
           </div>
 
-          <div className='w-1/3 flex flex-col gap-5 justify-center h-full'>
+          <div className='w-full md:w-1/3 flex flex-col gap-4 md:gap-5 justify-center h-full'>
             <button
               onClick={() => {
-                if(idValue.join("") === "______"){
-                  sileo.error( {title : "Error", description : "Please Enter Room ID"} )
+                if (idValue.join("") === "______") {
+                  sileo.error({ title: "Error", description: "Please Enter Room ID" })
                   return;
                 }
-                navigate(`/dashboard/room/${idValue.join("")}`)}
+                navigate(`/dashboard/room/${idValue.join("")}`)
               }
-              className='button-room-section opacity-0 blue py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
+              }
+              className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
               Join Room
             </button>
 
             <button
               onClick={() => {
-                if(idValue.join("") === "______"){
+                if (idValue.join("") === "______") {
                   setIdValue(new Array(6).fill(0).map(() => Math.ceil(Math.random() * 9)));
-                  sileo.success( {title : "Success", description : (
-                    <p className='flex justify-center items-center font-semibold'>
-                      Room ID Created
-                    </p>
-                  ) } )
+                  sileo.success({
+                    title: "Success", description: (
+                      <p className='flex justify-center items-center font-semibold'>
+                        Room ID Created
+                      </p>
+                    )
+                  })
                   return;
                 }
-                navigate(`/dashboard/room/${idValue.join("")}`)}
+                navigate(`/dashboard/room/${idValue.join("")}`)
               }
-              className='button-room-section opacity-0 blue py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
+              }
+              className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
               Create Room {idValue.join("") == "______" || idValue.join("") == "" ? "id" : ""}
             </button>
