@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+import axios from 'axios'
 import "./Library.css"
 import { useNavigate } from 'react-router'
 import gsap from 'gsap'
@@ -68,6 +69,25 @@ function Library() {
   const scrollRefVideos = useRef(null);
   const containerRef = useRef(null);
 
+  const [books, setBooks] = useState(bookData);
+  const [videos, setVideos] = useState(videoData);
+
+  useEffect(() => {
+    const fetchLibrary = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/library/getlib");
+        if (res.data && res.data.library && res.data.library.length > 0) {
+          const lib = res.data.library[0];
+          if (lib.books && lib.books.length > 0) setBooks(lib.books);
+          if (lib.videos && lib.videos.length > 0) setVideos(lib.videos);
+        }
+      } catch (err) {
+        console.error("Failed to fetch library, using static data.", err);
+      }
+    };
+    fetchLibrary();
+  }, []);
+
   const handleScroll = (ref, direction) => {
     const { current } = ref;
     if (current) {
@@ -110,7 +130,7 @@ function Library() {
           </div>
 
           <div ref={scrollRefBooks} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
-            {bookData.map((item, index) => (
+            {books.map((item, index) => (
               <div key={index} onClick={() => window.open(item.book_pdf, "_blank")} className="flex flex-col items-center gap-3 flex-none w-36 cursor-pointer group">
                 <div className="h-32 w-full overflow-hidden rounded-lg transition-transform group-hover:scale-105">
                   <img src={item.book_img} alt={item.book_name} className="h-full w-full p-5 object-cover small-box-shadow" />
@@ -139,7 +159,7 @@ function Library() {
           </div>
 
           <div ref={scrollRefVideos} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
-            {videoData.map((item, index) => (
+            {videos.map((item, index) => (
               <div key={index} onClick={() => window.open(item.video_link, "_blank")} className="flex flex-col items-center gap-3 flex-none w-64 cursor-pointer group">
                 <div className="relative h-36 w-full overflow-hidden rounded-xl small-box-shadow transition-transform group-hover:scale-105">
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all z-10">

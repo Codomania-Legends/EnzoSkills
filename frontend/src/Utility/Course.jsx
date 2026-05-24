@@ -108,8 +108,8 @@ export function CourseProvider({ children, id }) {
     useEffect(() => {
         const fetchAllCourses = async () => {
             try {
-                // const allResults = await axios.get("http://localhost:3000/courses/get");
-                setCourseDetails(coursesData);
+                const allResults = await axios.get("http://localhost:3000/courses/get");
+                setCourseDetails(allResults.data.course);
             } catch (error) {
                 console.log("Error fetching all courses:", error.message);
                 setCourseDetails(coursesData);
@@ -120,17 +120,17 @@ export function CourseProvider({ children, id }) {
 
     useEffect(() => {
         if (activeId && courseDetails) {
-            const matchedCourse = courseDetails.find(c => String(c.id) === String(activeId));
+            const matchedCourse = courseDetails.find(c => String(c.course_id || c.id) === String(activeId));
             if (matchedCourse) {
                 setCurrentCourse(matchedCourse);
             } else {
                 const fetchSingle = async () => {
                     try {
-                        const singleResult = await axios.get(`http://localhost:3000/api/course/${activeId}/overview`);
+                        const singleResult = await axios.get(`http://localhost:3000/courses/get/${activeId}`);
                         setCurrentCourse(singleResult.data.course);
                     } catch (error) {
                         console.log("Error fetching single course:", error.message);
-                        const fallbackCourse = coursesData.find(c => String(c.id) === String(activeId));
+                        const fallbackCourse = coursesData.find(c => String(c.course_id || c.id) === String(activeId));
                         setCurrentCourse(fallbackCourse || null);
                     }
                 };

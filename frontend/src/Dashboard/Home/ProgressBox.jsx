@@ -1,9 +1,11 @@
 import { useGSAP } from '@gsap/react'
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Slide_right, Slide_left, Slide_up } from '../../Utility/Animations/Basic'
+import axios from 'axios'
 
 function ProgressBox() {
     const containerRef = useRef(null)
+    const [userData, setUserData] = useState({ streak: 0, badges: [] });
 
     useGSAP(() => {
         // 1. Animate the parent container directly using the Ref! 
@@ -16,9 +18,27 @@ function ProgressBox() {
         
     }, { scope: containerRef }); // <-- Fix: Passed as a config object! ✨
 
+    useEffect(() => {
+        const fetchUserGamification = async () => {
+            try {
+                const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+                if (userId) {
+                    const res = await axios.get(`http://localhost:3000/user/getuser/${userId}`);
+                    if (res.data && res.data.user) {
+                        setUserData(res.data.user);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch user gamification data", err);
+            }
+        };
+
+        fetchUserGamification();
+    }, []);
+
     const ProgressBoxItems = [
-        {name : "Streak", value : "3", image : "/Dashboard/Home/streak.svg"},
-        {name : "Badges", value : "2", image : "/Dashboard/Home/star.svg"},
+        {name : "Streak", value : `${userData.streak || 0}`, image : "/Dashboard/Home/streak.svg"},
+        {name : "Badges", value : `${userData.badges?.length || 0}`, image : "/Dashboard/Home/star.svg"},
         {name : "Progress", value : "25%", image : "/Dashboard/Home/progress.svg"},
     ]
 

@@ -1,44 +1,30 @@
 import React, { useEffect } from 'react'
 import { useCourse } from '../../Utility/Course'
-import { useNavigate } from 'react-router';
-
+import { useNavigate, useLocation } from 'react-router';
 
 function ScoreCard() {
     const { currentCourse } = useCourse();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const testDetails = [
-        {
-            name: "Test 1",
-            score: 80,
-            total: 100,
-            status: "pass",
-            timeTaken: "20:00",
-            date: "2022-01-01",
-            day: "Monday"
-        },
-        {
-            name: "Test 2",
-            score: 70,
-            total: 100,
-            status: "pass",
-            timeTaken: "20:00",
-            date: "2022-01-01",
-            day: "Tuesday"
-        },
-        {
-            name: "Test 3",
-            score: 60,
-            total: 100,
-            status: "pass",
-            timeTaken: "20:00",
-            date: "2022-01-01",
-            day: "Wednesday"
-        }
-    ]
+    // Dynamically retrieve score from router state, with safe fallbacks
+    const { score = 8, total = 10, assessmentTitle = "JavaScript Basics" } = location.state || {};
+    const percentage = Math.round((score / total) * 100);
+
+    const testDetails = {
+        name: assessmentTitle,
+        score: percentage,
+        total: 100, // we use percentage in the circle
+        status: percentage >= 50 ? "Pass" : "Fail",
+        timeTaken: "5:30",
+        date: new Date().toLocaleDateString(),
+        day: new Date().toLocaleDateString('en-US', { weekday: 'long' })
+    };
 
     const insights = [
-        "Reflection: Your frontend architecture is good, but your foundational concepts are not fully clear yet. You need to focus more on the basics."
+        percentage >= 80 
+            ? "Excellent! Your foundational concepts are very solid. Keep up the good work." 
+            : "Reflection: Your frontend architecture is good, but your foundational concepts are not fully clear yet. You need to focus more on the basics."
     ];
 
     const studyPlan = [
@@ -62,15 +48,15 @@ function ScoreCard() {
     return (
         <div className="container h-full mx-auto px-4 mt-5 flex flex-col items-center">
 
-            <div className="flex justify-start w-[90%] mb-5 cursor-pointer" onClick={() => navigate("/dashboard/courses")}>
+            <div className="flex justify-start w-[90%] mb-5 cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${currentCourse?.course_id || currentCourse?.id}`)}>
                 <div className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                    <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-3 w-3" />
+                    <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-6 w-6" />
                     <h1 className="text-lg font-black">Performance Overview - {currentCourse?.course_name}</h1>
                 </div>
             </div>
 
             <div className='flex flex justify-between items-center w-full h-full gap-10'>
-                <AssessmentCard testDetails={testDetails[Math.floor(Math.random() * testDetails.length)]} />
+                <AssessmentCard testDetails={testDetails} />
 
                 <div className='flex flex-col justify-evenly items-center h-full'>
                     <AiInsights insights={insights} />

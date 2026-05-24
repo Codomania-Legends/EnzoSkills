@@ -1,4 +1,6 @@
 import React from 'react';
+import { useCourse } from '../../Utility/Course';
+import { useNavigate } from 'react-router';
 
 function Resource({ number, title }) {
   return (
@@ -11,6 +13,8 @@ function Resource({ number, title }) {
 }
 
 function Learning() {
+  const { currentCourse } = useCourse();
+  const navigate = useNavigate();
   const weeks = [
     { week1: ["Test 1", "Test 2"] },
     { week2: ["Test 3", "Test 4"] },
@@ -22,10 +26,12 @@ function Learning() {
     /* Desktop maintains exact absolute positioning; mobile changes to block layout to fit screen */
     <div className="h-full w-[95%] md:w-[90%] flex flex-col justify-start md:justify-center items-center relative md:absolute md:left-[10%] p-4 md:p-0 mb-10 md:mb-0">
       
-      {/* Heading: Locked to top absolute on laptop, adapts cleanly on mobile */}
-      <div className="w-full h-auto md:h-[5vh] flex items-center justify-start gap-[10px] text-[20px] md:text-[24px] relative md:absolute left-0 top-0 md:top-[5%] mb-6 md:mb-0">
-        <i className="fa-solid fa-arrow-left"></i>
-        <b>Fundamentals of JavaScript</b>
+      {/* 
+        .heading -> w-full h-[5vh] flex items-center justify-start gap-[10px] text-[24px] absolute left-0 top-[5%] 
+      */}
+      <div className="w-full h-[5vh] flex items-center justify-start gap-[10px] text-[24px] absolute left-0 top-[5%] cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${currentCourse?.course_id || currentCourse?.id}`)}>
+        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-6 w-6" />
+        <b>{currentCourse?.course_name || "Loading..."}</b>
       </div>
 
       {/* Main Container: Original flex layout and gap preserved for laptop (md:) */}
@@ -56,28 +62,18 @@ function Learning() {
         {/* RIGHT SECTION: Content Box (Retains exact original properties, sizes, and shadow styling on laptop) */}
         <div className="w-full md:w-[60%] h-auto md:h-[90%] bg-white rounded-[25px] p-5 md:p-[30px] order-1 md:order-2 shadow-[20px_20px_40px_rgba(58,62,108,0.5),_inset_15px_15px_30px_rgba(255,255,255,0.532),_inset_-20px_-20px_30px_rgba(40,43,75,0.6)]">
           
-          <div className="mb-[15px] md:mb-[25px]">
-            <h2 className="text-[22px] md:text-[28px]"><b>Introduction to JavaScript</b></h2>
+          {/* 
+            .introHeading -> mb-[25px] 
+            .introHeading h2 -> text-[28px]
+          */}
+          <div className="mb-[25px]">
+            <h2 className="text-[28px]"><b>Introduction to {currentCourse?.course_name || "Course"}</b></h2>
           </div>
           
           {/* Internal scroll wrapper safely added for text-heavy content on smaller phone layouts */}
           <div className="leading-[26px] md:leading-[30px] text-sm md:text-[16px] max-h-[40vh] md:max-h-[50vh] overflow-y-auto pr-2">
             <p>
-              JavaScript was initially created to "make web pages alive".
-              The programs in this language are called scripts. They can be
-              written right in a web page’s HTML and run automatically as
-              the page loads. Scripts are provided and executed as plain
-              text. They don’t need special preparation or compilation to
-              run. In this aspect, JavaScript is very different from
-              another language called Java.
-              <br/><br/>
-              JavaScript was initially created to "make web pages alive".
-              The programs in this language are called scripts. They can be
-              written right in a web page’s HTML and run automatically as
-              the page loads. Scripts are provided and executed as plain
-              text. They don’t need special preparation or compilation to
-              run. In this aspect, JavaScript is very different from
-              another language called Java.
+              {currentCourse?.longDescription || currentCourse?.description || "Course details will be loaded here. Dive into the modules on the left to start your learning journey!"}
             </p>
           </div>
           

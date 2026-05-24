@@ -90,7 +90,7 @@ function Dash_Navbar() {
 
                 {/* Profile & Menu Controls 👤 */}
                 <div className='flex items-center justify-end h-full w-[10%] flex-shrink-0'>
-                    <div style={{}} onMouseOver={(e) => e.target.style.setProperty("--boxColor", "#7a97ffff")} onMouseLeave={(e) => e.target.style.setProperty("--boxColor", "#e7ecfe")} onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 mr-2 md:mr-6 flex justify-end items-center h-full w-4 p-1 box-content cursor-pointer md:w-auto md:h-auto white small-box-shadow rounded-full p-2'>
+                    <div style={{}} onMouseOver={(e) => e.target.style.setProperty("--boxColor", "#7a97ffff")} onMouseLeave={(e) => e.target.style.setProperty("--boxColor", "#e7ecfe")} onClick={() => setShowProfile(!showProfile)} className='dash-nav-ani z-10 mr-2 md:mr-6 flex justify-end items-center h-full w-4 p-1 box-content cursor-pointer md:w-auto md:h-auto white small-box-shadow rounded-full p-2 icon-shadow'>
                         <img onClick={() => setShowProfile(!showProfile)} src='/Dashboard/profile.png' alt="Profile" className="w-10 h-4 md:object-contain md:h-4 md:w-4 " />
                     </div>
                 </div>

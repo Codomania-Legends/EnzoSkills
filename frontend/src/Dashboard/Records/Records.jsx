@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import TitleAnimation from "../TitleAnimation";
@@ -92,33 +93,49 @@ function Records() {
     { day: "Weekly", course: "Assessment", badge: "Silver", badgeImage: "/Records/silver.png" },
   ];
 
+  const [records, setRecords] = useState(data);
+  const [userData, setUserData] = useState({ badges: [], awards: [], streak: 0 });
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/records/get");
+        if (res.data && res.data.records && res.data.records.length > 0) {
+          setRecords(res.data.records);
+        }
+      } catch (err) {
+        console.error("Failed to fetch records, using static data.", err);
+      }
+    };
+    
+    const fetchUserGamification = async () => {
+      try {
+        const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+        if (userId) {
+          const res = await axios.get(`http://localhost:3000/user/getuser/${userId}`);
+          if (res.data && res.data.user) {
+            setUserData(res.data.user);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch user gamification data", err);
+      }
+    };
+
+    fetchRecords();
+    fetchUserGamification();
+  }, []);
+
   return (
-    /* Parent container scroll fix:
-      - Added `max-md:h-screen max-md:overflow-y-auto max-md:pb-20` -> This isolates mobile scrolling so touch gestures never freeze.
-      - Added `box-border` to prevent absolute layout breakouts.
-    */
     <div className="w-full h-[90%] max-md:h-screen max-md:overflow-y-auto box-border">
-      
-      {/* Main Layout Wrapper:
-        - Desktop: `flex justify-between relative`
-        - Mobile: `flex flex-col gap-6 pt-16 px-4` -> Safely pushes content below the layout absolute header.
-      */}
         <div className="flex items-center gap-4 mb-5">
           <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4 cursor-pointer" />
           <h1 className="text-2xl font-bold text-gray-900 records-page-title">My Records</h1>
         </div>
       <div className="flex flex-col md:flex-row justify-between w-full relative gap-6 md:gap-0 max-md:pt-14 max-md:px-4">
         
-        {/* #history Heading Segment:
-          - Mobile safely resets to relative document placement layout flow so `absolute` position coordinates do not cause overlapping text structures.
-        */}
-
-        {/* .record Main Grid Container:
-          - Desktop (md and up): Locked to strict original metrics `h-[68vh] w-[65vw] grid-cols-4`
-          - Mobile (max-md): Switches to fluid auto heights (`h-auto w-full`) and grids cleanly into columns.
-        */}
         <div className="h-[68vh] w-[65vw] max-md:w-full max-md:h-auto grid grid-cols-4 max-md:grid-cols-1 sm:max-md:grid-cols-2 gap-[18px]">
-          {data.map((item, index) => (
+          {records.map((item, index) => (
             <Card
               key={index}
               day={item.day}
@@ -129,13 +146,12 @@ function Records() {
           ))}
         </div>
 
-        {/* .records Right Achievement Panel:
-          - Desktop: `h-[60vh] w-[19vw]`
-          - Mobile: Stacks underneath the grid seamlessly as a full-width clean dashboard card (`w-full h-auto p-6 mt-4`).
-        */}
         <div className="flex flex-col items-center justify-evenly h-[60vh] w-[19vw] max-md:w-full max-md:h-auto max-md:p-6 max-md:gap-4 max-md:mt-4 rounded-4xl small-box-shadow white bg-white relative">
-          <span className="flex pl-8 max-md:pl-0 items-end w-full">
+          <span className="flex pl-8 max-md:pl-0 items-end w-full justify-between pr-8">
             <b>Recent Achievement</b>
+            <span className="text-orange-500 font-bold flex items-center gap-1 text-sm bg-orange-100 px-2 py-1 rounded-full">
+              <i className="fa-solid fa-fire"></i> {userData.streak || 0}
+            </span>
           </span>
 
           {/* .image */}
@@ -145,7 +161,11 @@ function Records() {
           <img className="h-[60px] w-[60px] absolute top-37 max-md:top-24 object-contain" src="/Records/java.png" alt="Java" />
 
           {/* #earned */}
-          <b className="w-full text-md font-extrabold text-center px-4">You earned the Gold Badge in JavaScript</b>
+          <b className="w-full text-md font-extrabold text-center px-4">
+            {userData.badges && userData.badges.length > 0 
+              ? `You earned: ${userData.badges[userData.badges.length - 1]}` 
+              : "Complete your first course to earn a badge!"}
+          </b>
 
           <div className="flex flex-col items-center gap-1">
             <p className="text-sm text-gray-500">Consistency is the key!</p>
