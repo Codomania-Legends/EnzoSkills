@@ -1,0 +1,121 @@
+/* style.css */
+.dark-board {
+    /* background-color: #121212; */
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 60px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+.title-text {
+    text-align: center;
+    color: #f0932b;
+    margin-bottom: 70px;
+    text-shadow: 0 4px 10px rgba(240, 147, 43, 0.4);
+    font-size: 2.5rem;
+}
+
+.path-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 90px;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.node-circle {
+    width: 110px;
+    height: 110px;
+    background: #1e272e;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: inset 6px 6px 12px #151b20, inset -6px -6px 12px #27333c, 0 10px 20px rgba(0, 0, 0, 0.5);
+    border: 3px solid #3d3d3d;
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.node-circle:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: inset 6px 6px 12px #151b20, inset -6px -6px 12px #27333c, 0 15px 25px rgba(0, 0, 0, 0.7);
+}
+
+.node-special {
+    border-color: #f0932b;
+    box-shadow: 0 0 25px rgba(240, 147, 43, 0.5);
+}
+
+.orb-content {
+    text-align: center;
+}
+
+.level-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f0932b;
+    display: block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.topic-text {
+    font-size: 11px;
+    color: #d2dae2;
+    text-align: center;
+    padding: 0 8px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.week-badge {
+    position: absolute;
+    top: -45px;
+    background: #8e44ad;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(142, 68, 173, 0.4);
+}
+
+.achievement-tag {
+    position: absolute;
+    bottom: -35px;
+    background: #27ae60;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4);
+    border: 2px solid #2ecc71;
+}
+
+svg.custom-arrow {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+svg.custom-arrow path {
+    stroke: #4bcffa !important;
+    stroke-width: 4px !important;
+    fill: none !important;
+    stroke-linecap: round;
+    stroke-dasharray: 12;
+    animation: dashPath 2s linear infinite;
+}
+
+@keyframes dashPath {
+    to {
+        stroke-dashoffset: -24;
+    }
+}

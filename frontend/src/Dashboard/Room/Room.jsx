@@ -11,32 +11,33 @@ gsap.registerPlugin(SplitText);
 
 function Room() {
   const navigate = useNavigate();
-  const [idValue, setIdValue] = useState(new Array(6).fill("_"));
+  const [idValue, setIdValue] = useState(new Array(6).fill(""));
 
   const [copied, setCopied] = useState(false);
   const containerRef = useRef(null);
   const inputRefs = useRef([]);
 
   const handleCopy = () => {
-    if (idValue.join("") === "______" || idValue.join("") === "") {
+    const fullId = idValue.join("");
+    if (fullId.length < 6) {
       sileo.error({
         title: "error", description: (
           <p className='flex justify-center items-center font-semibold'>
-            Please Enter Room ID
+            Please Enter a Valid 6-Digit Room ID
           </p>
         )
       })
       return;
     }
-    const fullId = idValue.join("");
     navigator.clipboard.writeText(fullId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handlePaste = (e) => {
-    const data = e.clipboardData.getData("text").trim();
-    if (data.length <= 6) {
+    e.preventDefault();
+    const data = e.clipboardData.getData("text").trim().replace(/[^a-zA-Z0-9]/g, "");
+    if (data.length > 0) {
       const pasteData = data.split("").slice(0, 6);
       const newId = [...idValue];
       pasteData.forEach((char, index) => {
@@ -50,8 +51,7 @@ function Room() {
 
   const handleChange = (element, index) => {
     const value = element.value.slice(-1);
-    if (!value) return;
-
+    
     const newId = [...idValue];
     newId[index] = value;
     setIdValue(newId);
@@ -62,8 +62,20 @@ function Room() {
   };
 
   const handleKeyDown = (e, index) => {
-    if (e.key === "Backspace" && !idValue[index] && index > 0) {
-      inputRefs.current[index - 1].focus();
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newId = [...idValue];
+      
+      if (idValue[index]) {
+        // Clear current
+        newId[index] = "";
+        setIdValue(newId);
+      } else if (index > 0) {
+        // Move back and clear
+        newId[index - 1] = "";
+        setIdValue(newId);
+        inputRefs.current[index - 1].focus();
+      }
     }
   };
 
@@ -199,13 +211,12 @@ function Room() {
           <div className='w-full md:w-1/3 flex flex-col gap-4 md:gap-5 justify-center h-full'>
             <button
               onClick={() => {
-                if (idValue.join("") === "______") {
-                  sileo.error({ title: "Error", description: "Please Enter Room ID" })
+                if (idValue.join("").length < 6) {
+                  sileo.error({ title: "Error", description: "Please Enter a 6-Digit Room ID to join." })
                   return;
                 }
                 navigate(`/dashboard/room/${idValue.join("")}`)
-              }
-              }
+              }}
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
               Join Room
@@ -213,23 +224,23 @@ function Room() {
 
             <button
               onClick={() => {
-                if (idValue.join("") === "______") {
-                  setIdValue(new Array(6).fill(0).map(() => Math.ceil(Math.random() * 9)));
+                if (idValue.join("").length < 6) {
+                  const newId = new Array(6).fill(0).map(() => Math.floor(Math.random() * 10).toString());
+                  setIdValue(newId);
                   sileo.success({
                     title: "Success", description: (
                       <p className='flex justify-center items-center font-semibold'>
-                        Room ID Created
+                        Room ID Created! Click Create again to enter.
                       </p>
                     )
                   })
                   return;
                 }
                 navigate(`/dashboard/room/${idValue.join("")}`)
-              }
-              }
+              }}
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
-              Create Room {idValue.join("") == "______" || idValue.join("") == "" ? "id" : ""}
+              Create Room {idValue.join("").length < 6 ? "ID" : ""}
             </button>
           </div>
         </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useCourse } from '../../Utility/Course';
+import { useNavigate } from 'react-router';
 
 // Converted Resource styles:
 // .resource -> flex items-center gap-[10px] my-5
@@ -13,6 +15,8 @@ function Resource({ number, title }) {
 }
 
 function Learning() {
+  const { currentCourse } = useCourse();
+  const navigate = useNavigate();
   const weeks = [
     { week1: ["Test 1", "Test 2"] },
     { week2: ["Test 3", "Test 4"] },
@@ -29,9 +33,9 @@ function Learning() {
       {/* 
         .heading -> w-full h-[5vh] flex items-center justify-start gap-[10px] text-[24px] absolute left-0 top-[5%] 
       */}
-      <div className="w-full h-[5vh] flex items-center justify-start gap-[10px] text-[24px] absolute left-0 top-[5%]">
-        <i className="fa-solid fa-arrow-left"></i>
-        <b>Fundamentals of JavaScript</b>
+      <div className="w-full h-[5vh] flex items-center justify-start gap-[10px] text-[24px] absolute left-0 top-[5%] cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${currentCourse?.course_id || currentCourse?.id}`)}>
+        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-6 w-6" />
+        <b>{currentCourse?.course_name || "Loading..."}</b>
       </div>
 
       {/* 
@@ -81,7 +85,7 @@ function Learning() {
             .introHeading h2 -> text-[28px]
           */}
           <div className="mb-[25px]">
-            <h2 className="text-[28px]"><b>Introduction to JavaScript</b></h2>
+            <h2 className="text-[28px]"><b>Introduction to {currentCourse?.course_name || "Course"}</b></h2>
           </div>
           
           {/* 
@@ -89,27 +93,7 @@ function Learning() {
           */}
           <div className="leading-[30px] text-[16px]">
             <p>
-              JavaScript was initially created to "make web pages alive".
-              The programs in this language are called scripts. They can be
-              written right in a web page’s HTML and run automatically as
-              the page loads. Scripts are provided and executed as plain
-              text. They don’t need special preparation or compilation to
-              run.In this aspect, JavaScript is very different from
-              another language called Java.
-              JavaScript was initially created to "make web pages alive".
-              The programs in this language are called scripts. They can be
-              written right in a web page’s HTML and run automatically as
-              the page loads. Scripts are provided and executed as plain
-              text. They don’t need special preparation or compilation to
-              run.In this aspect, JavaScript is very different from
-              another language called Java.
-              JavaScript was initially created to "make web pages alive".
-              The programs in this language are called scripts. They can be
-              written right in a web page’s HTML and run automatically as
-              the page loads. Scripts are provided and executed as plain
-              text. They don’t need special preparation or compilation to
-              run.In this aspect, JavaScript is very different from
-              another language called Java.
+              {currentCourse?.longDescription || currentCourse?.description || "Course details will be loaded here. Dive into the modules on the left to start your learning journey!"}
             </p>
           </div>
           

@@ -11,34 +11,44 @@ function Main_RoomPage() {
     const roomID = path.split("/")[3];
 
     const [message, setMessage] = useState("");
-    const [receivedMessages, setReceivedMessages] = useState([]); // Fixed name
+    const [receivedMessages, setReceivedMessages] = useState([]); 
+    const [members, setMembers] = useState([]);
+    const myUsername = Cookies.get("username") || "User";
 
     useEffect(() => {
+        // Ensure socket is connected if it was previously disconnected
+        if (!socket.connected) {
+            socket.connect();
+        }
+
         // Join room when component mounts
         if (roomID) {
-            socket.emit("join_room", roomID);
+            socket.emit("join_room", { roomID, username: myUsername });
         }
 
         // Listen for messages
         socket.on("recieve-msg", (data) => {
-            // msg here is just the string based on your backend logic
-            console.log(data);
-            // console.log(user)
             setReceivedMessages((prev) => [...prev, { message: data.message, user: data.user }]);
+        });
+
+        // Listen for member updates
+        socket.on("update_members", (updatedMembers) => {
+            setMembers(updatedMembers);
         });
 
         // Cleanup on unmount
         return () => {
             socket.off("recieve-msg");
+            socket.off("update_members");
         };
-    }, [roomID]); // Runs once, or if roomID changes
+    }, [roomID, myUsername]);
 
     const sendMessage = () => {
         if (message.trim() !== "") {
             const messageData = {
                 roomID: roomID,
                 message: message,
-                user: Cookies.get("username") || "Anonymous"
+                user: myUsername
             };
 
             socket.emit("send_message", messageData);
@@ -49,77 +59,95 @@ function Main_RoomPage() {
         }
     };
 
+    const getUserImage = (username) => {
+        const knownUsers = ['Anshul', 'Vidhi', 'Anjali', 'Mohini'];
+        // Try to match first name or exact name
+        const match = knownUsers.find(k => username.toLowerCase().includes(k.toLowerCase()));
+        if (match) {
+            return `/About-us/members/${match}.png`;
+        }
+        return `https://ui-avatars.com/api/?name=${username}&background=534DB4&color=fff&bold=true`;
+    };
+
     return (
         <div>
-            <h1><i className="fa-solid fa-arrow-left" id='arrows'></i><b className='room'>{roomID}</b></h1>
+            <h1>
+                <i className="fa-solid fa-arrow-left cursor-pointer hover:scale-110 transition-transform" id='arrows' onClick={() => window.history.back()}></i>
+                <b className='room'>{roomID}</b>
+            </h1>
             <div className="text-container">
-                <div id='usermsg'>
-                    <img src="/Room/Anshul.png"  style={{ position: "absolute",right: "4%"}}/>
-                    <div className='anshul small-box-shadow white'>
-                        <small style={{position: "absolute",left: "5%", top:"4%"}}>Anshul</small>
-                        <p style={{position: "absolute",left: "13%",top: "30%"}}>Hello Vidhi What’s up</p>
-                        <span style={{ position: "absolute",right: "5%",bottom: "10%"}}>10:02 PM</span>
+                <div id='usermsg' className="flex flex-col gap-4 p-6 overflow-y-auto w-full h-[60vh] custom-scrollbar">
+                    {/* Welcome message */}
+                    <div className="flex justify-center w-full my-4">
+                        <span className="bg-gray-200 text-gray-500 px-4 py-1 rounded-full text-xs font-bold">Welcome to the Room! Say hi 👋</span>
                     </div>
-                    <img src="/Room/Vidhi.png"  style={{ position: "absolute",left: "0%", top: "20%"}}/>
-                    <div className='vidhi small-box-shadow blue'>
-                        <small style={{position: "absolute",left: "5%", top:"5%"}}>Vidhi</small>
-                        <p style={{position: "absolute",left: "13%",top: "32%"}}>I am Good What about You!?</p>
-                        <span style={{ position: "absolute",right: "5%",bottom: "10%"}}>10:05 PM</span>
-                    </div>
-                    <img src="/Room/Anjali.png"  style={{ position: "absolute",left: "0%", top: "40.5%"}}/>
-                    <div className='anjali small-box-shadow red'>
-                        <small style={{position: "absolute",left: "3%", top:"5%"}}>Anjali</small>
-                        <p style={{position: "absolute",left: "9%",top: "27%"}}>Hello Vidhi Anshul i hope you both are doing well, what’s going on now?</p>
-                        <span style={{ position: "absolute",right: "3%",bottom: "10%"}}>10:10 PM</span>
+
+                    {/* Dynamic Messages */}
+                    {receivedMessages.map((msg, index) => {
+                        const isMe = msg.user === myUsername;
+                        return (
+                            <div key={index} className={`flex w-full ${isMe ? 'justify-end' : 'justify-start'} mb-2`}>
+                                <div className={`flex gap-3 max-w-[80%] ${isMe ? 'flex-row-reverse' : 'flex-row'} items-end`}>
+                                    <img 
+                                        src={getUserImage(msg.user)} 
+                                        alt={msg.user} 
+                                        className="w-10 h-10 rounded-full object-cover small-box-shadow mb-1 shrink-0 bg-white"
+                                    />
+                                    <div className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                                        <small className="text-gray-500 mb-1 ml-1 mr-1 font-bold">{msg.user}</small>
+                                        <div className={`p-4 rounded-[1.5rem] small-box-shadow ${isMe ? 'bg-[#534DB4] text-white rounded-br-sm' : 'white text-black rounded-bl-sm'}`}>
+                                            <p className="text-[15px] leading-relaxed">{msg.message}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+                
+                <div className="membersSection small-box-shadow blue overflow-y-auto custom-scrollbar">
+                    <h2><b>Members ({members.length})</b></h2>
+                    <div className="flex flex-col gap-4 mt-4 px-2">
+                        {members.map((member, index) => (
+                            <div key={index} className="flex items-center gap-4 bg-white/10 p-3 rounded-xl hover:bg-white/20 transition-colors cursor-pointer">
+                                <img 
+                                    src={getUserImage(member.username)} 
+                                    alt={member.username} 
+                                    className="w-12 h-12 rounded-full object-cover border-2 border-white/30 bg-white"
+                                />
+                                <div>
+                                    <h4 className="text-white font-bold text-md leading-tight">{member.username} {member.username === myUsername ? "(You)" : ""}</h4>
+                                    <p className="text-green-300 font-semibold text-xs mt-1 tracking-wide flex items-center gap-1">
+                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Online
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <div>
-                {receivedMessages.map((msg, index) => (
-                    <div key={index} className='flex justify-between' >
-                        <p>{msg.message}</p>
-                        <p><strong>{msg.user}</strong></p>
-                    </div>
-                ))} 
-                </div>
-                <div className="membersSection small-box-shadow blue">
-                    <h2><b>Members</b></h2>
-                    <div className="member">
-                        <img src="/Room/Anshul.png" style={{position: "absolute",left: "8%"}}/>
-                        <div>
-                            <h4>You</h4>
-                            <p>Full Stack Developer</p>
-                        </div>
-                        <img src="/Room/Vidhi.png" style={{position: "absolute",left: "8%",top: "40.5%"}}/>
-                        <div>
-                            <h4>Vidhi Agrawal</h4>
-                            <p>Frontend Developer</p>
-                        </div>
-                        <img src="/Room/Anjali.png" style={{position: "absolute",left: "8%",top: "58%"}}/>
-                        <div>
-                            <h4>Anjali </h4>
-                            <p>Research Analytics</p>
-                        </div>
-                        <img src="/Room/Mohini.png" style={{position: "absolute",left: "8%",top: "76%"}}/>
-                        <div>
-                            <h4>Mohini Verma</h4>
-                            <p>Research Analytics</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="inputSection big-box-shadow white">
-                <i class="fa-solid fa-link" style={{color: "rgb(58, 46, 255)", paddingLeft: "15px"}}></i>
-                <input style={{color: "rgb(0, 0, 0)"}}
-                type="text"
-                placeholder='What are You studying Nowadays?'
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                />
-                <button onClick={sendMessage}>
-                    <img src="/Room/Vector.png"/>
-                </button>
             </div>
             
+            <div className="inputSection big-box-shadow white flex items-center justify-between px-6 py-2">
+                <i className="fa-solid fa-link text-[#3a2eff] cursor-pointer hover:scale-110 transition-transform"></i>
+                <input 
+                    className="flex-grow mx-4 text-black bg-transparent outline-none border-none text-lg px-4"
+                    type="text"
+                    placeholder='What are You studying Nowadays?'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            sendMessage();
+                        }
+                    }}
+                />
+                <button 
+                    onClick={sendMessage}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-[#534DB4] hover:bg-[#3a358c] transition-colors shadow-md shrink-0"
+                >
+                    <img src="/Room/Vector.png" className="w-5 h-5 invert brightness-0" />
+                </button>
+            </div>
         </div>
     );
 }

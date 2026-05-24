@@ -144,10 +144,37 @@ const get_All_Courses = async ( req, res ) => {
 }
 
 
+// getting a single course by ID
+const get_Single_Course = async ( req, res ) => {
+    try {
+        const courseId = req.params.id;
+        const getCourse = await COURSES.findOne({ course_id: courseId });
+        if( !getCourse ) throw( new Error("Course not found") );
+        res.json({
+            msg: "Course Fetched Successfully",
+            course: getCourse
+        });
+    } catch (error) {
+        res.status(404).json({error : error.message});
+    }
+}
+
+const complete_Assessment = async (req, res) => {
+    try {
+        const { course_id, assessment_id, score } = req.body;
+        // Mock backend saving logic here. Would typically find User and push to completed_assessments
+        res.json({ msg: "Assessment marked as complete", assessment_id, score });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     handle_Course_Creation,
     get_All_Courses,
+    get_Single_Course,
     handle_Enrolled_std,
     handle_Material,
-    handle_All_Assessments
+    handle_All_Assessments,
+    complete_Assessment
 }

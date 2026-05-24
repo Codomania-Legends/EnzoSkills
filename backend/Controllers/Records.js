@@ -26,6 +26,20 @@ const handle_Records_Section = async (req, res) => {
     }
 };
 
+const get_Records = async (req, res) => {
+    try {
+        const getRecords = await RECORDS.find({});
+        if (getRecords.length === 0) throw new Error("Records are not Available");
+        res.json({
+            msg: "Records Fetched Successfully",
+            records: getRecords
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
-    handle_Records_Section
+    handle_Records_Section,
+    get_Records
 }

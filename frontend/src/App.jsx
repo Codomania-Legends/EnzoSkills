@@ -28,7 +28,6 @@ import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
 import Learning from './Dashboard/CourseDetails/Learning';
-import Roadmap from "./Dashboard/CourseDetails/Roadmap"
 import { CourseProvider } from './Utility/Course';
 import Signup from './Hero/Login_Signup/Signup';
 import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
@@ -37,6 +36,8 @@ import Assessment from './Dashboard/CourseDetails/Assessment';
 import Calender from './Utility/Calender';
 import AddProjectForm from './Dashboard/Project/AddProjectForm';
 import LoadImages from './Utility/Loading/LoadImages';
+import Roadmap from './Utility/Roadmap/Roadmap';
+import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -91,8 +92,9 @@ function App() {
               <Route path="assessment/:id" element={<Assessment />} />
               <Route path="assessment/topic/:id" element={<TopicAssessment />} />
               <Route path="assessment/final/:id" element={<FinalAssessment />} />
-              <Route path="roadmap/:id" element={<Roadmap />} />
+              <Route path="scorecard/:id" element={<ScoreCard />} />
               <Route path="doubts/:id" element={<Doubts />} />
+              <Route path="roadmap/:id" element={<Roadmap />} />
             </Route>
           </Route>
           <Route path='/dashload' element={<DashLoad />} />

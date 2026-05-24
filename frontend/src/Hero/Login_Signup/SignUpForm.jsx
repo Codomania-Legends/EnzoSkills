@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router';
 
 const ProfileForm = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     image: '',
     phone: '',
-    designation: '', // Added
+    designation: '',
     skills: '',
-    experience: '', // Added
+    experience: '',
     education: {
       secondary_Edu: { school_name: '', year: '', marks: '' },
       higher_Edu: { school_name: '', year: '', marks: '' },
@@ -16,7 +20,7 @@ const ProfileForm = () => {
     projects: [{ project_name: '', description: '', project_tech: '', project_repo: '', deployed_link: '' }]
   });
 
-  
+
   // Handlers
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
@@ -34,7 +38,7 @@ const ProfileForm = () => {
     setFormData({ ...formData, projects: updatedProjects });
   };
 
-  //add project
+  // Add project
   const addProject = () => {
     setFormData({
       ...formData,
@@ -42,7 +46,7 @@ const ProfileForm = () => {
     });
   };
 
-  //remove project
+  // Remove project
   const removeProject = (index) => {
     setFormData({
       ...formData,
@@ -50,19 +54,74 @@ const ProfileForm = () => {
     });
   };
 
-  //Skip button
+  // Fill Static Data for Testing
+  const fillStaticData = () => {
+    setFormData({
+      image: '', // File inputs cannot be set programmatically for security reasons
+      phone: '+91 9876543210',
+      designation: 'Senior Frontend Developer',
+      skills: 'React, Node.js, GSAP, Tailwind CSS, Redux Toolkit',
+      experience: '3+ years of experience in building scalable web applications. Specialized in modern frontend frameworks and performance optimization.',
+      education: {
+        secondary_Edu: { school_name: 'Delhi Public School', year: '2016', marks: '92%' },
+        higher_Edu: { school_name: 'Delhi Public School', year: '2018', marks: '88%' },
+        degree: { clg_name: 'National Institute of Technology', duration: '4 Years', year: '2022', marks: '8.5 CGPA' }
+      },
+      projects: [
+        {
+          project_name: 'EnzoSkills Dashboard',
+          description: 'A full-stack admin dashboard for managing student profiles and analytics.',
+          project_tech: 'React, Node.js, Express, MongoDB',
+          project_repo: 'https://github.com/example/enzoskills',
+          deployed_link: 'https://enzoskills.example.com'
+        },
+        {
+          project_name: 'Portfolio Builder',
+          description: 'An interactive drag-and-drop portfolio creator.',
+          project_tech: 'React, GSAP, Tailwind CSS',
+          project_repo: 'https://github.com/example/portfolio-builder',
+          deployed_link: 'https://portfolio.example.com'
+        }
+      ]
+    });
+  };
+
+  // Skip button
   const handleSkip = () => {
-    // If using React Router: navigate("/dashboard/home");
-    window.location.href = "/dashboard/home"; 
+    navigate("/dashboard/home");
+  };
+
+  const handleFinish = async () => {
+    const user_id = Cookies.get("user_id");
+    if (!user_id) {
+      alert("User not found! Please signup again.");
+      return;
+    }
+    try {
+      const payload = { user_id, ...formData };
+      await axios.patch("http://localhost:3000/user/alldetails", payload);
+      navigate("/dashboard/home");
+    } catch (err) {
+      alert("Failed to save details: " + err.message);
+    }
   };
 
   const hexagonStyle = {
-  clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)"
-};
+    clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)"
+  };
+
   return (
-    <div className="min-h-screen w-full small  flex items-center justify-center flex-col p-6 font-sans">
-      <div className="absolute top-8 right-10">
-        <button 
+    <div className="min-h-screen w-full small flex items-center justify-center flex-col p-6 font-sans">
+      <div className="absolute top-8 right-10 flex gap-4">
+        {/* Static Data Button */}
+        <button
+          onClick={fillStaticData}
+          className="px-6 py-2 rounded-xl text-blue-700 font-bold small-box-shadow gray hover:bg-blue-100 transition-all active:scale-95"
+        >
+          Fill Static Data 🧪
+        </button>
+
+        <button
           onClick={handleSkip}
           className="px-6 py-2 rounded-xl text-purple-700 font-bold small-box-shadow gray hover:bg-purple-100 transition-all active:scale-95"
         >
@@ -73,50 +132,47 @@ const ProfileForm = () => {
       {/* Progress Tracker */}
       <div className="flex justify-between w-1/2 mb-10 px-10 relative">
         {/* Background Gray Line (Static) */}
-        <div className="absolute top-1/2 left-12 w-[85%] h-1  bg-gray-400 -z-0 transform -translate-y-1/2"></div>
-        
+        <div className="absolute top-1/2 left-12 w-[85%] h-1 bg-gray-400 -z-0 transform -translate-y-1/2"></div>
+
         {/* Active Purple Line (Moving) */}
-        <div 
+        <div
           className="absolute top-1/2 left-12 w-full h-1 bg-purple-600 z-0 transform -translate-y-1/2 transition-all duration-500 ease-in-out"
-          style={{ 
+          style={{
             /* Logic: width grows by 33.3% for each step moved past step 1 */
-            width: `${((step - 1) / 3.5) * 100}%` 
+            width: `${((step - 1) / 3.5) * 100}%`
           }}
         ></div>
 
         {[1, 2, 3, 4].map((i) => (
-          <div 
+          <div
             key={i}
-            // style={hexagonStyle} 
-            className={`w-14 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-500 z-10 ${
-              step >= i 
-                ? 'small-box-shadow purple text-white' 
+            className={`w-14 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-500 z-10 ${step >= i
+                ? 'small-box-shadow purple text-white'
                 : 'small-box-shadow gray text-gray-600'
-            }`}
+              }`}
           >
             {i}
           </div>
         ))}
       </div>
       <div className="max-w-3xl white h-[70vh] flex flex-col items-center justify-center rounded-4xl medium-box-shadow w-full">
-        
 
         <form className='h-[90%] w-[90%] ' onSubmit={(e) => e.preventDefault()}>
-          
+
           {/* STEP 1: BASIC INFO & DESIGNATION */}
           {step === 1 && (
             <div className='h-full w-full flex flex-col justify-between p-4'>
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold text-purple-700">Professional Identity</h2>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-bold text-gray-600 ml-1">Designation</label>
-                    <input className='border border-gray-400 rounded-2xl h-12 pl-5 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be]' type="text" placeholder="Frontend Developer" value={formData.designation} onChange={(e) => setFormData({...formData, designation: e.target.value})} />
+                    <input className='border border-gray-400 rounded-2xl h-12 pl-5 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be]' type="text" placeholder="Frontend Developer" value={formData.designation} onChange={(e) => setFormData({ ...formData, designation: e.target.value })} />
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="text-sm font-bold text-gray-600 ml-1">Phone Number</label>
-                    <input className='border border-gray-400 rounded-2xl h-12 pl-5 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be]' type="text" placeholder="+91 0000000000" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
+                    <input className='border border-gray-400 rounded-2xl h-12 pl-5 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be]' type="text" placeholder="+91 0000000000" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
                   </div>
                 </div>
 
@@ -127,7 +183,7 @@ const ProfileForm = () => {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-bold text-gray-600 ml-1">Professional Experience</label>
-                  <textarea className='border border-gray-400 rounded-2xl p-5 h-32 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none' placeholder="Brief Summary" value={formData.experience} onChange={(e) => setFormData({...formData, experience: e.target.value})} />
+                  <textarea className='border border-gray-400 rounded-2xl p-5 h-32 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none' placeholder="Brief Summary" value={formData.experience} onChange={(e) => setFormData({ ...formData, experience: e.target.value })} />
                 </div>
               </div>
 
@@ -143,14 +199,14 @@ const ProfileForm = () => {
               <div className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-purple-700">Core Skills</h2>
                 <p className="text-gray-500 text-sm">List your tech stack separated by commas.</p>
-                
+
                 <div className="flex flex-col gap-1 mt-4">
                   <label className="text-sm font-bold text-gray-600 ml-1">Skills Occupied</label>
-                  <textarea 
-                    className="border border-gray-400 rounded-2xl p-5 h-48 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none" 
-                    placeholder="React, Node.js, GSAP, Tailwind CSS..." 
-                    value={formData.skills} 
-                    onChange={(e) => setFormData({...formData, skills: e.target.value})} 
+                  <textarea
+                    className="border border-gray-400 rounded-2xl p-5 h-48 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none"
+                    placeholder="React, Node.js, GSAP, Tailwind CSS..."
+                    value={formData.skills}
+                    onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
                   />
                 </div>
               </div>
@@ -168,7 +224,7 @@ const ProfileForm = () => {
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-purple-700">Education Details</h2>
                 <div className="space-y-6 max-h-[45vh] overflow-y-auto pr-4 custom-scrollbar">
-                  
+
                   {/* Degree Section */}
                   <div className="p-5 rounded-3xl shadow-[inset_4px_4px_8px_#bebebe,inset_-4px_-4px_8px_#ffffff] border border-gray-300">
                     <h3 className="font-bold text-purple-600 mb-4 text-xs uppercase tracking-widest">Degree / Graduation</h3>
@@ -246,22 +302,22 @@ const ProfileForm = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold text-purple-700">Project Portfolio</h2>
-                  <button 
-                    type="button" 
-                    onClick={addProject} 
+                  <button
+                    type="button"
+                    onClick={addProject}
                     className="text-purple-600 font-bold text-sm hover:scale-105 transition-transform"
                   >
                     + ADD PROJECT
                   </button>
                 </div>
-                
+
                 <div className="space-y-6 max-h-[47vh] overflow-y-auto pr-4 custom-scrollbar">
                   {formData.projects.map((proj, idx) => (
                     <div key={idx} className="relative p-8 rounded-[30px] border border-gray-300 shadow-[inset_6px_6px_12px_#bebebe,inset_-6px_-6px_12px_#ffffff] bg-white/10">
-                      
+
                       {/* Remove Button */}
                       {formData.projects.length > 1 && (
-                        <button 
+                        <button
                           type="button"
                           onClick={() => removeProject(idx)}
                           className="absolute top-4 right-6 text-red-500 font-bold text-xs hover:text-red-700"
@@ -302,7 +358,7 @@ const ProfileForm = () => {
 
               <div className="flex justify-between mb-2">
                 <button type="button" className="small-box-shadow gray text-gray-700 rounded-2xl px-8 py-3 font-bold border border-gray-400" onClick={prevStep}>Back</button>
-                <button type="submit" className="small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-md" onClick={() => console.log("Final Data:", formData)}>Finish Profile</button>
+                <button type="button" className="small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-md" onClick={handleFinish}>Finish Profile</button>
               </div>
             </div>
           )}

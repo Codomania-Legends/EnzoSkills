@@ -1,0 +1,38 @@
+.animate_images {
+    animation: animate_images 20s ease-in-out infinite;
+}
+
+.animate_bg_image {
+    animation: animate_bg_image 20s ease-in-out infinite;
+}
+
+@keyframes animate_bg_image {
+    from {
+        scale: 1;
+        opacity: 1;
+    }
+
+    50% {
+        scale: 1.5;
+        opacity: 0.5;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes animate_images {
+    from {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
