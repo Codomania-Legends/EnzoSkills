@@ -139,7 +139,7 @@ function Assessment() {
                   </div>
 
                   <div className="flex items-center justify-center">
-                    <button className="h-12 w-12 border-none rounded-full bg-[#7a7cff] text-white shadow-md hover:scale-105 transition-transform flex items-center justify-center">
+                    <button className="h-12 w-12 border-none rounded-full bg-[#7a7cff] text-white shadow-md hover:scale-105 transition-transform flex items-center justify-center small-box-shadow blue">
                       <i className="fa-solid fa-angles-right"></i>
                     </button>
                   </div>
@@ -155,7 +155,7 @@ function Assessment() {
           {/* Restored the original mt-10 style for your motivational text box! */}
           <div className="w-full mt-10 flex justify-between items-center bg-white p-8 rounded-3xl medium-box-shadow white mb-10">
             <div className="finalBox">
-              <button className="border-none py-4 px-8 rounded-2xl bg-[#4e53e6] text-white font-bold shadow-md hover:bg-blue-600 transition-colors">
+              <button className="border-none py-4 px-8 rounded-2xl bg-[#4e53e6] text-white font-bold shadow-md hover:bg-blue-600 transition-colors small-box-shadow blue">
                 Final Assessment 🏆
               </button>
             </div>

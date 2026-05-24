@@ -2,7 +2,9 @@ import React from 'react'
 
 function FinalAssessment() {
   return (
-    <div>FinalAssessment</div>
+    <div>
+      FinalAssessment
+    </div>
   )
 }
 

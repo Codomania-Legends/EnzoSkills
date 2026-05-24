@@ -102,7 +102,8 @@ const ProfileForm = () => {
       await axios.patch("http://localhost:3000/user/alldetails", payload);
       navigate("/dashboard/home");
     } catch (err) {
-      alert("Failed to save details: " + err.message);
+      const errorMessage = err.response?.data?.error || err.message;
+      alert("Failed to save details: " + errorMessage);
     }
   };
 

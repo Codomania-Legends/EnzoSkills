@@ -78,15 +78,15 @@ function Learning() {
           </div>
           
           {/* Controls Footer Area */}
-          <div className="w-full h-auto md:h-[10vh] flex items-center justify-between md:justify-center mt-6 md:mt-0 relative">
+          <div className="w-full h-auto md:h-[10vh] flex items-center justify-between md:justify-center mt-6 md:relative md:bottom-[-35%]">
             <img 
-              className="h-[18px] w-[18px] md:absolute md:bottom-[22%] static" 
+              className="h-[18px] w-[18px] md:absolute md:bottom-[0%] static" 
               src="/Courses/Polygon_3.png" 
               alt="Down Arrow" 
             />
             
             {/* Laptop maintains exact width (11vw) and absolute positions; mobile shifts cleanly to a padded layout */}
-            <button className="px-2 py-1 md:px-6 md:py-2 border-none rounded-[10px] text-black md:absolute md:right-[12%] md:bottom-[26.5%] font-semibold small-box-shadow blue text-sm md:text-lg">
+            <button className="px-2 py-1 md:px-6 md:py-2 border-none rounded-[10px] text-black md:absolute md:right-[8%] md:bottom-[40%] font-semibold small-box-shadow blue text-sm md:text-lg">
               Roadmap
             </button>
           </div>

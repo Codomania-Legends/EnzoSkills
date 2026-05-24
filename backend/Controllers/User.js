@@ -2,6 +2,8 @@ const USER = require("../Models/User")
 const { v4: uuid } = require("uuid")
 const { nanoid } = require("nanoid")
 
+const HISTORY = require("../Models/History");
+
 //signup function for users
 const handle_User_Signup = async (req, res) => {
     console.log("Got user Details")
@@ -18,13 +20,21 @@ const handle_User_Signup = async (req, res) => {
             password: password
         })
         if (!newUser) throw (new Error("Internal Error"))
+
+        // Log action
+        await HISTORY.create({
+            user_id: newUser.user_id,
+            action_title: "Account Created",
+            action_description: `Welcome to EnzoSkills, ${newUser.user_name}! Your account was successfully created.`
+        });
+
         res.json({
             msg: "User Created Successfully",
             user: newUser
         })
 
     } catch (error) {
-        res.end(error.message)
+        res.status(400).json({ error: error.message })
     }
 }
 
@@ -34,18 +44,26 @@ const handle_User_Login = async (req, res) => {
         if (!req.body) throw (new Error("Body not Found"))
 
         const { user_name, user_post, password } = req.body
-        const findUser = await USER.find({
+        const findUser = await USER.findOne({ // Fixed to findOne so we get a single object back instead of an array
             user_name: user_name,
             user_post: user_post,
             password: password
         })
         if (!findUser) throw (new Error("No Login Credentials Available"))
+
+        // Log action
+        await HISTORY.create({
+            user_id: findUser.user_id,
+            action_title: "Logged In",
+            action_description: "Successfully logged into your account."
+        });
+
         res.json({
             msg: "User LoggedIn Successfully",
             user: findUser
         })
     } catch (error) {
-        res.end(error.message)
+        res.status(400).json({ error: error.message })
     }
 }
 
@@ -54,7 +72,7 @@ const handle_All_User_Details = async (req, res) => {
     try {
         if (!req.body) throw (new Error("Body not Found"))
         let { user_id, phone, skills, ...updateData } = req.body;
-        
+
         if (phone) updateData.phone_num = phone;
         if (skills) {
             updateData.skills_occupied = skills.split(',').map(skill => ({ skills: skill.trim() })).filter(s => s.skills);
@@ -73,7 +91,7 @@ const handle_All_User_Details = async (req, res) => {
         })
 
     } catch (error) {
-        res.end(error.message)
+        res.status(400).json({ error: error.message })
     }
 }
 

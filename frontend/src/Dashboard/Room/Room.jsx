@@ -220,12 +220,30 @@ function Room() {
 
           <div className='w-full md:w-1/3 flex flex-col gap-4 md:gap-5 justify-center h-full'>
             <button
-              onClick={() => {
-                if (roomIdArray.join("").length < 6) {
+              onClick={async () => {
+                const roomStr = roomIdArray.join("");
+                if (roomStr.length < 6) {
                   sileo.error({ title: "Error", description: "Please Enter a 6-Digit Room ID to join." })
                   return;
                 }
-                navigate(`/dashboard/room/${roomIdArray.join("")}`)
+
+                // Log the action!
+                const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+                if (userId) {
+                  try {
+                    await fetch("http://localhost:3000/history/add", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        user_id: userId,
+                        action_title: "Joined a Room",
+                        action_description: `You joined the coding discussion room ID: ${roomStr}`
+                      })
+                    });
+                  } catch(e) {}
+                }
+
+                navigate(`/dashboard/room/${roomStr}`)
               }}
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >
@@ -233,8 +251,9 @@ function Room() {
             </button>
 
             <button
-              onClick={() => {
-                if (roomIdArray.join("").length < 6) {
+              onClick={async () => {
+                const roomStr = roomIdArray.join("");
+                if (roomStr.length < 6) {
                   const generatedRoomId = new Array(6).fill(0).map(() => Math.floor(Math.random() * 10).toString());
                   setRoomIdArray(generatedRoomId);
                   sileo.success({
@@ -247,7 +266,24 @@ function Room() {
                   });
                   return;
                 }
-                navigate(`/dashboard/room/${roomIdArray.join("")}`)
+
+                // Log the action!
+                const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+                if (userId) {
+                  try {
+                    await fetch("http://localhost:3000/history/add", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        user_id: userId,
+                        action_title: "Created a Room",
+                        action_description: `You created and entered the coding discussion room ID: ${roomStr}`
+                      })
+                    });
+                  } catch(e) {}
+                }
+
+                navigate(`/dashboard/room/${roomStr}`)
               }}
               className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
             >

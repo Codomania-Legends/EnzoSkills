@@ -19,7 +19,8 @@ export async function handleSignup(e) {
         return { success: true, data: res.data };
     } catch (error) {
         console.error(error);
-        return { success: false, error: error.message };
+        const errorMessage = error.response?.data?.error || error.message;
+        return { success: false, error: errorMessage };
     }
 }
 
@@ -33,13 +34,14 @@ export async function handleLogin(e) {
         const res = await axios.post("http://localhost:3000/user/login", {
             user_name, user_post, password
         });
-        if (res.data && res.data.user && res.data.user.length > 0) {
+        if (res.data && res.data.user) {
             return { success: true, data: res.data };
         } else {
             return { success: false, error: "Invalid credentials" };
         }
     } catch (error) {
         console.error(error);
-        return { success: false, error: error.message };
+        const errorMessage = error.response?.data?.error || error.message;
+        return { success: false, error: errorMessage };
     }
 }
