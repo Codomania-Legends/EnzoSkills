@@ -48,6 +48,14 @@ const handle_Enrolled_std = async (req, res) => {
         if (!UserEnrolled) {
             return res.status(404).json({ msg: "Course not found" });
         }
+
+        // Log the action!
+        const HISTORY = require("../Models/History");
+        await HISTORY.create({
+            user_id: user_id,
+            action_title: "Enrolled in Course",
+            action_description: `You have successfully enrolled in the course: ${UserEnrolled.course_name}. Happy learning!`
+        });
         
         res.status(200).json({
             msg: "User Enrolled Successfully",

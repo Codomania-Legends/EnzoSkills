@@ -32,7 +32,6 @@ function AddCourses() {
 
     const handleAddCourse = async () => {
         try {
-            // Split comma-separated strings into arrays for schema
             const payload = {
                 ...allDetails,
                 skills: allDetails.skills.split(',').map(s => s.trim()).filter(Boolean),
@@ -41,6 +40,19 @@ function AddCourses() {
             };
 
             const res = await axios.post("http://localhost:3000/courses/create", payload);
+            console.log(res);
+
+            // Log the action to history
+            const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+            if (userId) {
+                try {
+                    await axios.post("http://localhost:3000/history/add", {
+                        user_id: userId,
+                        action_title: "Created Course",
+                        action_description: `You successfully authored and published the course: ${payload.course_name}`
+                    });
+                } catch(e) {}
+            }
 
             if (res.data.error) throw new Error(res.data.error);
 

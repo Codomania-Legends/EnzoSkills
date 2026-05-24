@@ -13,9 +13,9 @@ const UserSchema = new Schema({
     skills_occupied: [{ skills: String }],
     experience: { type: String, default: '' },
     education: {
-        secondary_Edu: { school_name: String, year: Number, marks: Number },
-        higher_Edu: { school_name: String, year: Number, marks: Number },
-        degree: { clg_name: String, duration: Number, year: Number, marks: Number }
+        secondary_Edu: { school_name: String, year: String, marks: String },
+        higher_Edu: { school_name: String, year: String, marks: String },
+        degree: { clg_name: String, duration: String, year: String, marks: String }
     },
     projects: [{
         project_name: String,

@@ -13,7 +13,8 @@ function Login() {
     const onSubmit = async (e) => {
         const result = await handleLogin(e);
         if (result.success) {
-            Cookies.set("username", result.data.user[0].user_name);
+            Cookies.set("username", result.data.user.user_name);
+            Cookies.set("user_id", result.data.user.user_id);
             navigate("/dashboard/home");
         } else {
             alert('Login failed: ' + result.error);

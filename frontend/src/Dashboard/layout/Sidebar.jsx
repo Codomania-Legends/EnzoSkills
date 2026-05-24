@@ -67,7 +67,12 @@ function Sidebar() {
             name: "Records",
             icon: "/Sidebar/records.svg",
             path: "/dashboard/records"
-        }
+        },
+        // {
+        //     name: "History",
+        //     icon: "/Sidebar/history.svg", // Using a placeholder icon or history if it exists
+        //     path: "/dashboard/history"
+        // }
     ]
     return (
         <div ref={containerRef} className="sidebar-container hidden md:flex h-[95%] px-2 rounded-2xl flex flex-col justify-around items-center medium-box-shadow white ">
