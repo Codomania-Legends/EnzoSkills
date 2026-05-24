@@ -231,6 +231,7 @@ function TopicAssessment() {
 
             </div>
         </div>
+        </div>
     )
 }
 
