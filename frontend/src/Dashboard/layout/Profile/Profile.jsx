@@ -121,7 +121,7 @@ function Profile({ showProfile }) {
                                 Experience
                             </h3>
                             {/* Wrapping container requires specific height and relative class for absolute items */}
-                            <div className='w-full h-32 relative'>
+                            <div className='w-full h-35 relative'>
                                 {(() => {
                                     const loadedExperience = userData?.experience ? [{ role: "Experience", institute: "Work", date: "Present", description: userData.experience }] : experience;
                                     return loadedExperience.length === 0 ?
@@ -138,7 +138,7 @@ function Profile({ showProfile }) {
                             <h3 className='show-profile-text text-left text-lg font-bold font-[Manrope] py-2'>
                                 Education
                             </h3>
-                            <div className='w-full h-32 relative'>
+                            <div className='w-full h-35 relative'>
                                 {(() => {
                                     const loadedEducation = userData?.education ? [
                                         userData.education.degree?.clg_name && { role: "Degree", institute: userData.education.degree.clg_name, date: userData.education.degree.year, description: `CGPA: ${userData.education.degree.marks}` },
@@ -159,7 +159,7 @@ function Profile({ showProfile }) {
                     {/* Projects Container */}
                     <div className='hidden md:flex justify-evenly flex-col items-center w-[85%] flex-wrap'>
                         <h3 className='show-profile-text text-center text-lg font-bold font-[Manrope] py-2'>Projects</h3>
-                        <div className='w-full h-20 relative show-profile-text md:w-[75%]'>
+                        <div className='w-full h-20 relative show-profile-text md:w-[80%]'>
                             {(() => {
                                 const loadedProjects = userData?.projects?.length > 0 ? userData.projects.map(p => ({
                                     name: p.project_name, description: p.description, repo: p.project_repo, demo: p.deployed_link

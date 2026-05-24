@@ -183,10 +183,10 @@ function TopicAssessment() {
 
                                 return (
                                     <div key={i} className="flex justify-center items-center relative pt-4 cursor-pointer" onClick={() => handleOptionSelect(opt)}>
-                                        <div className={`w-12 h-12 rounded-full small-box-shadow ${iconClass} flex items-center justify-center font-bold absolute top-4 left-1/2 -translate-x-1/2 z-10 text-lg transition-all`}>
+                                        <div className={`w-12 h-12 rounded-full small-box-shadow ${iconClass} flex items-center justify-center font-bold absolute top-[30%] left-[-1%] left-1/2 -translate-x-1/2 z-10 text-lg transition-all`}>
                                             {letters[i]}
                                         </div>
-                                        <button className={`w-[85%] small-box-shadow ${buttonClass} font-medium py-6 px-6 rounded-[2em] border-b-4 text-center active:scale-95 transition-all duration-200`}>
+                                        <button className={`w-[80%] small-box-shadow ${buttonClass} font-medium py-6 px-6 rounded-[2em] border-b-4 text-center active:scale-95 transition-all duration-200`}>
                                             <span>{opt}</span>
                                         </button>
                                     </div>

@@ -26,8 +26,8 @@ export function Project_Box(name, description, repo, demo, key, index, onClickFu
                 <p className='text-xs font-semibold font-[Manrope] text-[#534DB4] pr-2'>{description}</p>
             </div>
             <div className='flex gap-2 h-full flex-col justify-evenly items-end w-[20%]'>
-                <a href={repo} target="_blank" rel="noreferrer" className='text-[0.5rem] font-semibold font-[Manrope] bg-[#534DB4] text-white px-2 py-1 rounded-full w-20 flex items-center justify-center'>Repository</a>
-                <a href={demo} target="_blank" rel="noreferrer" className='text-[0.5rem] font-semibold font-[Manrope] bg-white text-[#534DB4] px-2 py-1 rounded-full flex items-center justify-center w-20'>
+                <a href={repo} target="_blank" rel="noreferrer" className='text-[0.5rem] font-semibold font-[Manrope] bg-[#534DB4] text-white px-2 py-1 rounded-full w-22 flex items-center justify-center h-5'>Repository</a>
+                <a href={demo} target="_blank" rel="noreferrer" className='text-[0.5rem] font-semibold font-[Manrope] bg-white text-[#534DB4] px-2 py-1 rounded-full flex items-center justify-center w-22 h-5'>
                     <img src="/Dashboard/info.svg" alt="" />
                     <span className='ml-1 text-[0.5rem] font-semibold font-[Manrope]'>Live Demo</span>
                 </a>
