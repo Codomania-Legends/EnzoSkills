@@ -228,10 +228,10 @@ function TopicAssessment() {
                         )}
                     </div>
                 </div>
+
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
-export default TopicAssessment
+export default TopicAssessment;
