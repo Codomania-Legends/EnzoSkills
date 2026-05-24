@@ -23,7 +23,7 @@ function Dash_Navbar() {
     const navLinks = [
         { name: "Overview", path: "/dashboard/courses/overview/" },
         { name: "Learning", path: "/dashboard/courses/learning/" },
-        { name: "Assessments", path: "/dashboard/courses/assessment/topic/" },
+        { name: "Assessments", path: "/dashboard/courses/assessment/" },
         { name: "Roadmap", path: "/dashboard/courses/roadmap/" },
         { name: "Doubts", path: "/dashboard/courses/doubts/" },
     ];

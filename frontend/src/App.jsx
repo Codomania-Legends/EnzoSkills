@@ -89,8 +89,8 @@ function App() {
               <Route path="overview/:id" element={<Overview />} />
               <Route path="learning/:id" element={<Learning />} />
               <Route path="assessment/:id" element={<Assessment />} />
-              <Route path="assessment/topic/:id" element={<TopicAssessment />} />
-              <Route path="assessment/final/:id" element={<FinalAssessment />} />
+              <Route path="topic/:id" element={<TopicAssessment />} />
+              <Route path="final/:id" element={<FinalAssessment />} />
               <Route path="roadmap/:id" element={<Roadmap />} />
               <Route path="doubts/:id" element={<Doubts />} />
             </Route>
