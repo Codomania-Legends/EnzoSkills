@@ -8,6 +8,7 @@ import gsap from "gsap"
 import books from '/LoginSignup/books.jpg';
 import books2 from '/LoginSignup/books2.jpg';
 import { handleSignup } from './handleAuthentication';
+import { sileo } from 'sileo';
 
 function Signup() {
 
@@ -66,7 +67,7 @@ function Signup() {
             Cookies.set("user_id", result.data.user.user_id);
             navigate('/signform');
         } else {
-            alert('Signup failed: ' + result.error);
+            sileo.error('Signup failed: ' + result.error);
         }
     };
 

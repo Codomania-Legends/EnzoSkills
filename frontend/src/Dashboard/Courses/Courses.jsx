@@ -5,6 +5,7 @@ import { useCourse } from '../../Utility/Course';
 import { useNavigate } from 'react-router';
 import TitleAnimation from '../TitleAnimation';
 import axios from 'axios';
+import { sileo } from 'sileo';
 
 function Courses() {
 
@@ -73,7 +74,7 @@ function Courses() {
                                     window.location.reload();
                                 } catch (e) {
                                     console.error(e);
-                                    alert("Failed to load static courses");
+                                    sileo.error("Failed to load static courses");
                                 }
                             }}
                             className="px-4 py-2 rounded-xl text-sm font-bold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-all small-box-shadow"

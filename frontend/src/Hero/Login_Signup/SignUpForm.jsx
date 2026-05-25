@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
+import { sileo } from 'sileo';
 
 const ProfileForm = () => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const ProfileForm = () => {
   const handleFinish = async () => {
     const user_id = Cookies.get("user_id");
     if (!user_id) {
-      alert("User not found! Please signup again.");
+      sileo.error("User not found! Please signup again.");
       return;
     }
     try {
@@ -103,7 +104,7 @@ const ProfileForm = () => {
       navigate("/dashboard/home");
     } catch (err) {
       const errorMessage = err.response?.data?.error || err.message;
-      alert("Failed to save details: " + errorMessage);
+      sileo.error("Failed to save details: " + errorMessage);
     }
   };
 

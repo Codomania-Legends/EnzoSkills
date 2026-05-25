@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { FaLinkedinIn, FaGoogle, FaGithub, FaGasPump } from 'react-icons/fa';
 import "./LoginSignup.css"
 import { handleLogin } from './handleAuthentication';
+import { sileo } from 'sileo';
 
 import gsap from "gsap"
 
@@ -17,7 +18,7 @@ function Login() {
             Cookies.set("user_id", result.data.user.user_id);
             navigate("/dashboard/home");
         } else {
-            alert('Login failed: ' + result.error);
+            sileo.error('Login failed: ' + result.error);
         }
     };
 
