@@ -1,8 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useCourse } from '../../Utility/Course'
 import { useNavigate, useLocation } from 'react-router';
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 function ScoreCard() {
+    const container = useRef(null);
+    useGSAP(() => {
+        gsap.fromTo(container.current, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, ease: 'power2.out'});
+    }, { scope: container });
     const { currentCourse } = useCourse();
     const navigate = useNavigate();
     const location = useLocation();
@@ -46,7 +52,7 @@ function ScoreCard() {
     ];
 
     return (
-        <div className="container h-full mx-auto px-4 mt-5 flex flex-col items-center">
+        <div ref={container} className="container h-full mx-auto px-4 mt-5 flex flex-col items-center">
 
             <div className="flex justify-start w-[90%] mb-5 cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${currentCourse?.course_id || currentCourse?.id}`)}>
                 <div className="flex items-center gap-2 hover:opacity-80 transition-opacity">

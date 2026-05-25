@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Arrow, { DIRECTION } from 'react-arrows';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import "./style.css";
 
 function renderGameNode(level) {
@@ -42,10 +44,23 @@ function renderConnectingPath(sourceId, targetId) {
 
 function JavascriptHeroRoadmap() {
     const [isComponentMounted, setIsComponentMounted] = useState(false);
+    const container = useRef(null);
 
     useEffect(() => {
         setIsComponentMounted(true);
     }, []);
+
+    useGSAP(() => {
+        gsap.fromTo(".title-text",
+            { opacity: 0, y: -20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+        );
+        gsap.fromTo(".node-circle", 
+            { opacity: 0, scale: 0.5, y: 30 }, 
+            { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "back.out(1.7)" },
+            "-=0.4"
+        );
+    }, { scope: container });
 
     const roadmapLevels = [
         { id: "lvl-1", weekStart: "Week 1", weekTitle: "Foundations", levelNumber: 1, topic: "Variables" },
@@ -57,7 +72,7 @@ function JavascriptHeroRoadmap() {
     ];
 
     return (
-        <div className='dark-board'>
+        <div ref={container} className='dark-board'>
             <h1 className="title-text">JavaScript Hero Journey</h1>
             <div className='path-wrapper'>
                 {roadmapLevels.map((levelNode) => renderGameNode(levelNode))}

@@ -3,6 +3,8 @@ import { io } from "socket.io-client";
 import Cookies from 'js-cookie';
 import { useParams, useNavigate } from 'react-router';
 import "./Main_RoomPage.css";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 // Initialize socket connection outside the component lifecycle 🔌
 const chatSocketClient = io("http://localhost:4000");
@@ -12,6 +14,11 @@ function MainRoomPage() {
     const routeParameters = useParams();
     const activeRoomId = routeParameters.roomId || routeParameters.roomID || routeParameters.id || window.location.pathname.split("/")[3];
     const navigate = useNavigate();
+    const container = useRef(null);
+
+    useGSAP(() => {
+        gsap.fromTo(container.current, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, ease: 'power2.out'});
+    }, { scope: container });
 
     // Highly descriptive state variables 🏷️
     const [currentMessageInput, setCurrentMessageInput] = useState("");
@@ -84,7 +91,7 @@ function MainRoomPage() {
     };
 
     return (
-        <div>
+        <div ref={container}>
             <h1>
                 <i
                     className="fa-solid fa-arrow-left cursor-pointer hover:scale-110 transition-transform"

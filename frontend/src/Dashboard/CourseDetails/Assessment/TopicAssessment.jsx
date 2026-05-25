@@ -20,6 +20,11 @@ function TopicAssessment() {
     const [currentQIndex, setCurrentQIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const container = React.useRef(null);
+
+    useGSAP(() => {
+        gsap.fromTo(container.current, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, ease: 'power2.out'});
+    }, { scope: container });
 
     const handleCircleClick = (index) => {
         if (!isSubmitted) setCurrentQIndex(index);
@@ -98,7 +103,7 @@ function TopicAssessment() {
     const letters = ['A', 'B', 'C', 'D'];
 
   return (
-    <div className="container h-full mx-auto px-4 mt-5" >
+    <div ref={container} className="container h-full mx-auto px-4 mt-5" >
         <div className="flex justify-start gap-2 items-center w-2/10 mb-5 cursor-pointer" onClick={() => navigate(-1)}>
             <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
             <h1 className="text-2xl h-[10%] font-bold">Topic Assessment</h1>

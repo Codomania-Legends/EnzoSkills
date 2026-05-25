@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useCourse } from '../../Utility/Course';
 import { useNavigate } from 'react-router';
 import Calender from "../../Utility/Calender";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 function Assessment() {
   const { currentCourse } = useCourse();
   const navigate = useNavigate();
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.fromTo(container.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+  }, { scope: container });
 
   // Selected filter states
   const [selectedWeek, setSelectedWeek] = useState("Week 1");
   const [selectedDay, setSelectedDay] = useState(null);
 
   const weeksData = [
-    { "Week 1": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"] },
-    { "Week 2": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"] },
-    { "Week 4": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"] },
-    { "Week 5": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"] },
+    { "Week 1": ["Day 1", "Day 2", "Day 3 Test", "Day 4", "Day 5"] },
+    { "Week 2": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5 Test"] },
+    { "Week 4": ["Day 1 Test", "Day 2", "Day 3", "Day 4", "Day 5"] },
+    { "Week 5": ["Day 1", "Day 2", "Day 3", "Day 4 Test", "Day 5"] },
   ];
+
+  const calenderWeeks = weeksData.map(week => {
+    const key = Object.keys(week)[0];
+    return {
+      [key]: week[key].filter(day => day.includes("Test"))
+    };
+  });
 
   const assessmentData = [
     {
@@ -63,8 +77,9 @@ function Assessment() {
 
   // Logic to filter assessments when you click the calendar
   const filteredAssessments = assessmentData.filter(test => {
-    if (!selectedDay) return true; // Show all or default if no specific day is clicked
-    return test.week === selectedWeek && test.day === selectedDay;
+    if (!selectedDay) return false; // Hide all until a day is clicked
+    const cleanDay = selectedDay.replace(" Test", "");
+    return test.week === selectedWeek && test.day === cleanDay;
   });
 
   const handleDaySelect = (weekName, dayName) => {
@@ -76,7 +91,7 @@ function Assessment() {
   const completedTests = JSON.parse(localStorage.getItem('completed_assessments') || '{}')[courseId] || [];
 
   return (
-    <div className="w-full h-[90vh] p-5">
+    <div ref={container} className="w-full h-[90vh] p-5">
       <div className="w-full h-[5vh] flex items-center justify-start gap-[10px] text-[25px] mb-[30px] cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${courseId}`)}>
         <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-6 w-6" />
         <b>{currentCourse?.course_name || "Loading..."}</b>
@@ -87,11 +102,11 @@ function Assessment() {
 
         {/* Left Side: Calendar (20% width) */}
         <div className="w-[20%]">
-          <Calender Weeks={weeksData} onDaySelect={handleDaySelect} />
+          <Calender Weeks={calenderWeeks} onDaySelect={handleDaySelect} />
         </div>
 
         {/* Right Side: Assessment Details (80% width) */}
-        <div className="w-[80%] flex flex-col gap-6 max-h-[70vh] overflow-y-auto pr-4 custom-scrollbar">
+        <div className="w-[80%] flex flex-col gap-6 max-h-[70vh] h-full overflow-visible pr-4 custom-scrollbar justify-between items-center">
 
           {filteredAssessments.length > 0 ? (
             filteredAssessments.map((assessment, index) => {
@@ -146,6 +161,10 @@ function Assessment() {
                 </div>
               )
             })
+          ) : !selectedDay ? (
+            <div className="w-full bg-white rounded-3xl p-10 flex items-center justify-center medium-box-shadow white text-gray-500 font-bold text-xl">
+              Please select a test from the calendar to view details 📅
+            </div>
           ) : (
             <div className="w-full bg-white rounded-3xl p-10 flex items-center justify-center medium-box-shadow white text-gray-500 font-bold text-xl">
               No assessments scheduled for {selectedWeek} - {selectedDay} 📭
