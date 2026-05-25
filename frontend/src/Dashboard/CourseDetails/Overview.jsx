@@ -124,20 +124,26 @@ function Overview() {
                             <button
                                 onClick={() => navigate(`/dashboard/courses/learning/${currentCourse.course_id || currentCourse.id}`)}
                                 style={{ backgroundColor: "#7F77FF" }}
-                                className="text-sm small-box-shadow blue text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                                className="cursor-pointer text-sm small-box-shadow blue text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
                                 Continue Learning 🚀
                             </button>
                         ) : (
                             <button
                                 style={{ backgroundColor: "#7F77FF" }}
-                                className="text-sm small-box-shadow blue text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                                className="cursor-pointer text-sm small-box-shadow blue text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
                                 Enroll Now 🎓
                                 <img src="/Dashboard/Courses/enroll.svg" alt="Enroll" className="h-4 w-4" />
                             </button>
                         )}
 
-                        <button className="text-sm border-2 border-[#7F77FF] text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-500 hover:text-black transition-all small-box-shadow red">
-                            Download Syllabus 📄
+                        <button onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = '/React_Syllabus.pdf';
+                            link.download = `${currentCourse.course_name}_Syllabus.pdf`;
+                            link.click();
+                        }}  
+                            className="cursor-pointer text-sm border-2 border-[#7F77FF] text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-500 hover:text-black transition-all small-box-shadow red">
+                                Download Syllabus 📄
                         </button>
                     </div>
                 </div>
