@@ -13,13 +13,16 @@ function History() {
         const tl = gsap.timeline();
         TitleAnimation(tl, "history-page-title");
 
-        gsap.from(".history-item", {
+        gsap.fromTo(".history-item", {
             y: 30,
             opacity: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power2.out",
-            delay: 0.5
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.5,
+            ease: "power1.out",
+            stagger: 0.2
         });
     }, [logs]);
 
@@ -55,7 +58,7 @@ function History() {
         <div className="w-full h-full p-6 flex flex-col box-border overflow-y-auto custom-scrollbar">
             <div className="flex items-center gap-4 mb-6 shrink-0">
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-5 w-5 cursor-pointer hover:scale-110 transition-transform" onClick={() => window.history.back()} />
-                <h1 className="text-3xl font-bold text-gray-900 history-page-title tracking-tight">Activity History</h1>
+                <h1 className="text-2xl font-bold text-gray-900 history-page-title tracking-tight">Activity History</h1>
             </div>
 
             <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 relative">
@@ -77,14 +80,14 @@ function History() {
                 ) : (
                     logs.map((log, index) => (
                         <div key={index} className="history-item flex flex-col md:flex-row gap-4 md:gap-8 items-start w-full group">
-                            
+
                             {/* Desktop Timeline Node */}
                             <div className="hidden md:flex flex-col items-center pt-2">
                                 <div className="w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] group-hover:scale-150 transition-transform duration-300"></div>
                             </div>
 
                             {/* Log Card */}
-                            <div className="w-full bg-white p-6 rounded-3xl small-box-shadow flex flex-col gap-2 hover:shadow-lg transition-shadow duration-300 border border-gray-50">
+                            <div className="w-full white p-6 rounded-3xl small-box-shadow flex flex-col gap-2 hover:shadow-lg transition-shadow duration-300 border border-gray-50">
                                 <div className="flex justify-between items-start w-full max-md:flex-col max-md:gap-2">
                                     <h3 className="text-xl font-bold text-gray-800">{log.action_title}</h3>
                                     <span className="text-sm font-semibold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full whitespace-nowrap">
