@@ -84,7 +84,7 @@ function History() {
                             </div>
 
                             {/* Log Card */}
-                            <div className="w-full bg-white p-6 rounded-3xl small-box-shadow flex flex-col gap-2 hover:shadow-lg transition-shadow duration-300 border border-gray-50">
+                            <div className="w-full white p-6 rounded-3xl small-box-shadow flex flex-col gap-2 hover:shadow-lg transition-shadow duration-300 border border-gray-50">
                                 <div className="flex justify-between items-start w-full max-md:flex-col max-md:gap-2">
                                     <h3 className="text-xl font-bold text-gray-800">{log.action_title}</h3>
                                     <span className="text-sm font-semibold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full whitespace-nowrap">
