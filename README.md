@@ -12,8 +12,7 @@ EnzoSkills is a modern, structured learning path dashboard designed to help user
    Take a clean, full-screen snapshot of your main dashboard or home page on a laptop view.
    Replace 'path/to/your/screenshots/dashboard_preview.png' with your actual image path or URL.
 -->
-![EnzoSkills Dashboard](<img width="1917" height="996" alt="image" src="https://github.com/user-attachments/assets/9b36b6e8-0efc-428a-bbbf-b43a53244991" />
-)
+<img width="1917" height="996" alt="image" src="https://github.com/user-attachments/assets/9b36b6e8-0efc-428a-bbbf-b43a53244991" />
 *💡 Tip: Place a high-quality screenshot of your main dashboard view here showcasing the overall layout.*
 
 ---
