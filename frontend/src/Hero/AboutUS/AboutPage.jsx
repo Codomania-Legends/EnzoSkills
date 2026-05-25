@@ -15,8 +15,8 @@ function AboutPage() {
     const navigate = useNavigate();
     const textContainerRef = useRef(null)
 
-    useGSAP( () => {
-        
+    useGSAP(() => {
+
         textAnimate()
 
         const splitLines = new SplitText(".about-main-content", { type: "lines" })
@@ -24,7 +24,7 @@ function AboutPage() {
             rotationY: -100,
             transformOrigin: "50% 50% -160px",
             opacity: 0,
-            duration: 0.8, 
+            duration: 0.8,
             ease: "power3",
             stagger: 0.25
         })
@@ -32,20 +32,20 @@ function AboutPage() {
         gsap.from(splitWords.words, {
             x: -100,
             opacity: 0,
-            duration: 0.7, 
+            duration: 0.7,
             ease: "back",
             stagger: 0.15
         })
 
-        gsap.fromTo(".about-img", {xPercent : 100}, {xPercent : 0, duration : 1, ease : "power3"})
+        gsap.fromTo(".about-img", { xPercent: 100 }, { xPercent: 0, duration: 1, ease: "power3" })
 
-        gsap.fromTo(".know-more-btn", {opacity : 0}, {opacity : 1, duration : 1, ease : "power3", delay : 1})
-    }, { scope : textContainerRef } )
+        gsap.fromTo(".know-more-btn", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power3", delay: 1 })
+    }, { scope: textContainerRef })
     return (
         <div ref={textContainerRef} className='Home-AboutPage flex justify-center items-center'>
             <div className="main-about-container flex-col md:flex-row flex justify-center items-center">
                 <div className="about-left-content w-full lg:w-[60%] flex justify-evenly md:h-[80%] lg:h-[50%] items-center">
-                    <div  className="about-left-main-heading overflow-hidden  text-2xl md:text-5xl flex justify-center items-center">
+                    <div className="about-left-main-heading overflow-hidden  text-2xl md:text-5xl flex justify-center items-center">
                         <p className='Head-one'>E</p>
                         <p className='Head-two'>N</p>
                         <p className='Head-three'>Z</p>
@@ -67,10 +67,10 @@ function AboutPage() {
                         <p>At EnzoSkills, we believe quality education should be accessible to everyone, regardless of age or gender. </p>
                     </div>
                     <div className="know-more-div lg:hidden h-30 flex justify-center items-center">
-                        <button 
+                        <button
                             onClick={() => navigate("/about/more")}
                             className='know-more-btn small-box-shadow opacity-0
-                        '>Know More About us iiiiii <img src='/Dashboard/info.svg'/> </button>
+                        '>Know More About us iiiiii <img src='/Dashboard/info.svg' /> </button>
                     </div>
                 </div>
                 <div className="about-right-content hidden lg:flex justify-center items-center">
@@ -78,9 +78,9 @@ function AboutPage() {
                         <img src="/About-us/About-us-Comp.svg" alt="Center Decoration" className='About-comp-img ' />
                     </div>
                     <div className="know-more-div h-20 flex justify-center items-center">
-                        <button 
+                        <button
                             onClick={() => navigate("/about/more")}
-                            className='know-more-btn small-box-shadow
+                            className='know-more-btn small-box-shadow opacity-0
                         '>Know More About us i </button>
                     </div>
                 </div>

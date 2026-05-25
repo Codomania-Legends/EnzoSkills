@@ -1,9 +1,10 @@
 .Home-AboutPage {
-    height: 100%;
+    height: 90%;
     width: 100%;
     flex-direction: column;
 }
-.navbar{
+
+.navbar {
     width: 100%;
     height: 10%;
     z-index: 100;
@@ -18,38 +19,47 @@
     position: relative;
     z-index: 10;
 }
+
 .about-left-content {
     flex-direction: column;
 }
+
 .about-right-content {
     height: 100%;
     flex-direction: column;
     width: 40%;
 }
+
 .about-left-main-heading {
     width: 100%;
     font-family: "Syne", sans-serif;
     font-weight: 900;
 }
+
 .about-left-sub-heading {
     width: 100%;
     font-weight: 700;
 }
+
 .about-main-content {
     text-align: center;
     justify-content: space-evenly;
 }
-.about-img{
+
+.about-img {
     height: 60%;
 }
+
 img.About-comp-img {
     height: 100%;
 }
-.know-more-div{
+
+.know-more-div {
     width: 100%;
     justify-content: center;
     align-items: center;
 }
+
 .know-more-btn {
     background: linear-gradient(90deg, #b4c1ff 0% 0%, #8680d3 100%);
     padding: 1em 2em;
@@ -72,19 +82,19 @@ img.About-comp-img {
     width: 90%;
     position: relative;
     z-index: 10;
-    
+
     /* 🚀 FIX 6: Changed from overflow-x to overflow-y so vertical scrolling works properly! */
-    overflow-y: auto; 
+    overflow-y: auto;
     overflow-x: hidden;
-    
+
     /* border-radius: 2em; */
     margin-bottom: 2em;
-    
+
     /* 🚀 FIX 7: Native smooth scrolling replaces your heavy React onClick function! */
-    scroll-behavior: smooth; 
-    
+    scroll-behavior: smooth;
+
     /* 🚀 FIX 8: Hardware acceleration for the main scroll container */
-    will-change: scroll-position; 
+    will-change: scroll-position;
 }
 
 .KnowMore-div::-webkit-scrollbar {
@@ -103,11 +113,11 @@ img.About-comp-img {
     will-change: transform;
 }
 
-.know-more-top-descip{
+.know-more-top-descip {
     width: 100%;
 }
 
-.know-more-top-heading{
+.know-more-top-heading {
     font-size: xxx-large;
     font-family: "Syne", sans-serif;
     font-weight: 600;
@@ -120,14 +130,14 @@ img.About-comp-img {
     text-align: center;
     line-height: 30px;
     /* Note: letter-spacing '2%' is fine, but '0.02em' is more universally supported by older browsers! */
-    letter-spacing: 2%; 
+    letter-spacing: 2%;
 }
 
-.About-Team-details{
+.About-Team-details {
     width: 100%;
 }
 
-.Team-Detail-Description{
+.Team-Detail-Description {
     width: 100%;
 }
 
@@ -135,21 +145,22 @@ img.About-comp-img {
     font-size: x-large;
     gap: 1%;
 }
+
 .EnzoSkills-heading-aboutus {
     font-size: xxx-large;
     font-family: "Syne", sans-serif;
     font-weight: 900;
-    
+
     /* 1. Create a large gradient using your EnzoSkills brand colors! 💜 */
     background: linear-gradient(270deg, #7F77FF, #534DB4, #9b95ff, #7F77FF);
     background-size: 300% 300%;
-    
+
     /* 2. Clip the background so it only shows through the text! ✂️ */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-    
+
     /* 3. Attach the infinite animation! 🎬 */
     animation: gradientMove 6s ease infinite;
 }
@@ -159,9 +170,11 @@ img.About-comp-img {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }

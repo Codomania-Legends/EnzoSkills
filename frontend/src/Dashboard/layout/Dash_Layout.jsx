@@ -1,9 +1,15 @@
-import { Outlet } from 'react-router';
+import { Outlet, Navigate } from 'react-router';
+import Cookies from 'js-cookie';
 import Dash_Navbar from './Dash_Navbar';
 import Sidebar from './Sidebar';
 import MobileSidebar from './MobileSidebar';
 
 function Dash_Layout() {
+    const userId = Cookies.get("user_id");
+
+    if (!userId) {
+        return <Navigate to="/login" replace />;
+    }
     return (
         <div className='h-screen w-full'>
             <Dash_Navbar />

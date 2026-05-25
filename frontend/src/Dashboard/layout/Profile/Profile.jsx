@@ -3,10 +3,12 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import "./profile.css"
 import gsap from 'gsap'
+import { useNavigate } from 'react-router'
 import { WHITE_BOX, Bluish_Box, Project_Box } from './Boxes'
 import { skills, education, experience, projects } from './DummyData'
 
 function Profile({ showProfile }) {
+    const navigate = useNavigate();
     const profileRef = useRef(null)
     const [userData, setUserData] = useState(null)
 
@@ -75,6 +77,12 @@ function Profile({ showProfile }) {
         setProjectIndex((prev) => prev === projects.length - 1 ? 0 : prev + 1)
     }
 
+    const handleSignOut = () => {
+        Cookies.remove("user_id");
+        Cookies.remove("username");
+        navigate("/login");
+    }
+
 
     return (
         <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0`}>
@@ -88,6 +96,9 @@ function Profile({ showProfile }) {
                             <p className='show-profile-text text-lg font-bold font-[Manrope]'>{userData?.designation || "Full Stack Developer"}</p>
                             <p className='show-profile-text text-sm font-[Manrope]'>{userData?.email || "email@example.com"}</p>
                             <p className='show-profile-text text-sm font-[Manrope]'>{userData?.phone_num || "9165872964"}</p>
+                            <button onClick={() => navigate("/signform")} className="show-profile-text mt-2 text-xs font-bold bg-white text-blue-600 px-3 py-1 rounded-full shadow-sm hover:bg-gray-100 cursor-pointer">
+                                Edit Profile / Needs
+                            </button>
                         </div>
                         <div className='flex h-full justify-center items-center'>
                             <img className='show-profile-text w-25 h-25 aspect-square rounded-full' src="/About-us/members/Anshul.png" alt="Profile" />
@@ -175,9 +186,9 @@ function Profile({ showProfile }) {
 
                 {/* Signout BOTTOM */}
                 <div className="show-profile-text signout-bottom-profile flex justify-between items-center w-[85%] py-5">
-                    <div className='flex justify-center items-center gap-2'>
-                        <button className="signout-button text-sm font-[Manrope] text-white cursor-pointer">Sign Out</button>
-                        <img src='/Dashboard/signout.svg' alt="sign out" className='h-5 w-5 cursor-pointer' />
+                    <div className='flex justify-center items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity' onClick={handleSignOut}>
+                        <button className="signout-button text-sm font-[Manrope] text-white cursor-pointer pointer-events-none">Sign Out</button>
+                        <img src='/Dashboard/signout.svg' alt="sign out" className='h-5 w-5 pointer-events-none' />
                     </div>
                     <img onClick={() => setTheme((prev) => prev === "light" ? "dark" : "light")} src={theme === "light" ? "/Dashboard/light.svg" : "/Dashboard/dark.svg"} alt="light mode" className='h-7 w-7 cursor-pointer' />
                 </div>

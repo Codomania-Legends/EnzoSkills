@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import "./Loading.css"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useNavigate } from 'react-router' 
-import { motion } from 'framer-motion' 
+import { useNavigate } from 'react-router'
+import { motion } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function Loading() {
     const navigate = useNavigate()
-    
+
     const pathData = [
         "M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875",
         "M-336 -237C-336 -237 -268 168 196 295C660 422 728 827 728 827",
@@ -22,24 +22,24 @@ function Loading() {
 
     const animations = pathData.map((_, i) => ({
         duration: 3 + (i % 3) * 0.5,
-        delay: i * 0.05,    
+        delay: i * 0.05,
     }))
 
     useEffect(() => {
-        gsap.fromTo( ".ooo" , 
-            { scale : 1 } , 
-            { 
-                scale : 150, 
+        gsap.fromTo(".ooo",
+            { scale: 1 },
+            {
+                scale: 150,
                 duration: 2,
                 ease: "power2.out",
-                delay : 4, 
+                delay: 4,
             }
         )
         const timer = setTimeout(() => {
             navigate("/home")
-        }, 5000); 
+        }, 5000);
 
-        return () => clearTimeout(timer) 
+        return () => clearTimeout(timer)
     }, [navigate])
 
     return (
@@ -60,7 +60,7 @@ function Loading() {
 
                 {/* Animated gradient beams using motion.path */}
                 {pathData.map((d, i) => (
-                    <motion.path 
+                    <motion.path
                         key={`beam-${i}`}
                         d={d}
                         stroke="white"
@@ -74,7 +74,7 @@ function Loading() {
                         transition={{
                             duration: animations[i].duration,
                             delay: animations[i].delay,
-                            repeat: Infinity, 
+                            repeat: Infinity,
                             ease: "easeInOut",
                         }}
                     />
@@ -91,17 +91,17 @@ function Loading() {
                     <div className='h-4 w-15 bg-white rounded-r-full e-block-3' />
                 </div>
                 <p className='font-bold text-5xl ml-2'>
-                    <span className='span-loading'>n</span>
-                    <span className='span-loading'>z</span>
-                    <span className='span-loading'>
-                        <span className='relative inline-block ooo bg-white rounded-full aspect-square h-7 w-7'></span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>n</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>z</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>
+                        <span className='relative inline-block ooo bg-white rounded-full aspect-square h-4 w-4 sm:h-6 sm:w-6 md:h-7 md:w-7'></span>
                     </span>
-                    <span className='span-loading'>S</span>
-                    <span className='span-loading'>k</span>
-                    <span className='span-loading'>i</span>
-                    <span className='span-loading'>l</span>
-                    <span className='span-loading'>l</span>
-                    <span className='span-loading'>s</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>S</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>k</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>i</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>l</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>l</span>
+                    <span className='span-loading text-2xl sm:text-4xl md:text-5xl'>s</span>
                 </p>
             </div>
         </div>

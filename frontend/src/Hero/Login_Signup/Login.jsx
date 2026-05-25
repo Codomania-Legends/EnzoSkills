@@ -29,7 +29,7 @@ function Login() {
             opacity: 0,
         }, {
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.out"
         })
 
@@ -39,18 +39,18 @@ function Login() {
         }, {
             opacity: 1,
             y: 0,
-            duration: 3,
+            duration: 1,
             stagger: 0.3,
             ease: "power2.out"
         })
 
-        const cardTimeline = gsap.timeline({ delay: 2 })
+        const cardTimeline = gsap.timeline({ delay: 1 })
 
         cardTimeline.fromTo(".animate-card", {
             opacity: 0,
         }, {
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.out"
         })
 
@@ -69,7 +69,7 @@ function Login() {
 
     return (
         <div
-            className="bg-image flex h-screen w-full items-center p-6 bg-[#f0f2f5]"
+            className="bg-image opacity-0 flex h-screen w-full items-center p-6 bg-[#f0f2f5]"
             style={{
                 backgroundImage: "url('/LoginSignup/Login.svg')",
                 backgroundSize: "cover",
@@ -109,7 +109,7 @@ function Login() {
             </div>
 
             {/* Login Card Area (35% Width) */}
-            <form onSubmit={onSubmit} className="flex animate-card medium-box-shadow flex-col items-center justify-center w-[35%] rounded-[40px] white px-10 lg:px-16 py-10 ">
+            <form onSubmit={onSubmit} className="flex animate-card opacity-0 medium-box-shadow flex-col items-center justify-center w-[35%] rounded-[40px] white px-10 lg:px-16 py-10 ">
 
                 <h1 className="animate-inputs mb-6 text-center font-['Syne'] text-5xl font-black text-black tracking-tight">
                     Login

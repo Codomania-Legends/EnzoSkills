@@ -1,27 +1,30 @@
-.room{
+.room {
   font-size: 30px;
   position: absolute;
   left: 12%;
   top: 10%;
 }
-#arrows{
+
+#arrows {
   font-size: 20px;
   position: absolute;
   left: 10%;
   top: 12%;
 }
-#usermsg{
+
+#usermsg {
   width: 65vw;
   height: 65vh;
   position: absolute;
   left: 15%;
   top: 18%;
 }
+
 .membersSection {
   width: 250px;
   height: 300px;
   padding: 25px;
-  border-top-left-radius: 30px ;
+  border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   color: white;
   display: flex;
@@ -31,6 +34,7 @@
   right: 0%;
   bottom: 20%;
 }
+
 .member {
   display: flex;
   flex-direction: column;
@@ -38,16 +42,19 @@
   gap: 10px;
   margin-top: 20px;
 }
+
 .member img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
+
 .member p {
   margin: 0;
   font-size: 12px;
   opacity: 0.8;
 }
+
 .inputSection {
   width: 550px;
   display: flex;
@@ -59,14 +66,16 @@
   bottom: 7%;
   right: 30%;
 }
+
 .inputSection input {
   flex: 1;
   border: none;
   outline: none;
   font-size: 16px;
-  padding: 10px ;
+  padding: 10px;
   padding-left: 25px;
 }
+
 .inputSection button {
   border: none;
   background: black;
@@ -74,21 +83,25 @@
   padding: 11.5px 11px;
   border-radius: 50%;
 }
+
 .inputSection input::placeholder {
   color: #000;
-  
+
 }
-span{
-  font-size:12px;
+
+.span {
+  font-size: 12px;
 }
-.anshul{
+
+.anshul {
   height: 9vh;
   width: 15vw;
   border-radius: 20px;
   position: absolute;
   right: 10%;
 }
-.vidhi{
+
+.vidhi {
   height: 10vh;
   width: 20vw;
   border-radius: 20px;
@@ -96,7 +109,8 @@ span{
   left: 7%;
   top: 20%;
 }
-.anjali{
+
+.anjali {
   height: 12.5vh;
   width: 35vw;
   border-radius: 25px;

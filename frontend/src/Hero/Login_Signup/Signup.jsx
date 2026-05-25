@@ -19,7 +19,7 @@ function Signup() {
             opacity: 0,
         }, {
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.out"
         })
 
@@ -29,18 +29,18 @@ function Signup() {
         }, {
             opacity: 1,
             y: 0,
-            duration: 3,
+            duration: 1,
             stagger: 0.3,
             ease: "power2.out"
         })
 
-        const cardTimeline = gsap.timeline({ delay: 2 })
+        const cardTimeline = gsap.timeline({ delay: 1 })
 
         cardTimeline.fromTo(".animate-card", {
             opacity: 0,
         }, {
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.out"
         })
 
@@ -86,7 +86,7 @@ function Signup() {
             />
 
             {/* Signup Card Area */}
-            <form onSubmit={onSubmit} className="z-10 animate-card flex medium-box-shadow flex-col items-center justify-center w-[35%] rounded-[40px] white px-10 lg:px-16 py-8 ml-[5%] ">
+            <form onSubmit={onSubmit} className="z-10 opacity-0 animate-card flex medium-box-shadow flex-col items-center justify-center w-[35%] rounded-[40px] white px-10 lg:px-16 py-8 ml-[5%] ">
 
                 <h1 className="text text-center font-['Syne'] text-5xl font-black text-black tracking-tight">
                     Signup

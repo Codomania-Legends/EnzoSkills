@@ -3,6 +3,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const ProfileForm = () => {
   const navigate = useNavigate();
@@ -112,8 +114,17 @@ const ProfileForm = () => {
     clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)"
   };
 
+  const containerRef = React.useRef(null);
+
+  useGSAP(() => {
+    gsap.fromTo(".step-animate",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1 }
+    );
+  }, { dependencies: [step], scope: containerRef });
+
   return (
-    <div className="min-h-screen w-full small flex items-center justify-center flex-col p-6 font-sans">
+    <div ref={containerRef} className="min-h-screen w-full small flex items-center justify-center flex-col p-6 font-sans">
       <div className="absolute top-8 right-10 flex gap-4">
         {/* Static Data Button */}
         <button
@@ -149,8 +160,8 @@ const ProfileForm = () => {
           <div
             key={i}
             className={`w-14 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-500 z-10 ${step >= i
-                ? 'small-box-shadow purple text-white'
-                : 'small-box-shadow gray text-gray-600'
+              ? 'small-box-shadow purple text-white'
+              : 'small-box-shadow gray text-gray-600'
               }`}
           >
             {i}
@@ -163,7 +174,7 @@ const ProfileForm = () => {
 
           {/* STEP 1: BASIC INFO & DESIGNATION */}
           {step === 1 && (
-            <div className='h-full w-full flex flex-col justify-between p-4'>
+            <div className='step-animate h-full w-full flex flex-col justify-between p-4'>
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold text-purple-700">Professional Identity</h2>
 
@@ -197,7 +208,7 @@ const ProfileForm = () => {
 
           {/* STEP 2: SKILLS */}
           {step === 2 && (
-            <div className="h-[90%] w-full flex flex-col justify-between p-4">
+            <div className="step-animate h-[90%] w-full flex flex-col justify-between p-4">
               <div className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-purple-700">Core Skills</h2>
                 <p className="text-gray-500 text-sm">List your tech stack separated by commas.</p>
@@ -222,7 +233,7 @@ const ProfileForm = () => {
 
           {/* STEP 3: EDUCATION (Full Schema) */}
           {step === 3 && (
-            <div className="h-full w-full flex flex-col justify-between p-4">
+            <div className="step-animate h-full w-full flex flex-col justify-between p-4">
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-purple-700">Education Details</h2>
                 <div className="space-y-6 max-h-[45vh] overflow-y-auto pr-4 custom-scrollbar">
@@ -300,7 +311,7 @@ const ProfileForm = () => {
 
           {/* STEP 4: PROJECTS (Full Schema) */}
           {step === 4 && (
-            <div className="h-full w-full flex flex-col justify-between ">
+            <div className="step-animate h-full w-full flex flex-col justify-between ">
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold text-purple-700">Project Portfolio</h2>
