@@ -149,7 +149,7 @@ function TopicAssessment() {
                             <div className="question-number small-box-shadow white w-12 h-12 rounded-full flex items-center justify-center font-bold text-black text-xl shrink-0 absolute -left-4 top-1/2 -translate-y-1/2 z-40">
                                 {currentQIndex + 1}
                             </div>
-                            <div className="flex items-center small-box-shadow rounded-[2em] blue text-white px-10 py-8 w-[90%] relative min-h-[120px]">
+                            <div className="flex items-center small-box-shadow rounded-[2em] blue text-white px-8 py-8 w-[90%] relative ">
                                 <p className="font-semibold text-xl pl-6">{currentQ?.question}</p>
                             </div>
                         </div>

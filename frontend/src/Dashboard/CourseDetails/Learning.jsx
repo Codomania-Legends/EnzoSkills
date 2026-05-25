@@ -81,7 +81,7 @@ function Learning() {
           <div className="w-full h-auto md:h-[10vh] flex items-center justify-between md:justify-center mt-6 md:relative md:bottom-[-35%]">
             <img 
               className="h-[18px] w-[18px] md:absolute md:bottom-[0%] static" 
-              src="/Courses/Polygon_3.png" 
+              src="/Courses/Polygon.png" 
               alt="Down Arrow" 
             />
             

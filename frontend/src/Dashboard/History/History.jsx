@@ -69,7 +69,7 @@ function History() {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
                     </div>
                 ) : logs.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center p-12 bg-white rounded-3xl small-box-shadow">
+                    <div className="flex flex-col items-center justify-center p-12 white rounded-3xl small-box-shadow">
                         <img src="/Sidebar/history.svg" className="w-20 h-20 opacity-30 mb-4" alt="No History" onError={(e) => e.target.src = "/Sidebar/records.svg"} />
                         <h2 className="text-2xl font-bold text-gray-600">No History Yet</h2>
                         <p className="text-gray-400 mt-2">Your actions and progress will be logged here.</p>
