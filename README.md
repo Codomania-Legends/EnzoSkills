@@ -88,3 +88,28 @@ Follow these steps to set up the project locally:
 1. Navigate to the client directory:
 ```bash
    cd client
+2. Install dependencies:  
+```Bash
+   npm install
+3. Start the development server: 
+```Bash
+   npm start
+
+### Server Setup
+1. Navigate to the server directory:  
+```Bash
+   cd server
+
+2.Install dependencies:  
+```Bash
+   npm install
+
+3.Configure your environmental variables (.env):  
+```bash
+Code snippet
+   PORT=5000
+   MONGO_URI=your_mongodb_connection_string
+
+4.Start the backend server:
+```Bash
+   npm run dev
