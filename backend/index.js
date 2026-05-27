@@ -7,6 +7,7 @@ const courseRouter = require("./Routes/Course")
 const libraryRouter = require("./Routes/Library")
 const recordsRouter = require("./Routes/Records")
 const historyRouter = require("./Routes/History")
+const DoubtRouter = require("./Routes/Doubts")
 
 app.use(cors())
 
@@ -29,6 +30,9 @@ app.use( "/courses", courseRouter )
 
 //library router e.g. http://localhost:3000/library/get
 app.use( "/library", libraryRouter )
+
+//doubts router e.g. http://localhost:3000/doubts/solve
+app.use( "/doubts", DoubtRouter )
 
 //records router e.g. http://localhost:3000/records/get
 app.use( "/records", recordsRouter )

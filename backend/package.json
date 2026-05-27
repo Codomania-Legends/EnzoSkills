@@ -11,6 +11,7 @@
     "socket": "node Controllers/Room.js"
   },
   "dependencies": {
+    "axios": "^1.16.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "http": "^0.0.1-security",
@@ -20,4 +21,4 @@
     "socket.io": "^4.8.3",
     "uuid": "^13.0.0"
   }
-} 
+}

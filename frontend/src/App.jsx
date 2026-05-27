@@ -56,7 +56,7 @@ function App() {
     "/Dashboard/projectImg.svg",
   ]
 
-  useMemo(() => {
+  useMemo(async () => {
     let loadedImages = LoadImages({ images });
     setImagesLoaded(loadedImages);
   }, []);
