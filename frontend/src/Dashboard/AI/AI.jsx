@@ -63,20 +63,29 @@ function AI() {
 
   return (
     <>
-      <div className="w-full h-full p-6 flex flex-col box-border overflow-visible custom-scrollbar relative">
+      {/* 1. Outer container remains strictly bounded to the screen height */}
+      <div className="w-full h-full p-6 flex flex-col box-border relative">
+
         <div className="flex items-center gap-4 mb-6 shrink-0">
           <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-5 w-5 cursor-pointer hover:scale-110 transition-transform" onClick={() => window.history.back()} />
           <h1 className="text-2xl font-bold text-gray-900 history-page-title tracking-tight">AI</h1>
         </div>
-        <div className='mainContent flex flex-col w-full'>
 
-          {/* Answer DIv */}
-          <div id='answerDiv' className='black small-box-shadow text-white w-full min-h-[4rem] max-h-[80%] rounded-3xl mt-4 p-7 px-10 whitespace-pre-wrap overflow-scroll'>
+        {/* 2. Remove overflow-hidden. Add min-h-0 here! */}
+        <div className='mainContent flex flex-col flex-1 min-h-0 w-full'>
+
+          {/* 3. The answer div takes the remaining space and handles the scroll. 
+                 (Added a tiny m-2 margin just to give your box-shadow room to breathe if it's large) */}
+          <div
+            id='answerDiv'
+            // ref={answerContainerRef}
+            className='black small-box-shadow text-white w-full flex-1 rounded-3xl p-7 px-10 m-2 whitespace-pre-wrap overflow-y-auto custom-scrollbar'
+          >
             <p>{streamedAnswer}</p>
           </div>
 
-          <div className='flex w-full mt-10 sticky bottom-10'>
-
+          <div className='flex w-full mt-6 shrink-0'>
+            {/* Input and Button remain exactly as they were */}
             <input
               type='text'
               placeholder='Ask a doubt...'
