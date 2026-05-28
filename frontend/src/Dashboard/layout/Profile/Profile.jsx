@@ -37,7 +37,7 @@ function Profile({ showProfile }) {
 
 
   return (
-    <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0 transition-all duration-300 ease-in-out ${showProfile ? 'translate-x-0 opacity-100' : 'translate-x-[110%] opacity-0'}`}>
+    <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0 transition-all duration-300 ease-in-out ${showProfile ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-[110%] opacity-0 pointer-events-none'}`}>
       <div className='flex flex-col items-center w-full h-full relative'>
 
         {/* TOP HALF - Info & Skills */}

@@ -54,7 +54,7 @@ FOLLOW THIS EXACT JSON STRUCTURE: 🏗️
     const ollamaNetworkResponse = await axios.post(
       'http://localhost:11434/api/generate',
       ollamaRequestPayload,
-      { timeout: 120000 } // ⏱️ 2-minute timeout buffer
+      { timeout: 300000 } // ⏱️ 2-minute timeout buffer
     );
 
     let rawLlmOutputString = ollamaNetworkResponse.data.response;
