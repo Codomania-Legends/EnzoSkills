@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Utility/global.css";
 import "./index.css"
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router';
 
+// ... (Keep all your existing imports exactly as they are) ...
 import Home from './Hero/Home/Home';
 import AboutPage from './Hero/AboutUS/AboutPage';
 import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
@@ -51,17 +52,24 @@ const HomeLayout = () => (
 );
 
 function App() {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const images = [
+  const [isImagesLoaded, setIsImagesLoaded] = useState(false);
+
+  const preloadImageUrls = [
     "/Dashboard/projectImg.svg",
     "/HomeImg/HomeCenterImg.svg",
     "/HomeImg/HomeBG.svg"
-  ]
+  ];
 
-  useMemo(async () => {
-    let loadedImages = LoadImages({ images });
-    setImagesLoaded(loadedImages);
-  }, []);
+  // ✅ Replaced useMemo with useEffect for side-effects
+  useEffect(() => {
+    const fetchImages = async () => {
+      // Assuming LoadImages returns a boolean or resolves when done
+      const result = await LoadImages({ images: preloadImageUrls });
+      setIsImagesLoaded(result);
+    };
+
+    fetchImages();
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
     <>
@@ -75,6 +83,7 @@ function App() {
             <Route path="/about/more" element={<MoreAboutUS />} />
             <Route path="/features" element={<Features />} />
           </Route>
+
           <Route element={<Dash_Layout />}>
             <Route path="/dashboard/home" element={<DashHome />} />
             <Route path="/dashboard/library" element={<Library />} />
@@ -101,6 +110,7 @@ function App() {
               <Route path="roadmap/:id" element={<Roadmap />} />
             </Route>
           </Route>
+
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
           <Route path='/login-page' element={<Login />} />

@@ -7,8 +7,9 @@ import { useNavigate, useParams } from 'react-router';
 function Overview() {
     const navigate = useNavigate();
     const { currentCourse, courseDetails, setCurrentCourse } = useCourse();
-    const { id } = useParams();
-    
+    console.log("courseDetails", courseDetails)
+    console.log("currentCourse", currentCourse)
+
     if (!courseDetails) {
         return <div className="text-center mt-10 text-xl font-bold">Loading course list... ⏳</div>;
     }
@@ -47,18 +48,14 @@ function Overview() {
                         })}
                     </div>
 
-                    {/* 📈 Progress Bar (Conditional Render if Enrolled) */}
-                    {currentCourse.isEnrolled &&
-                        <div className="w-full mt-10 ">
-                            <div className="flex justify-between mb-1">
-                                <span className="text-xs font-bold text-gray-700">Course Progress</span>
-                                <span className="text-xs font-bold text-blue-600">{currentCourse.progress}%</span>
+                    <div className='flex flex-wrap justify-between'>
+                        {currentCourse.features.map(f => (
+                            <div className='flex gap-2 items-center'>
+                                <span className='p-2 red small-box-shadow rounded-full text-xs my-2'>{f}</span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                <div className="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style={{ width: `${currentCourse.progress}%` }}></div>
-                            </div>
-                        </div>
-                    }
+                        ))}
+                    </div>
+
                 </div>
 
                 {/* 📝 Right Column: Details & Actions */}
