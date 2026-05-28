@@ -1,34 +1,17 @@
-import { useEffect, useRef } from 'react'
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { useEffect, useRef } from 'react';
+
+
 import { useCourse } from '../../Utility/Course';
 import { useNavigate } from 'react-router';
-import TitleAnimation from '../TitleAnimation';
 import axios from 'axios';
 import { sileo } from 'sileo';
 
 function Courses() {
 
     const { currentCourse, setCurrentCourse, courseDetails } = useCourse();
-
     const navigate = useNavigate();
-
     const containerRef = useRef(null);
 
-    useGSAP(() => {
-        const tl = gsap.timeline();
-        TitleAnimation(tl, "courses-page-title");
-    }, { scope: containerRef });
-
-    useEffect(() => {
-        gsap.to(".fade_in", {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power3.inOut",
-        });
-    }, [courseDetails])
     return (
         <div ref={containerRef} className="container w-full sm:overflow-scroll md:overflow-visible h-full md:h-full mx-auto px-4 mt-5">
             <div className="flex justify-between items-center w-full mb-5 pr-4">
@@ -37,8 +20,8 @@ function Courses() {
                     <h1 className="text-2xl font-bold courses-page-title">Courses</h1>
                 </div>
                 <div className="flex gap-4">
-                    {Array.isArray(courseDetails) && courseDetails.length === 0 && (
-                        <button 
+                    {Array.isArray(courseDetails) && courseDetails.length === 0 &&
+                        <button
                             onClick={async () => {
                                 // Add static courses
                                 const staticCourses = [
@@ -65,8 +48,8 @@ function Courses() {
                                         skills: ["React Hooks", "State Management", "API Integration"],
                                         features: ["60 hours video", "15 projects"],
                                         description: "Learn to build dynamic, single-page applications using React."
-                                    }
-                                ];
+                                    }];
+
                                 try {
                                     for (const course of staticCourses) {
                                         await axios.post("http://localhost:3000/courses/create", course);
@@ -77,23 +60,23 @@ function Courses() {
                                     sileo.error("Failed to load static courses");
                                 }
                             }}
-                            className="px-4 py-2 rounded-xl text-sm font-bold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-all small-box-shadow"
-                        >
+                            className="px-4 py-2 rounded-xl text-sm font-bold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-all small-box-shadow">
+
                             Load Static Data 🧪
                         </button>
-                    )}
-                    <button 
+                    }
+                    <button
                         onClick={() => navigate("/addcourses")}
-                        className="px-6 py-2 rounded-xl text-sm font-bold text-white small-box-shadow purple"
-                    >
+                        className="px-6 py-2 rounded-xl text-sm font-bold text-white small-box-shadow purple">
+
                         + Create Course
                     </button>
                 </div>
             </div>
             <div className="flex h-[80%] justify-between relative items-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">
-                    {Array.isArray(courseDetails) && courseDetails.map((course) => (
-                        <div onClick={() => { setCurrentCourse(course.course_id || course.id); navigate(`/dashboard/courses/overview/${course.course_id || course.id}`); }} className='fade_in -y-10 opacity-0 slide_right flex justify-center h-full md:h-[90%] items-center' key={course.course_id || course.id}>
+                    {Array.isArray(courseDetails) && courseDetails.map((course) =>
+                        <div onClick={() => { setCurrentCourse(course.course_id || course.id); navigate(`/dashboard/courses/overview/${course.course_id || course.id}`); }} className='fade_in -y-10 slide_right flex justify-center h-full md:h-[90%] items-center' key={course.course_id || course.id}>
                             <div className=" white flex flex-col justify-around medium-box-shadow h-full rounded-[2em] p-4 w-full px-6">
                                 <div className='flex justify-center'>
                                     <img src={course.image} alt={course.course_name} className="h-25 md:h-30 object-cover" />
@@ -116,9 +99,9 @@ function Courses() {
                                         </p>
                                     </div>
                                     <p className="flex items-center gap-1 text-black mb-2 text-xs">
-                                        {Array.from({ length: parseInt(course.rating) }, (_, i) => (
+                                        {Array.from({ length: parseInt(course.rating) }, (_, i) =>
                                             <img key={i} src="/Dashboard/Courses/star.svg" alt="Rating" className="h-3 w-3" />
-                                        ))}
+                                        )}
                                         {course.rating}
                                     </p>
                                     <p className="text-black my-2 md:my-4 text-xs">{course.description}</p>
@@ -132,11 +115,11 @@ function Courses() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )}
                 </div>
             </div>
-        </div>
-    )
+        </div>);
+
 }
 
-export default Courses
+export default Courses;

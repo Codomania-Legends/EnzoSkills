@@ -1,0 +1,149 @@
+.small-box-shadow{
+  transition: all 0.4s ease;
+  animation: cardEntry 0.8s ease forwards;
+  opacity: 0;
+}
+.small-box-shadow:hover{
+  transform: translateY(-10px) scale(1.03);
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+}
+.grid > div:nth-child(1){
+  animation-delay: 0.1s;
+}
+.grid > div:nth-child(2){
+  animation-delay: 0.2s;
+}
+.grid > div:nth-child(3){
+  animation-delay: 0.3s;
+}
+.grid > div:nth-child(4){
+  animation-delay: 0.4s;
+}
+.grid > div:nth-child(5){
+  animation-delay: 0.5s;
+}
+.grid > div:nth-child(6){
+  animation-delay: 0.6s;
+}
+.grid > div:nth-child(7){
+  animation-delay: 0.7s;
+}
+.grid > div:nth-child(8){
+  animation-delay: 0.8s;
+}
+.fa-bars{
+  transition: all 0.3s ease;
+}
+.fa-bars:hover{
+  transform: rotate(90deg) scale(1.2);
+  cursor: pointer;
+}
+.bg-\[\#7a85bc\]{
+  animation: progressFill 2s ease forwards;
+  transform-origin: left;
+}
+img[alt="Badge"]{
+  transition: all 0.4s ease;
+}
+img[alt="Badge"]:hover{
+  transform: scale(1.2) rotate(8deg);
+}
+img[alt="Badges"]{
+  transition: all 0.5s ease;
+}
+img[alt="Badges"]:hover{
+  transform: scale(1.08) rotate(5deg);
+}
+img[alt="Java"]{
+  animation: pulse 2s infinite;
+}
+button{
+  transition: all 0.3s ease;
+}
+button:hover{
+  transform: scale(1.08);
+}
+.fa-angles-down{
+  animation: bounce 1.5s infinite;
+}
+@keyframes cardEntry{
+  from{
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressFill{
+  from{
+    transform: scaleX(0);
+  }
+
+  to{
+    transform: scaleX(1);
+  }
+}
+
+@keyframes floating{
+  0%{
+    transform: translateY(0px);
+  }
+
+  50%{
+    transform: translateY(-12px);
+  }
+
+  100%{
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse{
+  0%{
+    transform: scale(1);
+  }
+
+  50%{
+    transform: scale(1.08);
+  }
+
+  100%{
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce{
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes firePop{
+  from{
+    transform: scale(1);
+  }
+
+  to{
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeSlide{
+  from{
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

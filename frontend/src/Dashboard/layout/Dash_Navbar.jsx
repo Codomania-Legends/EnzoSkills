@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router';
 import Profile from './Profile/Profile';
-import gsap from 'gsap';
+
 
 function Dash_Navbar() {
     const location = useLocation();
@@ -25,25 +25,7 @@ function Dash_Navbar() {
         { name: "Learning", path: "/dashboard/courses/learning/" },
         { name: "Assessments", path: "/dashboard/courses/assessment/" },
         { name: "Roadmap", path: "/dashboard/courses/roadmap/" },
-        { name: "Doubts", path: "/dashboard/courses/doubts/" },
-    ];
-
-    // GSAP Optimization: Added context for cleanup! 🧹
-    useEffect(() => {
-        let ctx = gsap.context(() => {
-            gsap.fromTo(".dash-nav-ani", {
-                opacity: 0,
-            }, {
-                opacity: 1,
-                duration: 1,
-                stagger: 0.05,
-                delay: 2,
-                ease: "power2.out",
-            });
-        });
-
-        return () => ctx.revert();
-    }, []);
+        { name: "Doubts", path: "/dashboard/courses/doubts/" }];
 
     return (
         <div className='h-1/10'>
@@ -53,24 +35,24 @@ function Dash_Navbar() {
                     <img
                         src="/full-logo.png"
                         alt="Logo"
-                        className='dash-nav-ani h-2 pl-10 md:pl-7 sm:h-5 md:h-10 w-auto max-w-[160px] sm:max-w-[200px] md:max-w-none object-contain object-left'
-                    />
+                        className='dash-nav-ani h-2 pl-10 md:pl-7 sm:h-5 md:h-10 w-auto max-w-[160px] sm:max-w-[200px] md:max-w-none object-contain object-left' />
+
                 </div>
 
                 {/* Links Section with updated flag 🚩 */}
                 <div className={"center max-w-[40%] md:max-w-none flex justify-evenly w-auto md:w-1/2 " + (isCourseDetailsPage ? 'flex' : 'hidden')}>
                     <ul className="nav-links flex items-center gap-4 md:gap-0 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden scroll-smooth">
-                        {navLinks.map((link, index) => (
+                        {navLinks.map((link, index) =>
                             <li key={index + link.name} className="inline-block flex-shrink-0 text-xs">
                                 <NavLink
                                     to={`${link.path}${id}`}
-                                    className={({ isActive }) => `dash-nav-ani text-xs md:text-sm px-2 md:px-0 ${isActive ? 'text-white font-bold' : 'text-gray-500'}`}
-                                >
+                                    className={({ isActive }) => `dash-nav-ani text-xs md:text-sm px-2 md:px-0 ${isActive ? 'text-white font-bold' : 'text-gray-500'}`}>
+
                                     <span className='text-xs'>{link.name}</span>
                                     <div className="underline"></div>
                                 </NavLink>
                             </li>
-                        ))}
+                        )}
                     </ul>
                 </div>
 
@@ -82,8 +64,8 @@ function Dash_Navbar() {
                         <input
                             type="text"
                             placeholder='Search...'
-                            className='text-[10px] font-medium ml-[5%] text-white tracking-[0.05em] flex-1 max-sm:hidden bg-transparent outline-none w-full'
-                        />
+                            className='text-[10px] font-medium ml-[5%] text-white tracking-[0.05em] flex-1 max-sm:hidden bg-transparent outline-none w-full' />
+
 
                     </div>
                 </div>
@@ -101,8 +83,8 @@ function Dash_Navbar() {
 
                 <Profile showProfile={showProfile} />
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default Dash_Navbar;

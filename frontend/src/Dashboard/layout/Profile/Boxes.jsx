@@ -6,7 +6,7 @@ export function WHITE_BOX(text, key) {
 
 export function Bluish_Box(role, institute, date, description, key, index, onClickFunction) {
     return (
-        <div key={key} className={`bg-[#ffffff25] w-full h-full p-2 rounded-xl flex flex-col gap-1 justify-evenly items-start absolute top-0 left-0 transition-all duration-300 ${key === index ? "come-in-front z-10 opacity-100" : "go-back z-0 opacity-0 pointer-events-none"}`} onClick={onClickFunction}>
+        <div key={key} className={`bg-[#ffffff25] w-full h-full p-2 rounded-xl flex flex-col gap-1 justify-evenly items-start absolute top-0 left-0 transition-all duration-300 ${key === index ? "come-in-front z-10 opacity-100" : "go-back z-0 pointer-events-none"}`} onClick={onClickFunction}>
             {institute && <div className='flex md:flex-row flex-col justify-between w-full items-center text-white'>
                 <p className='text-sm font-semibold font-[Manrope]'>{role}</p>
                 <p className='text-[0.6rem] font-[Manrope]'>{date}</p>
@@ -20,7 +20,7 @@ export function Bluish_Box(role, institute, date, description, key, index, onCli
 
 export function Project_Box(name, description, repo, demo, key, index, onClickFunction) {
     return (
-        <div key={key} className={`bg-[#ffffff25] h-full p-2 rounded-xl flex w-full  justify-evenly items-start absolute top-0 left-0 transition-all duration-300 ${key === index ? "come-in-front z-10 opacity-100" : "go-back z-0 opacity-0 pointer-events-none"}`} onClick={onClickFunction}>
+        <div key={key} className={`bg-[#ffffff25] h-full p-2 rounded-xl flex w-full  justify-evenly items-start absolute top-0 left-0 transition-all duration-300 ${key === index ? "come-in-front z-10 opacity-100" : "go-back z-0 pointer-events-none"}`} onClick={onClickFunction}>
             <div className='flex flex-col h-full justify-evenly items-start w-[80%] cursor-pointer'>
                 <p className='text-sm font-semibold text-white font-[Manrope]'>{name}</p>
                 <p className='text-xs font-semibold font-[Manrope] text-[#534DB4] pr-2'>{description}</p>

@@ -78,7 +78,7 @@ button {
 }
 
 .features-card:hover {
-  --boxColor: #212121;
+  --boxColor: #8132ff;
   color: white;
   cursor: pointer;
   scale: 1.01;
@@ -97,4 +97,200 @@ button {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* Custom Animation Classes Replacing GSAP */
+@keyframes slideUpAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up,
+.slide_up {
+  animation: slideUpAnim 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideDownAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-down,
+.slide_down {
+  animation: slideDownAnim 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideLeftAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-left,
+.slide_left {
+  animation: slideLeftAnim 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes slideRightAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-right,
+.slide_right {
+  animation: slideRightAnim 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInAnim {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in,
+.fade_in {
+  animation: fadeInAnim 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeOutAnim {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-out,
+.fade_out {
+  animation: fadeOutAnim 0.8s ease-out forwards;
+}
+
+@keyframes titleAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.titleAnimation,
+.title-animation,
+[class*="page-title"] {
+  animation: titleAnim 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Stagger utilities for siblings */
+.slide-up:nth-child(2),
+.fade-in:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.slide-up:nth-child(3),
+.fade-in:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.slide-up:nth-child(4),
+.fade-in:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.slide-up:nth-child(5),
+.fade-in:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.slide-up:nth-child(6),
+.fade-in:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+.slide-up:nth-child(7),
+.fade-in:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+.slide-up:nth-child(8),
+.fade-in:nth-child(8) {
+  animation-delay: 0.7s;
+}
+
+.slide-up:nth-child(9),
+.fade-in:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+.slide-up:nth-child(10),
+.fade-in:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+/* Reveal on Scroll Utilities */
+.reveal-on-scroll {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-slide-up {
+  transform: translateY(50px);
+}
+
+.reveal-slide-down {
+  transform: translateY(-50px);
+}
+
+.reveal-slide-left {
+  transform: translateX(50px);
+}
+
+.reveal-slide-right {
+  transform: translateX(-50px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }

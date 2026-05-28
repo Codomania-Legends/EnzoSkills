@@ -1,58 +1,58 @@
-import React, { useEffect, useRef } from 'react'
-import { useCourse } from '../../Utility/Course'
+import React, { useEffect, useRef } from 'react';
+import { useCourse } from '../../Utility/Course';
 import { useNavigate, useLocation } from 'react-router';
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
+
+
 
 function ScoreCard() {
-    const container = useRef(null);
-    useGSAP(() => {
-        gsap.fromTo(container.current, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, ease: 'power2.out'});
-    }, { scope: container });
-    const { currentCourse } = useCourse();
-    const navigate = useNavigate();
-    const location = useLocation();
+  const container = useRef(null);
 
-    // Dynamically retrieve score from router state, with safe fallbacks
-    const { score = 8, total = 10, assessmentTitle = "JavaScript Basics" } = location.state || {};
-    const percentage = Math.round((score / total) * 100);
 
-    const testDetails = {
-        name: assessmentTitle,
-        score: percentage,
-        total: 100, // we use percentage in the circle
-        status: percentage >= 50 ? "Pass" : "Fail",
-        timeTaken: "5:30",
-        date: new Date().toLocaleDateString(),
-        day: new Date().toLocaleDateString('en-US', { weekday: 'long' })
-    };
 
-    const insights = [
-        percentage >= 80 
-            ? "Excellent! Your foundational concepts are very solid. Keep up the good work." 
-            : "Reflection: Your frontend architecture is good, but your foundational concepts are not fully clear yet. You need to focus more on the basics."
-    ];
+  const { currentCourse } = useCourse();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const studyPlan = [
-        "Week 1: Review core HTML semantics, accessibility, and DOM manipulation.",
-        "Week 2: Master CSS fundamentals, including the Box Model, Flexbox, and CSS Grid.",
-        "Week 3: Deep dive into JavaScript basics (Variables, Closures, Promises, and the Event Loop).",
-        "Week 4: Build a small, functional web application using only Vanilla JS to solidify your foundational knowledge."
-    ];
+  // Dynamically retrieve score from router state, with safe fallbacks
+  const { score = 8, total = 10, assessmentTitle = "JavaScript Basics" } = location.state || {};
+  const percentage = Math.round(score / total * 100);
 
-    const recommendations = [
-        "• Build at least two small projects without using any frontend frameworks (Vanilla JS only).",
-        "• Dedicate 30 minutes daily to reading MDN Web Docs on core JavaScript concepts.",
-        "• Practice solving basic algorithmic problems to strengthen your logical problem-solving skills.",
-        "• Refactor one of your older projects to apply the new basic concepts you've learned."
-    ];
+  const testDetails = {
+    name: assessmentTitle,
+    score: percentage,
+    total: 100, // we use percentage in the circle
+    status: percentage >= 50 ? "Pass" : "Fail",
+    timeTaken: "5:30",
+    date: new Date().toLocaleDateString(),
+    day: new Date().toLocaleDateString('en-US', { weekday: 'long' })
+  };
 
-    const notes = [
-        "Progress Note: Great job grasping the macro-level architecture! 🚀 Once you bridge the gaps in the micro-level basics, your overall development skills will be incredibly strong."
-    ];
+  const insights = [
+  percentage >= 80 ?
+  "Excellent! Your foundational concepts are very solid. Keep up the good work." :
+  "Reflection: Your frontend architecture is good, but your foundational concepts are not fully clear yet. You need to focus more on the basics."];
 
-    return (
-        <div ref={container} className="container h-full mx-auto px-4 mt-5 flex flex-col items-center">
+
+  const studyPlan = [
+  "Week 1: Review core HTML semantics, accessibility, and DOM manipulation.",
+  "Week 2: Master CSS fundamentals, including the Box Model, Flexbox, and CSS Grid.",
+  "Week 3: Deep dive into JavaScript basics (Variables, Closures, Promises, and the Event Loop).",
+  "Week 4: Build a small, functional web application using only Vanilla JS to solidify your foundational knowledge."];
+
+
+  const recommendations = [
+  "• Build at least two small projects without using any frontend frameworks (Vanilla JS only).",
+  "• Dedicate 30 minutes daily to reading MDN Web Docs on core JavaScript concepts.",
+  "• Practice solving basic algorithmic problems to strengthen your logical problem-solving skills.",
+  "• Refactor one of your older projects to apply the new basic concepts you've learned."];
+
+
+  const notes = [
+  "Progress Note: Great job grasping the macro-level architecture! 🚀 Once you bridge the gaps in the micro-level basics, your overall development skills will be incredibly strong."];
+
+
+  return (
+    <div ref={container} className="container h-full mx-auto px-4 mt-5 flex flex-col items-center">
 
             <div className="flex justify-start w-[90%] mb-5 cursor-pointer" onClick={() => navigate(`/dashboard/courses/overview/${currentCourse?.course_id || currentCourse?.id}`)}>
                 <div className="flex items-center gap-2 hover:opacity-80 transition-opacity">
@@ -75,17 +75,17 @@ function ScoreCard() {
                 </div>
 
             </div>
-        </div>
-    )
+        </div>);
+
 }
 
 function AssessmentCard({ testDetails }) {
-    return (
-        <div className="white medium-box-shadow flex justify-evenly w-full rounded-3xl py-4 px-2 items-center h-1/2">
+  return (
+    <div className="white medium-box-shadow flex justify-evenly w-full rounded-3xl py-4 px-2 items-center h-1/2">
             <div className='score-chart'>
                 <h1 className='text-center font-bold'>Overall Performance</h1>
                 <div className="chart-container" style={{ width: '200px', height: '200px' }}>
-                    <div className='m-3 rounded-full purplish small-box-shadow flex justify-center items-center aspect-square' >
+                    <div className='m-3 rounded-full purplish small-box-shadow flex justify-center items-center aspect-square'>
                         <div style={{ boxShadow: "inset rgba(0, 0, 0, 0.2) 8px 12px 4px" }} className='bg-white rounded-full aspect-square flex justify-center items-center p-8 text-2xl font-bold '>
                             {testDetails.score}%
                         </div>
@@ -101,52 +101,52 @@ function AssessmentCard({ testDetails }) {
                 <p className='flex-1 text-right'><span className='font-bold'>Time Taken:</span> {testDetails.timeTaken}</p>
                 <p className='flex-1 text-right'><span className='font-bold'>Status:</span> <span className={`${testDetails.status === "pass" ? "green" : "red"} ml-2`}>{testDetails.status}</span></p>
             </div>
-        </div>
-    )
+        </div>);
+
 }
 
 function AiInsights({ insights }) {
-    return (
-        <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
+  return (
+    <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
             <h1 className='text-lg font-bold mb-3'>Ai Insights</h1>
-            {insights.map((insight, index) => (
-                <p className='text-sm' key={index}>{insight}</p>
-            ))}
-        </div>
-    )
+            {insights.map((insight, index) =>
+      <p className='text-sm' key={index}>{insight}</p>
+      )}
+        </div>);
+
 }
 
 function Recommendations({ recommendations }) {
-    return (
-        <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
+  return (
+    <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
             <h1 className='text-lg font-bold mb-3'>Recommendations</h1>
-            {recommendations.map((recommendation, index) => (
-                <p className='text-sm' key={index}>{recommendation}</p>
-            ))}
-        </div>
-    )
+            {recommendations.map((recommendation, index) =>
+      <p className='text-sm' key={index}>{recommendation}</p>
+      )}
+        </div>);
+
 }
 
 function StudyPlan({ studyPlan }) {
-    return (
-        <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
+  return (
+    <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
             <h1 className='text-lg font-bold mb-3'>Study Plan</h1>
-            {studyPlan.map((plan, index) => (
-                <p className='text-sm mb-2' key={index}>{plan}</p>
-            ))}
-        </div>
-    )
+            {studyPlan.map((plan, index) =>
+      <p className='text-sm mb-2' key={index}>{plan}</p>
+      )}
+        </div>);
+
 }
 
 function Notes({ notes }) {
-    return (
-        <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
+  return (
+    <div className="white medium-box-shadow flex flex-col justify-evenly w-full rounded-3xl p-4 items-center">
             <h1 className='text-lg font-bold mb-3'>Notes</h1>
-            {notes.map((note, index) => (
-                <p className='text-sm' key={index}>{note}</p>
-            ))}
-        </div>
-    )
+            {notes.map((note, index) =>
+      <p className='text-sm' key={index}>{note}</p>
+      )}
+        </div>);
+
 }
 
-export default ScoreCard
+export default ScoreCard;

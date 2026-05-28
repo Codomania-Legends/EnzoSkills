@@ -1,61 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import TitleAnimation from '../TitleAnimation';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+
+
 
 function History() {
-    const [logs, setLogs] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useGSAP(() => {
-        const tl = gsap.timeline();
-        TitleAnimation(tl, "history-page-title");
 
-        gsap.fromTo(".history-item", {
-            y: 30,
-            opacity: 0,
-        }, {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            delay: 0.5,
-            ease: "power1.out",
-            stagger: 0.2
-        });
-    }, [logs]);
 
-    useEffect(() => {
-        const fetchHistory = async () => {
-            try {
-                const userId = Cookies.get("user_id");
-                if (!userId) {
-                    setLoading(false);
-                    return;
-                }
-                const res = await axios.get(`http://localhost:3000/history/get/${userId}`);
-                if (res.data && res.data.logs) {
-                    setLogs(res.data.logs);
-                }
-            } catch (err) {
-                console.error("Failed to fetch history:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
 
-        fetchHistory();
-    }, []);
 
-    // Format date beautifully
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+
+
+
+
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const userId = Cookies.get("user_id");
+        if (!userId) {
+          setLoading(false);
+          return;
+        }
+        const res = await axios.get(`http://localhost:3000/history/get/${userId}`);
+        if (res.data && res.data.logs) {
+          setLogs(res.data.logs);
+        }
+      } catch (err) {
+        console.error("Failed to fetch history:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    return (
-        <div className="w-full h-full p-6 flex flex-col box-border overflow-y-auto custom-scrollbar">
+    fetchHistory();
+  }, []);
+
+  // Format date beautifully
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  return (
+    <div className="w-full h-full p-6 flex flex-col box-border overflow-y-auto custom-scrollbar">
             <div className="flex items-center gap-4 mb-6 shrink-0">
                 <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-5 w-5 cursor-pointer hover:scale-110 transition-transform" onClick={() => window.history.back()} />
                 <h1 className="text-2xl font-bold text-gray-900 history-page-title tracking-tight">Activity History</h1>
@@ -63,23 +62,23 @@ function History() {
 
             <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 relative">
                 {/* Timeline vertical line */}
-                {logs.length > 0 && (
-                    <div className="absolute left-6 top-4 bottom-4 w-[2px] bg-indigo-200 -z-10 rounded-full hidden md:block"></div>
-                )}
+                {logs.length > 0 &&
+        <div className="absolute left-6 top-4 bottom-4 w-[2px] bg-indigo-200 -z-10 rounded-full hidden md:block"></div>
+        }
 
-                {loading ? (
-                    <div className="flex justify-center py-10">
+                {loading ?
+        <div className="flex justify-center py-10">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-                    </div>
-                ) : logs.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center p-12 white rounded-3xl small-box-shadow">
+                    </div> :
+        logs.length === 0 ?
+        <div className="flex flex-col items-center justify-center p-12 white rounded-3xl small-box-shadow">
                         <img src="/Sidebar/history.svg" className="w-20 h-20 opacity-30 mb-4" alt="No History" onError={(e) => e.target.src = "/Sidebar/records.svg"} />
                         <h2 className="text-2xl font-bold text-gray-600">No History Yet</h2>
                         <p className="text-gray-400 mt-2">Your actions and progress will be logged here.</p>
-                    </div>
-                ) : (
-                    logs.map((log, index) => (
-                        <div key={index} className="history-item flex flex-col md:flex-row gap-4 md:gap-8 items-start w-full group">
+                    </div> :
+
+        logs.map((log, index) =>
+        <div key={index} className="history-item flex flex-col md:flex-row gap-4 md:gap-8 items-start w-full group">
 
                             {/* Desktop Timeline Node */}
                             <div className="hidden md:flex flex-col items-center pt-2">
@@ -99,11 +98,11 @@ function History() {
                                 </p>
                             </div>
                         </div>
-                    ))
-                )}
+        )
+        }
             </div>
-        </div>
-    );
+        </div>);
+
 }
 
 export default History;
