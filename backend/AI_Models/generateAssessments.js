@@ -45,7 +45,7 @@ FOLLOW THIS EXACT JSON STRUCTURE: 🏗️
     // 🚀 2. Call local Ollama instance with an explicit timeout
     // LLMs can take time, especially locally. A timeout prevents the request from hanging indefinitely.
     const ollamaRequestPayload = {
-      model: "granite4.1:3b",
+      model: "gemini-3-flash-preview",
       prompt: assessmentGenerationPrompt,
       stream: false,
       format: "json"
