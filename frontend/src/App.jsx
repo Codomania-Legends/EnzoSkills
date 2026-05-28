@@ -42,7 +42,7 @@ import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
-    <img src="/HomeImg/HomeBG.svg" alt="Background" className='bgImg' />
+    <img src="/HomeImg/HomeBG.svg" alt="Background" className='bgImg fade-in' />
     <div className="navbar flex justify-center items-center h-1/10">
       <Navbar />
     </div>
@@ -54,6 +54,8 @@ function App() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const images = [
     "/Dashboard/projectImg.svg",
+    "/HomeImg/HomeCenterImg.svg",
+    "/HomeImg/HomeBG.svg"
   ]
 
   useMemo(async () => {

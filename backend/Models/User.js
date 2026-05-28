@@ -26,7 +26,19 @@ const UserSchema = new Schema({
     }],
     badges: [{ type: String }],
     awards: [{ type: String }],
-    streak: { type: Number, default: 0 }
+    streak: { type: Number, default: 0 },
+
+    // --- Learning & Assessment Progress ---
+    courses: [{ course_id: String, status: String, completed_at: String }],
+    assessments: [{
+        assessment_id: String,
+        status: String,
+        completed_at: String,
+        score: String
+    }],
+    // --------------------------------------
+
+
 }, { timestamps: true });
 
 module.exports = model("User", UserSchema);

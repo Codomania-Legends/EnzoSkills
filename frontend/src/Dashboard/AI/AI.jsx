@@ -1,18 +1,18 @@
 import React, { useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import "./Ai.css"
+
+
+import "./Ai.css";
 
 function AI() {
   const containerRef = useRef(null);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      containerRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-    );
-  }, { scope: containerRef });
+
+
+
+
+
+
+
 
   const [doubtQuery, setDoubtQuery] = useState("");
   const [streamedAnswer, setStreamedAnswer] = useState("");
@@ -29,9 +29,9 @@ function AI() {
       const response = await fetch("http://localhost:3000/doubts/solve", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ doubt: doubtQuery }),
+        body: JSON.stringify({ doubt: doubtQuery })
       });
 
       if (!response.body) {
@@ -75,12 +75,12 @@ function AI() {
         <div className='mainContent flex flex-col flex-1 min-h-0 w-full'>
 
           {/* 3. The answer div takes the remaining space and handles the scroll. 
-                 (Added a tiny m-2 margin just to give your box-shadow room to breathe if it's large) */}
+                  (Added a tiny m-2 margin just to give your box-shadow room to breathe if it's large) */}
           <div
             id='answerDiv'
             // ref={answerContainerRef}
-            className='black small-box-shadow text-white w-full flex-1 rounded-3xl p-7 px-10 m-2 whitespace-pre-wrap overflow-y-auto custom-scrollbar'
-          >
+            className='black small-box-shadow text-white w-full flex-1 rounded-3xl p-7 px-10 m-2 whitespace-pre-wrap overflow-y-auto custom-scrollbar'>
+            
             <p>{streamedAnswer}</p>
           </div>
 
@@ -97,22 +97,22 @@ function AI() {
                   handleAskDoubt();
                 }
               }}
-              disabled={isProcessing}
-            />
+              disabled={isProcessing} />
+            
 
             <button
               onClick={handleAskDoubt}
               disabled={isProcessing}
-              className='blue small-box-shadow text-white px-4 py-2 rounded-full'
-            >
+              className='blue small-box-shadow text-white px-4 py-2 rounded-full'>
+              
               {isProcessing ? "Processing..." : "Ask"}
             </button>
           </div>
 
         </div>
       </div>
-    </>
-  );
+    </>);
+
 }
 
 export default AI;

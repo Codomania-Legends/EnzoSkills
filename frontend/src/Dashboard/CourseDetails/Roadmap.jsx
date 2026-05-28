@@ -1,16 +1,16 @@
-import React, { useRef } from 'react'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
+import React, { useRef } from 'react';
+
+
 
 function Roadmap() {
   const container = useRef(null);
-  useGSAP(() => {
-    gsap.fromTo(container.current, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5, ease: 'power2.out'});
-  }, { scope: container });
+
+
+
 
   return (
-    <div ref={container}>Roadmap</div>
-  )
+    <div ref={container}>Roadmap</div>);
+
 }
 
-export default Roadmap
+export default Roadmap;

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import TitleAnimation from "../TitleAnimation";
+
+
 
 function Card(props) {
   return (
@@ -72,26 +71,26 @@ function Card(props) {
           Review: Good understanding
         </span>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 function Records() {
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    TitleAnimation(tl, "records-page-title");
-  });
+
+
+
+
 
   const data = [
-    { day: "Day 1", course: "C/C++", badge: "Silver", badgeImage: "/Records/silver.png" },
-    { day: "Day 2", course: "JavaScript", badge: "Silver", badgeImage: "/Records/silver.png" },
-    { day: "Day 3", course: "Java (Core+Advance)", badge: "Gold", badgeImage: "/Records/gold.png" },
-    { day: "Day 4", course: "Node js", badge: "Gold", badgeImage: "/Records/gold.png" },
-    { day: "Day 5", course: "React js", badge: "Bronze", badgeImage: "/Records/bronze.png" },
-    { day: "Day 6", course: "Web Development", badge: "Bronze", badgeImage: "/Records/bronze.png" },
-    { day: "Day 7", course: "Database Management", badge: "Silver", badgeImage: "/Records/silver.png" },
-    { day: "Weekly", course: "Assessment", badge: "Silver", badgeImage: "/Records/silver.png" },
-  ];
+  { day: "Day 1", course: "C/C++", badge: "Silver", badgeImage: "/Records/silver.png" },
+  { day: "Day 2", course: "JavaScript", badge: "Silver", badgeImage: "/Records/silver.png" },
+  { day: "Day 3", course: "Java (Core+Advance)", badge: "Gold", badgeImage: "/Records/gold.png" },
+  { day: "Day 4", course: "Node js", badge: "Gold", badgeImage: "/Records/gold.png" },
+  { day: "Day 5", course: "React js", badge: "Bronze", badgeImage: "/Records/bronze.png" },
+  { day: "Day 6", course: "Web Development", badge: "Bronze", badgeImage: "/Records/bronze.png" },
+  { day: "Day 7", course: "Database Management", badge: "Silver", badgeImage: "/Records/silver.png" },
+  { day: "Weekly", course: "Assessment", badge: "Silver", badgeImage: "/Records/silver.png" }];
+
 
   const [records, setRecords] = useState(data);
   const [userData, setUserData] = useState({ badges: [], awards: [], streak: 0 });
@@ -107,10 +106,10 @@ function Records() {
         console.error("Failed to fetch records, using static data.", err);
       }
     };
-    
+
     const fetchUserGamification = async () => {
       try {
-        const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+        const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
         if (userId) {
           const res = await axios.get(`http://localhost:3000/user/getuser/${userId}`);
           if (res.data && res.data.user) {
@@ -135,15 +134,15 @@ function Records() {
       <div className="flex flex-col md:flex-row justify-between w-full relative gap-6 md:gap-0 max-md:pt-14 max-md:px-4">
         
         <div className="h-[68vh] w-[65vw] max-md:w-full max-md:h-auto grid grid-cols-4 max-md:grid-cols-1 sm:max-md:grid-cols-2 gap-[18px]">
-          {records.map((item, index) => (
-            <Card
-              key={index}
-              day={item.day}
-              course={item.course}
-              badge={item.badge}
-              badgeImage={item.badgeImage}
-            />
-          ))}
+          {records.map((item, index) =>
+          <Card
+            key={index}
+            day={item.day}
+            course={item.course}
+            badge={item.badge}
+            badgeImage={item.badgeImage} />
+
+          )}
         </div>
 
         <div className="flex flex-col items-center justify-evenly h-[60vh] w-[19vw] max-md:w-full max-md:h-auto max-md:p-6 max-md:gap-4 max-md:mt-4 rounded-4xl small-box-shadow white bg-white relative">
@@ -162,9 +161,9 @@ function Records() {
 
           {/* #earned */}
           <b className="w-full text-md font-extrabold text-center px-4">
-            {userData.badges && userData.badges.length > 0 
-              ? `You earned: ${userData.badges[userData.badges.length - 1]}` 
-              : "Complete your first course to earn a badge!"}
+            {userData.badges && userData.badges.length > 0 ?
+            `You earned: ${userData.badges[userData.badges.length - 1]}` :
+            "Complete your first course to earn a badge!"}
           </b>
 
           <div className="flex flex-col items-center gap-1">
@@ -181,8 +180,8 @@ function Records() {
         </div>
 
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Records;

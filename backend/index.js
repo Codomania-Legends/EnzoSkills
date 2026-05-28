@@ -8,6 +8,7 @@ const libraryRouter = require("./Routes/Library")
 const recordsRouter = require("./Routes/Records")
 const historyRouter = require("./Routes/History")
 const DoubtRouter = require("./Routes/Doubts")
+const assessmentRouter = require("./Routes/Assessments")
 
 app.use(cors())
 
@@ -23,22 +24,25 @@ mongoose.connect("mongodb://localhost:27017/EnzoSkills")
     })
 
 //user router e.g. http://localhost:3000/user/getusers
-app.use( "/user", userRouter )
+app.use("/user", userRouter)
 
 //course router e.g. http://localhost:3000/courses/get
-app.use( "/courses", courseRouter )
+app.use("/courses", courseRouter)
+
+//assessments router e.g. http://localhost:3000/assessments/create
+app.use("/assessments", assessmentRouter)
 
 //library router e.g. http://localhost:3000/library/get
-app.use( "/library", libraryRouter )
+app.use("/library", libraryRouter)
 
 //doubts router e.g. http://localhost:3000/doubts/solve
-app.use( "/doubts", DoubtRouter )
+app.use("/doubts", DoubtRouter)
 
 //records router e.g. http://localhost:3000/records/get
-app.use( "/records", recordsRouter )
+app.use("/records", recordsRouter)
 
 //history router e.g. http://localhost:3000/history/get/:userId
-app.use( "/history", historyRouter )
+app.use("/history", historyRouter)
 
 app.listen(3000, () => {
     console.log("Server started on port 3000")

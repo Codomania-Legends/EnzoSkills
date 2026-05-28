@@ -5,7 +5,7 @@ const CourseSchema = new mongoose.Schema({
     image: String,
     course_name: { type: String, required: true },
     duration: String,
-    price: Number,
+    price: String,
     level: String,
     type: String,
     rating: { type: Number, default: 0 }, // Changed to Number for easier sorting/filtering
@@ -24,8 +24,9 @@ const CourseSchema = new mongoose.Schema({
         feedback: String,
     }],
     description: String,
-    features: { type: String, default: '' },
-    skills: { type: String, default: '' },
+    features: [{ type: String, default: '' }],
+    skills: [{ type: String, default: '' }],
+    badges: [{ type: String, default: '' }],
     user_enrolled: [{
         user_id: { type: String, required: true },
         enrolled_at: { type: Date, default: Date.now } // Useful for tracking
@@ -42,24 +43,6 @@ const CourseSchema = new mongoose.Schema({
         }]
 
     }],
-
-    //Assesment 
-    weekwise_assessment: [{
-        week: Number,
-        day: String,
-        question_n_answer: [{
-            question_num: Number,
-            question: String,
-            answer: String,
-            options: [String]
-        }]
-    }],
-    final_assessment: [{
-        question_num: Number,
-        question: String,
-        answer: String,
-        options: [String]
-    }]
 });
 
 const COURSES = mongoose.model("Courses", CourseSchema);
