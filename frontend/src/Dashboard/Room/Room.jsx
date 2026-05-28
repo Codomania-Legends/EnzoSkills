@@ -1,13 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { useGSAP } from "@gsap/react";
+
 import "./Room.css";
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
+
+
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
-import TitleAnimation from '../TitleAnimation';
 
-gsap.registerPlugin(SplitText);
+
 
 function Room() {
   const navigate = useNavigate();
@@ -23,11 +22,11 @@ function Room() {
     if (completeRoomId.length < 6) {
       sileo.error({
         title: "Error",
-        description: (
-          <p className='flex justify-center items-center font-semibold'>
+        description:
+        <p className='flex justify-center items-center font-semibold'>
             Please Enter a Valid 6-Digit Room ID
           </p>
-        )
+
       });
       return;
     }
@@ -89,92 +88,92 @@ function Room() {
     }
   };
 
-  useGSAP(() => {
-    const animationTimeline = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-    TitleAnimation(animationTimeline, "room-page-title");
 
-    animationTimeline.to(".white-box-container", {
-      scaleX: 1,
-      opacity: 1,
-      duration: 0.8,
-      transformOrigin: "center",
-    });
 
-    const textSplitter = new SplitText(".room-text", { type: "chars, words" });
 
-    animationTimeline.from(textSplitter.chars, {
-      opacity: 0,
-      y: 10,
-      rotateX: -90,
-      stagger: 0.02,
-      duration: 0.6,
-    }, "-=0.4");
 
-    animationTimeline.fromTo(".button-room-section", {
-      opacity: 0,
-      scale: 0,
-    }, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.2,
-      stagger: 0.05,
-      ease: "power4.out",
-      clearProps: "all",
-      onComplete: () => {
-        gsap.set(".button-room-section", { opacity: 1 });
-      }
-    }, "-=0.3");
 
-    animationTimeline.from(".id-boxes", {
-      opacity: 0,
-      scale: 0,
-      y: 20,
-      stagger: 0.05,
-      duration: 0.2,
-      ease: "back.out(1.7)"
-    }, "-=0.3");
 
-    animationTimeline.from(".copy-icon-room-outline", {
-      opacity: 0,
-      scale: 0,
-      y: 20,
-      duration: 0.2,
-      ease: "bounce.out"
-    }, "-=0.3");
 
-    animationTimeline.fromTo(".copy-icon-room-fill", {
-      opacity: 0,
-      scale: 0,
-      y: 0,
-    }, {
-      opacity: 1,
-      scale: 1,
-      y: -5,
-      x: 5,
-      duration: 0.2,
-      ease: "bounce.out"
-    }, "-=0.3");
-  }, { scope: containerReference });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Dedicated useGSAP hook for the copy interaction to handle cleanup safely
-  useGSAP(() => {
-    if (isIdCopied) {
-      gsap.to(".copy-icon-room-fill", {
-        y: 0,
-        x: 0,
-        duration: 0.5,
-        ease: "bounce.out"
-      });
-    } else {
-      gsap.to(".copy-icon-room-fill", {
-        y: -5,
-        x: 5,
-        duration: 0.5,
-        ease: "bounce.out"
-      });
-    }
-  }, { dependencies: [isIdCopied], scope: containerReference });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div ref={containerReference} className='flex h-full w-full flex-col pb-8 overflow-hidden'>
@@ -193,28 +192,28 @@ function Room() {
 
             <div className='flex flex-wrap justify-center items-center gap-3 md:gap-4 w-full md:w-auto'>
               <div className='flex gap-1 md:gap-2' onPaste={handlePasteId}>
-                {roomIdArray.map((character, index) => (
-                  <input
-                    key={index}
-                    ref={(element) => (inputReferences.current[index] = element)}
-                    className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
-                    value={character}
-                    onChange={(event) => handleInputChange(event.target, index)}
-                    onKeyDown={(event) => handleBackspaceKey(event, index)}
-                  />
-                ))}
+                {roomIdArray.map((character, index) =>
+                <input
+                  key={index}
+                  ref={(element) => inputReferences.current[index] = element}
+                  className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
+                  value={character}
+                  onChange={(event) => handleInputChange(event.target, index)}
+                  onKeyDown={(event) => handleBackspaceKey(event, index)} />
+
+                )}
               </div>
 
               <div className="relative w-5 h-5 md:w-7 md:h-7 cursor-pointer shrink-0" onClick={handleCopyToClipboard}>
                 <div className="copy-icon-room-outline absolute inset-0 border-2 border-black rounded-md" />
-                <div className="copy-icon-room-fill opacity-0 transition-all duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center" />
+                <div className="copy-icon-room-fill transition-all duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center" />
               </div>
 
-              {isIdCopied && (
-                <span className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0'>
+              {isIdCopied &&
+              <span className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0'>
                   Copied to clipboard! ✅
                 </span>
-              )}
+              }
             </div>
           </div>
 
@@ -223,12 +222,12 @@ function Room() {
               onClick={async () => {
                 const roomStr = roomIdArray.join("");
                 if (roomStr.length < 6) {
-                  sileo.error({ title: "Error", description: "Please Enter a 6-Digit Room ID to join." })
+                  sileo.error({ title: "Error", description: "Please Enter a 6-Digit Room ID to join." });
                   return;
                 }
 
                 // Log the action!
-                const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+                const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
                 if (userId) {
                   try {
                     await fetch("http://localhost:3000/history/add", {
@@ -240,13 +239,13 @@ function Room() {
                         action_description: `You joined the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch(e) {}
+                  } catch (e) {}
                 }
 
-                navigate(`/dashboard/room/${roomStr}`)
+                navigate(`/dashboard/room/${roomStr}`);
               }}
-              className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
-            >
+              className='button-room-section blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'>
+              
               Join Room
             </button>
 
@@ -258,17 +257,17 @@ function Room() {
                   setRoomIdArray(generatedRoomId);
                   sileo.success({
                     title: "Success",
-                    description: (
-                      <p className='flex justify-center items-center font-semibold'>
+                    description:
+                    <p className='flex justify-center items-center font-semibold'>
                         Room ID Created! Click Create again to enter.
                       </p>
-                    )
+
                   });
                   return;
                 }
 
                 // Log the action!
-                const userId = document.cookie.split('; ').find(row => row.startsWith('user_id='))?.split('=')[1];
+                const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
                 if (userId) {
                   try {
                     await fetch("http://localhost:3000/history/add", {
@@ -280,20 +279,20 @@ function Room() {
                         action_description: `You created and entered the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch(e) {}
+                  } catch (e) {}
                 }
 
-                navigate(`/dashboard/room/${roomStr}`)
+                navigate(`/dashboard/room/${roomStr}`);
               }}
-              className='button-room-section opacity-0 blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'
-            >
+              className='button-room-section blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'>
+              
               Create Room {roomIdArray.join("").length < 6 ? "ID" : ""}
             </button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
 
 export default Room;

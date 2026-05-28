@@ -1,32 +1,37 @@
 const COURSES = require("../Models/Courses")
-const {nanoid} = require("nanoid")
+const { nanoid } = require("nanoid")
 
 // creating courses in function below
-const handle_Course_Creation = async ( req, res ) => {
+const handle_Course_Creation = async (req, res) => {
     try {
-        if( !req.body ) throw( new Error("Body not found") )
-        const { image, course_name, duration, price, rating, description } = req.body
+        if (!req.body) throw (new Error("Body not found"))
+        const { image, course_name, duration, price, rating, description, features, skills, level, type, roadmap, } = req.body
         const course_id = nanoid(10)
-        if( await COURSES.findOne({course_name}) ) throw( new Error("Course Already Exists") )
+        if (await COURSES.findOne({ course_name })) throw (new Error("Course Already Exists"))
         const newCourse = await COURSES.create({
-            course_id : course_id,
-            image : image,
-            course_name : course_name,
-            duration : duration,
-            price : price,
-            rating : rating,
-            description : description
+            course_id: course_id,
+            image: image,
+            course_name: course_name,
+            duration: duration,
+            price: price,
+            rating: rating,
+            description: description,
+            features: features,
+            skills: skills,
+            level: level,
+            type: type,
+            roadmap: roadmap,
         })
 
-        if( !newCourse ) throw( new Error("Internal Error") )
+        if (!newCourse) throw (new Error("Internal Error"))
         res.json({
-            msg : "Course Created Successfully",
-            course : newCourse
+            msg: "Course Created Successfully",
+            course: newCourse
         })
     } catch (error) {
-        res.json({error : error.message})
+        res.json({ error: error.message })
     }
-    
+
 }
 
 
@@ -36,13 +41,13 @@ const handle_Enrolled_std = async (req, res) => {
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ msg: "Body not found" });
         }
-        
+
         const { user_id, course_id } = req.body;
-        
+
         const UserEnrolled = await COURSES.findOneAndUpdate(
             { course_id: course_id },
-            { $push: { user_enrolled: {user_id : user_id} } }, 
-            { new: true } 
+            { $push: { user_enrolled: { user_id: user_id } } },
+            { new: true }
         );
 
         if (!UserEnrolled) {
@@ -56,7 +61,7 @@ const handle_Enrolled_std = async (req, res) => {
             action_title: "Enrolled in Course",
             action_description: `You have successfully enrolled in the course: ${UserEnrolled.course_name}. Happy learning!`
         });
-        
+
         res.status(200).json({
             msg: "User Enrolled Successfully",
             enrolled: UserEnrolled
@@ -78,14 +83,14 @@ const handle_Material = async (req, res) => {
 
         const updatedCourse = await COURSES.findOneAndUpdate(
             { course_id: course_id },
-            { 
-                $push: { 
-                    daywise_material: Array.isArray(daywise_material) 
-                        ? { $each: daywise_material } 
-                        : daywise_material 
-                } 
+            {
+                $push: {
+                    daywise_material: Array.isArray(daywise_material)
+                        ? { $each: daywise_material }
+                        : daywise_material
+                }
             },
-            { new: true, runValidators: true } 
+            { new: true, runValidators: true }
         );
 
         if (!updatedCourse) {
@@ -110,7 +115,7 @@ const handle_All_Assessments = async (req, res) => {
         }
 
         const { course_id, weekwise_assessment, final_assessment } = req.body;
-        
+
         const updatedCourse = await COURSES.findOneAndUpdate(
             { course_id: course_id },
             {
@@ -138,32 +143,32 @@ const handle_All_Assessments = async (req, res) => {
 }
 
 // getting all the courses
-const get_All_Courses = async ( req, res ) => {
+const get_All_Courses = async (req, res) => {
     try {
-        const getCourses = await COURSES.find({ })
-        if( getCourses.length == 0 ) throw( new Error("Courses are not Available") )
+        const getCourses = await COURSES.find({})
+        if (getCourses.length == 0) throw (new Error("Courses are not Available"))
         res.json({
-            msg : "Courses Fetched Successfully",
-            course : getCourses
+            msg: "Courses Fetched Successfully",
+            course: getCourses
         })
     } catch (error) {
-        res.status(500).json({error : error.message})
+        res.status(500).json({ error: error.message })
     }
 }
 
 
 // getting a single course by ID
-const get_Single_Course = async ( req, res ) => {
+const get_Single_Course = async (req, res) => {
     try {
         const courseId = req.params.id;
         const getCourse = await COURSES.findOne({ course_id: courseId });
-        if( !getCourse ) throw( new Error("Course not found") );
+        if (!getCourse) throw (new Error("Course not found"));
         res.json({
             msg: "Course Fetched Successfully",
             course: getCourse
         });
     } catch (error) {
-        res.status(404).json({error : error.message});
+        res.status(404).json({ error: error.message });
     }
 }
 
@@ -175,6 +180,20 @@ const complete_Assessment = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+}
+
+const get_My_Courses = async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        const getCourse = await COURSES.findOne({ course_id: courseId });
+        if (!getCourse) throw (new Error("Course not found"));
+        res.json({
+            msg: "Course Fetched Successfully",
+            course: getCourse
+        });
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }4
 }
 
 module.exports = {
