@@ -7,11 +7,9 @@ import {
   LineElement,
   PointElement,
   Filler,
-  Tooltip } from
-'chart.js';
+  Tooltip
+} from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-
-
 
 ChartJS.register(
   CategoryScale,
@@ -24,72 +22,35 @@ ChartJS.register(
 );
 
 function ActivityGraph() {
-  const data = {
+  const chartDataConfig = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
-    {
-      label: 'Activity Graph',
-      data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 0],
-      fill: true,
-      tension: 0.4,
-      borderColor: 'rgba(255,126,20,1)',
-      backgroundColor: 'rgba(255,126,20,0.2)',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255,126,20,1)',
-      pointHoverBorderWidth: 3,
-      pointHoverRadius: 6
-    }]
-
+      {
+        label: 'Activity Graph',
+        data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 0],
+        fill: true,
+        tension: 0.4,
+        borderColor: 'rgba(255,126,20,1)',
+        backgroundColor: 'rgba(255,126,20,0.2)',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(255,126,20,1)',
+        pointHoverBorderWidth: 3,
+        pointHoverRadius: 6
+      }
+    ]
   };
 
-  // 1. FIX: Brought the container ref back so the app doesn't crash! 📦
-  const container = useRef(null);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const graphContainerRef = useRef(null);
 
   return (
-    // 3. FIX: Changed to '' and removed 'show_me_chart' 🧹
-    <div ref={container} className='overflow-hidden small-box-shadow w-full md:w-[95%] rounded-[2em] p-2 md:p-4 mb-4 md:mb-[5%] text-white text-center font-bold shadow-[inset_0_10px_20px_#ffffff25,inset_-10px_-10px_20px_#000,20px_20px_50px_#21212150] relative'>
+    <div ref={graphContainerRef} className='overflow-hidden black small-box-shadow w-full md:w-[95%] rounded-[2em] p-2 md:p-4 mb-4 md:mb-[5%] text-white text-center font-bold shadow-[inset_0_10px_20px_#ffffff25,inset_-10px_-10px_20px_#000,20px_20px_50px_#21212150] relative'>
 
-            {/* The white block starts way off to the left now! */}
-            <div className='reveal-block absolute top-0 left-[-100%] w-full h-full bg-white z-10' />
-            <div className='reveal-content'>
+      {/* 🧹 Removed the absolute reveal-block that was hiding things */}
+      <div className='reveal-content'>
+        <h1 className="text-lg md:text-xl mb-4 relative z-20">Activity Graph</h1>
 
-
-                <h1 className="text-lg md:text-xl mb-4 relative z-20">Activity Graph</h1>
-
-                <div className="w-full overflow-x-auto relative z-0">
-                    <Chart type='line' data={data} options={{
+        <div className="w-full overflow-x-auto relative z-0">
+          <Chart type='line' data={chartDataConfig} options={{
             plugins: {
               tooltip: {
                 enabled: true,
@@ -106,7 +67,6 @@ function ActivityGraph() {
               mode: 'index',
               intersect: false
             },
-            // 4. FIX: Removed the looping animation block so your tooltips work! 🖱️
             scales: {
               y: {
                 min: 0,
@@ -114,10 +74,10 @@ function ActivityGraph() {
               }
             }
           }} />
-                </div>
-            </div>
-        </div>);
-
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ActivityGraph;

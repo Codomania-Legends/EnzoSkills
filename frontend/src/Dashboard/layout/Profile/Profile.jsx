@@ -18,37 +18,38 @@ function Profile({ showProfile }) {
   const [projectIndex, setProjectIndex] = useState(0);
   const [theme, setTheme] = useState("light");
 
-  const handleEducationClick = () => setEducationIndex((prev) => prev === education.length - 1 ? 0 : prev + 1);
-  const handleExperienceClick = () => setExperienceIndex((prev) => prev === experience.length - 1 ? 0 : prev + 1);
-  const handleProjectClick = () => setProjectIndex((prev) => prev === projects.length - 1 ? 0 : prev + 1);
-
   const handleSignOut = () => {
     Cookies.remove("user_id");
     Cookies.remove("username");
     navigate("/login");
   };
 
-  // 1. Process Skills cleanly
-  const userSkills = userDetails?.skills_occupied?.map((s) => s.skills) || skills;
+  // 1. Process Skills 
+  const currentSkills = userDetails?.skills_occupied?.map((s) => s.skills) || skills;
 
-  // 2. Process Experience with logical naming
-  const displayExperience = userDetails?.experience 
-    ? [{ role: "Experience", institute: "Work", date: "Present", description: userDetails.experience }] 
+  // 2. Process Experience 
+  const currentExperience = userDetails?.experience
+    ? [{ role: "Experience", institute: "Work", date: "Present", description: userDetails.experience }]
     : experience;
 
-  // 3. Process Education with clear filtering
-  const displayEducation = userDetails?.education ? [
+  // 3. Process Education 
+  const currentEducation = userDetails?.education ? [
     userDetails.education.degree?.clg_name && { role: "Degree", institute: userDetails.education.degree.clg_name, date: userDetails.education.degree.year, description: `CGPA: ${userDetails.education.degree.marks}` },
     userDetails.education.higher_Edu?.school_name && { role: "12th", institute: userDetails.education.higher_Edu.school_name, date: userDetails.education.higher_Edu.year, description: `Marks: ${userDetails.education.higher_Edu.marks}%` },
     userDetails.education.secondary_Edu?.school_name && { role: "10th", institute: userDetails.education.secondary_Edu.school_name, date: userDetails.education.secondary_Edu.year, description: `Marks: ${userDetails.education.secondary_Edu.marks}%` }
   ].filter(Boolean) : education;
 
-  // 4. Process Projects neatly
-  const displayProjects = userDetails?.projects?.length > 0 
+  // 4. Process Projects neatly (Now Dynamic!)
+  const currentProjects = userDetails?.projects?.length > 0
     ? userDetails.projects.map((p) => ({
-        name: p.project_name, description: p.description, repo: p.project_repo, demo: p.deployed_link
-      })) 
+      name: p.project_name, description: p.description, repo: p.project_repo, demo: p.deployed_link
+    }))
     : projects;
+
+  // Click Handlers now use the processed dynamic lengths with meaningful names!
+  const handleNextEducation = () => setEducationIndex((prev) => prev === currentEducation.length - 1 ? 0 : prev + 1);
+  const handleNextExperience = () => setExperienceIndex((prev) => prev === currentExperience.length - 1 ? 0 : prev + 1);
+  const handleNextProject = () => setProjectIndex((prev) => prev === currentProjects.length - 1 ? 0 : prev + 1);
 
   return (
     <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0 transition-all duration-300 ease-in-out ${showProfile ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-[110%] opacity-0 pointer-events-none'}`}>
@@ -67,7 +68,6 @@ function Profile({ showProfile }) {
               </button>
             </div>
             <div className='flex h-full justify-center items-center'>
-              {/* Consider making this dynamic based on userDetails.profile_pic later! */}
               <img className='show-profile-text w-25 h-25 aspect-square rounded-full' src="/About-us/members/Anshul.png" alt="Profile" />
             </div>
           </div>
@@ -82,7 +82,7 @@ function Profile({ showProfile }) {
           <div className='flex justify-evenly flex-col items-start w-[85%] flex-wrap py-2'>
             <h3 className='show-profile-text text-left text-lg font-bold font-[Manrope] pb-2'>Skills</h3>
             <div className='flex flex-wrap gap-2 show-profile-text'>
-              {userSkills.map((skill, index) => WHITE_BOX(skill, `skill-${index}`))}
+              {currentSkills.map((skill, index) => WHITE_BOX(skill, `skill-${index}`))}
             </div>
           </div>
         </div>
@@ -95,9 +95,9 @@ function Profile({ showProfile }) {
             <div className='flex relative h-full flex-col items-start w-[50%]'>
               <h3 className='show-profile-text text-left text-lg font-bold font-[Manrope] py-2'>Experience</h3>
               <div className='w-full h-35 relative'>
-                {displayExperience.length === 0 
-                  ? Bluish_Box("Fresher", null, null, null, "exp-0", 0, handleExperienceClick) 
-                  : displayExperience.map((exp, index) => Bluish_Box(exp.role, exp.institute, exp.date, exp.description, index, experienceIndex, handleExperienceClick))}
+                {currentExperience.length === 0
+                  ? Bluish_Box("Fresher", null, null, null, "exp-0", 0, handleNextExperience)
+                  : currentExperience.map((exp, index) => Bluish_Box(exp.role, exp.institute, exp.date, exp.description, index, experienceIndex, handleNextExperience))}
               </div>
             </div>
 
@@ -105,9 +105,9 @@ function Profile({ showProfile }) {
             <div className='flex relative h-full flex-col items-start w-[50%]'>
               <h3 className='show-profile-text text-left text-lg font-bold font-[Manrope] py-2'>Education</h3>
               <div className='w-full h-35 relative'>
-                {displayEducation.length === 0 
-                  ? Bluish_Box("No Education", null, null, null, "edu-0", 0, handleEducationClick) 
-                  : displayEducation.map((edu, index) => Bluish_Box(edu.role, edu.institute, edu.date, edu.description, index, educationIndex, handleEducationClick))}
+                {currentEducation.length === 0
+                  ? Bluish_Box("No Education", null, null, null, "edu-0", 0, handleNextEducation)
+                  : currentEducation.map((edu, index) => Bluish_Box(edu.role, edu.institute, edu.date, edu.description, index, educationIndex, handleNextEducation))}
               </div>
             </div>
           </div>
@@ -116,7 +116,9 @@ function Profile({ showProfile }) {
           <div className='hidden md:flex justify-evenly flex-col items-center w-[85%] flex-wrap'>
             <h3 className='show-profile-text text-center text-lg font-bold font-[Manrope] py-2'>Projects</h3>
             <div className='w-full h-20 relative show-profile-text md:w-[80%]'>
-              {displayProjects.map((project, index) => Project_Box(project.name, project.description, project.repo, project.demo, index, projectIndex, handleProjectClick))}
+              {currentProjects.length === 0
+                ? Project_Box("No Projects", null, null, null, 0, 0, handleNextProject)
+                : currentProjects.map((project, index) => Project_Box(project.name, project.description, project.repo, project.demo, index, projectIndex, handleNextProject))}
             </div>
           </div>
         </div>

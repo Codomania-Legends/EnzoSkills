@@ -1,1 +1,18 @@
 /* Styles moved to inline Tailwind CSS in specific component files */
+
+.shadow-small {
+    transition-duration: 0.5s;
+    overflow-x: hidden;
+    box-shadow:
+        10px 10px 20px rgba(58, 62, 108, 0.5),
+        inset 0 5px 10px rgba(255, 255, 255, 0.5),
+        inset -10px -10px 20px rgba(58, 62, 108, 0.6);
+}
+
+.shadow-medium {
+    transition-duration: 0.5s;
+    box-shadow:
+        20px 20px 40px rgba(58, 62, 108, 0.5),
+        inset 15px 15px 30px rgba(255, 255, 255, 0.5),
+        inset -20px -20px 30px rgba(58, 62, 108, 0.6);
+}

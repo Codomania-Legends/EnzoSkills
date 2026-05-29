@@ -3,10 +3,10 @@
   animation: cardEntry 0.8s ease forwards;
   opacity: 0;
 }
-.small-box-shadow:hover{
+/* .small-box-shadow:hover{
   transform: translateY(-10px) scale(1.03);
   box-shadow:0 20px 40px rgba(0,0,0,0.25);
-}
+} */
 .grid > div:nth-child(1){
   animation-delay: 0.1s;
 }
