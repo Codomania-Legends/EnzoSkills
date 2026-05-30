@@ -5,10 +5,21 @@ import { useNavigate, useParams } from 'react-router';
 function Overview() {
     const navigate = useNavigate();
     const { currentCourse, courseDetails, setCurrentCourse } = useCourse();
-    console.log("courseDetails", courseDetails)
-    console.log("currentCourse", currentCourse)
 
     const [thisCourse, setThisCourse] = useState(null);
+
+    const colors = [
+        { bg: "yellow", text: "black" },
+        { bg: "blue", text: "white" },
+        { bg: "green", text: "white" },
+        { bg: "red", text: "white" },
+        { bg: "purple", text: "white" },
+        { bg: "orange", text: "white" },
+        { bg: "pink", text: "white" },
+        { bg: "gray", text: "white" },
+        { bg: "black", text: "white" },
+        { bg: "white", text: "black" }
+    ];
 
     useEffect(() => {
         if (courseDetails && typeof currentCourse === "string") {
@@ -47,10 +58,9 @@ function Overview() {
                         alt={thisCourse?.course_name}
                         className="w-full h-auto rounded-2xl object-cover shadow-sm border" />
 
-
                     <div className="flex flex-wrap  gap-2 mt-2">
                         {(Array.isArray(thisCourse?.badges) ? thisCourse?.badges : typeof thisCourse?.badges === 'string' ? thisCourse?.badges.split(',') : [])?.map((bg_rnd, index) => {
-                            const colors = ["yellow", "blue", "green", "red", "purple", "orange", "pink", "gray", "black", "white"];
+
                             return (
                                 <div key={index} className={`${colors[index % 10]} w-fit text-white small-box-shadow text-xs font-bold px-10 py-2 rounded-full shadow-sm`}>
                                     {bg_rnd.trim && bg_rnd.trim() || bg_rnd}
@@ -60,9 +70,13 @@ function Overview() {
                     </div>
 
                     <div className='flex flex-wrap justify-between'>
-                        {thisCourse?.features.map(f => (
+                        {thisCourse?.features?.map((f, index) => (
                             <div className='flex gap-2 items-center'>
-                                <span className='p-2 red small-box-shadow rounded-full text-xs my-2'>{f}</span>
+                                <span
+                                    style={{ color: colors[index % 10].text }}
+                                    className={`p-2 ${colors[index % 10].bg} small-box-shadow rounded-lg text-xs my-2 px-2`}>
+                                    {f}
+                                </span>
                             </div>
                         ))}
                     </div>

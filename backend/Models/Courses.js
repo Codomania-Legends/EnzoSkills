@@ -28,7 +28,7 @@ const CourseSchema = new mongoose.Schema({
     skills: [{ type: String, default: '' }],
     badges: [{ type: String, default: '' }],
     user_enrolled: [{
-        user_id: { type: String, required: true },
+        user_id: { type: String, required: true, unique: true },
         enrolled_at: { type: Date, default: Date.now } // Useful for tracking
     }],
 

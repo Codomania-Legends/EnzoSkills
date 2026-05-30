@@ -1,4 +1,5 @@
 const COURSES = require("../Models/Courses")
+const HISTORY = require("../Models/History")
 const { nanoid } = require("nanoid")
 
 // creating courses in function below
@@ -34,43 +35,67 @@ const handle_Course_Creation = async (req, res) => {
 
 }
 
+// finding and updating the enrolled students in a cours
 
-// finding and updating the enrolled students in a course
-const handle_Enrolled_std = async (req, res) => {
+const enrollStudentInCourse = async (req, res) => {
     try {
         if (!req.body || Object.keys(req.body).length === 0) {
-            return res.status(400).json({ msg: "Body not found" });
+            return res.status(400).json({ msg: "Request body cannot be empty" });
         }
-
+        console.log("Enrolling")
         const { user_id, course_id } = req.body;
 
-        const UserEnrolled = await COURSES.findOneAndUpdate(
-            { course_id: course_id },
-            { $push: { user_enrolled: { user_id: user_id } } },
-            { new: true }
+        // Atomically find the course and push the user ONLY if they aren't already in the array
+        const updatedCourse = await COURSES.findOneAndUpdate(
+            {
+                course_id: course_id,
+                "user_enrolled.user_id": { $ne: user_id } // Prevents duplicate enrollment
+            },
+            {
+                $push: { user_enrolled: { user_id: user_id } }
+            },
+            { returnDocument: 'after' }
         );
 
-        if (!UserEnrolled) {
-            return res.status(404).json({ msg: "Course not found" });
+        const updatedUser = await USERS.findOneAndUpdate(
+            {
+                user_id: user_id,
+                "my_courses.course_id": { $ne: course_id } // Prevents duplicate enrollment
+            },
+            {
+                $push: { my_courses: { course_id: course_id } }
+            },
+            { returnDocument: 'after' }
+        );
+
+        // If no document was returned, it means either the course doesn't exist, OR the user is already enrolled
+        if (!updatedCourse) {
+            const courseExists = await COURSES.findOne({ course_id: course_id });
+
+            if (!courseExists) {
+                return res.status(404).json({ msg: "Course not found" });
+            }
+
+            return res.status(409).json({ msg: "User is already enrolled in this course" });
         }
 
-        // Log the action!
-        const HISTORY = require("../Models/History");
+        // Log the action
         await HISTORY.create({
             user_id: user_id,
             action_title: "Enrolled in Course",
-            action_description: `You have successfully enrolled in the course: ${UserEnrolled.course_name}. Happy learning!`
+            action_description: `You have successfully enrolled in the course: ${updatedCourse.course_name}. Happy learning!`
         });
 
         res.status(200).json({
-            msg: "User Enrolled Successfully",
-            enrolled: UserEnrolled
+            msg: "User enrolled successfully",
+            enrolled: updatedCourse
         });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // learning material for the opted course
 const handle_Material = async (req, res) => {
@@ -193,14 +218,14 @@ const get_My_Courses = async (req, res) => {
         });
     } catch (error) {
         res.status(404).json({ error: error.message });
-    }4
+    } 4
 }
 
 module.exports = {
     handle_Course_Creation,
     get_All_Courses,
     get_Single_Course,
-    handle_Enrolled_std,
+    enrollStudentInCourse,
     handle_Material,
     handle_All_Assessments,
     complete_Assessment

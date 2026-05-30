@@ -9,6 +9,7 @@ const recordsRouter = require("./Routes/Records")
 const historyRouter = require("./Routes/History")
 const DoubtRouter = require("./Routes/Doubts")
 const assessmentRouter = require("./Routes/Assessments")
+const connectToDatabase = require("./MongoDB_Connect")
 
 app.use(cors())
 
@@ -16,12 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 //connecting mongoDB with nodejs
-mongoose.connect("mongodb://localhost:27017/EnzoSkills")
-    .then(() => {
-        console.log("Connected to MongoDB")
-    }).catch((err) => {
-        console.log(err)
-    })
+connectToDatabase()
 
 //user router e.g. http://localhost:3000/user/getusers
 app.use("/user", userRouter)

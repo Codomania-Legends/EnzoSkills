@@ -62,7 +62,7 @@ function Sidebar() {
               <div className='overflow-hidden'>
                 <img className='slide_left' src={page.icon} alt={page.name} />
               </div>
-              <p className='-z-10 text-sm transition-all duration-300 ease-in-out absolute font-medium bg-white rounded-[5em] group-hover:px-4 group-hover:py-2 group-hover:z-10 group-hover:translate-x-[calc(100%+1em)] group-hover:opacity-100 shadow-small'>{page.name}</p>
+              <p className='-z-50 sidename text-sm transition-all duration-300 ease-in-out absolute font-medium bg-white rounded-[5em] shadow-small'>{page.name}</p>
             </>
           </NavLink>
           {page.name == "Courses" &&
