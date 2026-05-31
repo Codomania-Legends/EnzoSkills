@@ -7,6 +7,7 @@ import { sileo } from 'sileo';
 const ProfileForm = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     image: '',
     phone: '',
@@ -66,10 +67,16 @@ const ProfileForm = () => {
         method: "POST",
         body: data
       });
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error?.message || "Failed to upload image");
+      }
       const file = await res.json();
       setFormData((prev) => ({ ...prev, image: file.secure_url }));
+      sileo.success("Profile picture uploaded successfully! 📷");
     } catch (error) {
       console.error("Upload Error:", error);
+      sileo.error("Upload failed: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -78,7 +85,7 @@ const ProfileForm = () => {
   // Fill Static Data for Testing
   const fillStaticData = () => {
     setFormData({
-      image: '', // File inputs cannot be set programmatically for security reasons
+      image: '/About-us/members/Anshul.png', // File inputs cannot be set programmatically for security reasons
       phone: '+91 9876543210',
       designation: 'Senior Frontend Developer',
       skills: 'React, Node.js, GSAP, Tailwind CSS, Redux Toolkit',
@@ -203,6 +210,13 @@ const ProfileForm = () => {
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-bold text-gray-600 ml-1">Profile Picture</label>
                   <input className='border border-gray-400 rounded-xl p-2 bg-[#f0f2f5] shadow-[inset_4px_4px_8px_#b8b9be]' onChange={handleAddImages} type="file" />
+                  {loading && <p className="text-xs text-blue-600 font-bold mt-1">Uploading image... ☁️</p>}
+                  {!loading && formData.image && (
+                    <div className="flex items-center gap-4 mt-2">
+                      <img src={formData.image} alt="Profile Preview" className="w-12 h-12 rounded-full object-cover border border-purple-500" />
+                      <p className="text-xs text-green-600 font-bold">Uploaded successfully! ✅</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-1">
@@ -212,7 +226,14 @@ const ProfileForm = () => {
               </div>
 
               <div className="flex justify-end mt-4">
-                <button type="button" className='small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-lg' onClick={nextStep}>Next</button>
+                <button 
+                  type="button" 
+                  disabled={loading}
+                  className={`small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                  onClick={nextStep}
+                >
+                  {loading ? "Uploading..." : "Next"}
+                </button>
               </div>
             </div>
           }
