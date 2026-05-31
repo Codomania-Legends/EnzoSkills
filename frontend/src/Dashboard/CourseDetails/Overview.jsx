@@ -13,6 +13,10 @@ function Overview() {
     useEffect(() => {
         if (courseDetails && typeof currentCourse === "string") {
             const course = courseDetails.find((course) => course.course_id === currentCourse);
+            console.log("This Course : ", course)
+            if( !course ){
+                // setThisCourse
+            }
             setThisCourse(course);
         } else {
             setThisCourse(currentCourse)
@@ -60,7 +64,7 @@ function Overview() {
                     </div>
 
                     <div className='flex flex-wrap justify-between'>
-                        {thisCourse?.features.map(f => (
+                        {thisCourse?.features?.map(f => (
                             <div className='flex gap-2 items-center'>
                                 <span className='p-2 red small-box-shadow rounded-full text-xs my-2'>{f}</span>
                             </div>
