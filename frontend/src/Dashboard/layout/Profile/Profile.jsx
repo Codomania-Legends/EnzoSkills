@@ -51,6 +51,9 @@ function Profile({ showProfile }) {
   const handleNextExperience = () => setExperienceIndex((prev) => prev === currentExperience.length - 1 ? 0 : prev + 1);
   const handleNextProject = () => setProjectIndex((prev) => prev === currentProjects.length - 1 ? 0 : prev + 1);
 
+
+  
+
   return (
     <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0 transition-all duration-300 ease-in-out ${showProfile ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-[110%] opacity-0 pointer-events-none'}`}>
       <div className='flex flex-col items-center w-full h-full relative'>
@@ -68,7 +71,7 @@ function Profile({ showProfile }) {
               </button>
             </div>
             <div className='flex h-full justify-center items-center'>
-              <img className='show-profile-text w-25 h-25 aspect-square rounded-full' src="/About-us/members/Anshul.png" alt="Profile" />
+              <img className='show-profile-text w-25 h-25 aspect-square rounded-full' src={userDetails?.image || "/About-us/members/Anshul.png"} alt="Profile" />
             </div>
           </div>
 

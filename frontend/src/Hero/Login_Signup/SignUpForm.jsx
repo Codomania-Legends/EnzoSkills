@@ -4,11 +4,10 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
 
-
-
 const ProfileForm = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     image: '',
     phone: '',
@@ -22,7 +21,6 @@ const ProfileForm = () => {
     },
     projects: [{ project_name: '', description: '', project_tech: '', project_repo: '', deployed_link: '' }]
   });
-
 
   // Handlers
   const nextStep = () => setStep(step + 1);
@@ -57,10 +55,37 @@ const ProfileForm = () => {
     });
   };
 
+  const handleAddImages = async (e) => {
+    const files = e.target.files;
+    if (!files[0]) return;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "EnzoSkills");
+    setLoading(true);
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/ddwk0yg4r/image/upload", {
+        method: "POST",
+        body: data
+      });
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error?.message || "Failed to upload image");
+      }
+      const file = await res.json();
+      setFormData((prev) => ({ ...prev, image: file.secure_url }));
+      sileo.success("Profile picture uploaded successfully! 📷");
+    } catch (error) {
+      console.error("Upload Error:", error);
+      sileo.error("Upload failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Fill Static Data for Testing
   const fillStaticData = () => {
     setFormData({
-      image: '', // File inputs cannot be set programmatically for security reasons
+      image: '/About-us/members/Anshul.png', // File inputs cannot be set programmatically for security reasons
       phone: '+91 9876543210',
       designation: 'Senior Frontend Developer',
       skills: 'React, Node.js, GSAP, Tailwind CSS, Redux Toolkit',
@@ -71,20 +96,20 @@ const ProfileForm = () => {
         degree: { clg_name: 'National Institute of Technology', duration: '4 Years', year: '2022', marks: '8.5 CGPA' }
       },
       projects: [
-      {
-        project_name: 'EnzoSkills Dashboard',
-        description: 'A full-stack admin dashboard for managing student profiles and analytics.',
-        project_tech: 'React, Node.js, Express, MongoDB',
-        project_repo: 'https://github.com/example/enzoskills',
-        deployed_link: 'https://enzoskills.example.com'
-      },
-      {
-        project_name: 'Portfolio Builder',
-        description: 'An interactive drag-and-drop portfolio creator.',
-        project_tech: 'React, GSAP, Tailwind CSS',
-        project_repo: 'https://github.com/example/portfolio-builder',
-        deployed_link: 'https://portfolio.example.com'
-      }]
+        {
+          project_name: 'EnzoSkills Dashboard',
+          description: 'A full-stack admin dashboard for managing student profiles and analytics.',
+          project_tech: 'React, Node.js, Express, MongoDB',
+          project_repo: 'https://github.com/example/enzoskills',
+          deployed_link: 'https://enzoskills.example.com'
+        },
+        {
+          project_name: 'Portfolio Builder',
+          description: 'An interactive drag-and-drop portfolio creator.',
+          project_tech: 'React, GSAP, Tailwind CSS',
+          project_repo: 'https://github.com/example/portfolio-builder',
+          deployed_link: 'https://portfolio.example.com'
+        }]
 
     });
   };
@@ -116,13 +141,6 @@ const ProfileForm = () => {
 
   const containerRef = React.useRef(null);
 
-
-
-
-
-
-
-
   return (
     <div ref={containerRef} className="min-h-screen w-full small flex items-center justify-center flex-col p-6 font-sans">
       <div className="absolute top-8 right-10 flex gap-4">
@@ -130,14 +148,14 @@ const ProfileForm = () => {
         <button
           onClick={fillStaticData}
           className="px-6 py-2 rounded-xl text-blue-700 font-bold small-box-shadow gray hover:bg-blue-100 transition-all active:scale-95">
-          
+
           Fill Static Data 🧪
         </button>
 
         <button
           onClick={handleSkip}
           className="px-6 py-2 rounded-xl text-purple-700 font-bold small-box-shadow gray hover:bg-purple-100 transition-all active:scale-95">
-          
+
           Skip &rarr;
         </button>
       </div>
@@ -157,13 +175,13 @@ const ProfileForm = () => {
         </div>
 
         {[1, 2, 3, 4].map((i) =>
-        <div
-          key={i}
-          className={`w-14 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-500 z-10 ${step >= i ?
-          'small-box-shadow purple text-white' :
-          'small-box-shadow gray text-gray-600'}`
-          }>
-          
+          <div
+            key={i}
+            className={`w-14 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-500 z-10 ${step >= i ?
+              'small-box-shadow purple text-white' :
+              'small-box-shadow gray text-gray-600'}`
+            }>
+
             {i}
           </div>
         )}
@@ -174,7 +192,7 @@ const ProfileForm = () => {
 
           {/* STEP 1: BASIC INFO & DESIGNATION */}
           {step === 1 &&
-          <div className='step-animate h-full w-full flex flex-col justify-between p-4'>
+            <div className='step-animate h-full w-full flex flex-col justify-between p-4'>
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold text-purple-700">Professional Identity</h2>
 
@@ -191,7 +209,14 @@ const ProfileForm = () => {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-bold text-gray-600 ml-1">Profile Picture</label>
-                  <input className='border border-gray-400 rounded-xl p-2 bg-[#f0f2f5] shadow-[inset_4px_4px_8px_#b8b9be]' type="file" />
+                  <input className='border border-gray-400 rounded-xl p-2 bg-[#f0f2f5] shadow-[inset_4px_4px_8px_#b8b9be]' onChange={handleAddImages} type="file" />
+                  {loading && <p className="text-xs text-blue-600 font-bold mt-1">Uploading image... ☁️</p>}
+                  {!loading && formData.image && (
+                    <div className="flex items-center gap-4 mt-2">
+                      <img src={formData.image} alt="Profile Preview" className="w-12 h-12 rounded-full object-cover border border-purple-500" />
+                      <p className="text-xs text-green-600 font-bold">Uploaded successfully! ✅</p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-1">
@@ -201,14 +226,21 @@ const ProfileForm = () => {
               </div>
 
               <div className="flex justify-end mt-4">
-                <button type="button" className='small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-lg' onClick={nextStep}>Next</button>
+                <button 
+                  type="button" 
+                  disabled={loading}
+                  className={`small-box-shadow purple text-white rounded-2xl px-8 py-3 font-bold shadow-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                  onClick={nextStep}
+                >
+                  {loading ? "Uploading..." : "Next"}
+                </button>
               </div>
             </div>
           }
 
           {/* STEP 2: SKILLS */}
           {step === 2 &&
-          <div className="step-animate h-[90%] w-full flex flex-col justify-between p-4">
+            <div className="step-animate h-[90%] w-full flex flex-col justify-between p-4">
               <div className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-purple-700">Core Skills</h2>
                 <p className="text-gray-500 text-sm">List your tech stack separated by commas.</p>
@@ -216,11 +248,11 @@ const ProfileForm = () => {
                 <div className="flex flex-col gap-1 mt-4">
                   <label className="text-sm font-bold text-gray-600 ml-1">Skills Occupied</label>
                   <textarea
-                  className="border border-gray-400 rounded-2xl p-5 h-48 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none"
-                  placeholder="React, Node.js, GSAP, Tailwind CSS..."
-                  value={formData.skills}
-                  onChange={(e) => setFormData({ ...formData, skills: e.target.value })} />
-                
+                    className="border border-gray-400 rounded-2xl p-5 h-48 bg-[#f0f2f5] outline-none shadow-[inset_4px_4px_8px_#b8b9be] resize-none"
+                    placeholder="React, Node.js, GSAP, Tailwind CSS..."
+                    value={formData.skills}
+                    onChange={(e) => setFormData({ ...formData, skills: e.target.value })} />
+
                 </div>
               </div>
 
@@ -233,7 +265,7 @@ const ProfileForm = () => {
 
           {/* STEP 3: EDUCATION (Full Schema) */}
           {step === 3 &&
-          <div className="step-animate h-full w-full flex flex-col justify-between p-4">
+            <div className="step-animate h-full w-full flex flex-col justify-between p-4">
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-purple-700">Education Details</h2>
                 <div className="space-y-6 max-h-[45vh] overflow-y-auto pr-4 custom-scrollbar">
@@ -311,33 +343,33 @@ const ProfileForm = () => {
 
           {/* STEP 4: PROJECTS (Full Schema) */}
           {step === 4 &&
-          <div className="step-animate h-full w-full flex flex-col justify-between ">
+            <div className="step-animate h-full w-full flex flex-col justify-between ">
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold text-purple-700">Project Portfolio</h2>
                   <button
-                  type="button"
-                  onClick={addProject}
-                  className="text-purple-600 font-bold text-sm hover:scale-105 transition-transform">
-                  
+                    type="button"
+                    onClick={addProject}
+                    className="text-purple-600 font-bold text-sm hover:scale-105 transition-transform">
+
                     + ADD PROJECT
                   </button>
                 </div>
 
                 <div className="space-y-6 max-h-[47vh] overflow-y-auto pr-4 custom-scrollbar">
                   {formData.projects.map((proj, idx) =>
-                <div key={idx} className="relative p-8 rounded-[30px] border border-gray-300 shadow-[inset_6px_6px_12px_#bebebe,inset_-6px_-6px_12px_#ffffff] bg-white/10">
+                    <div key={idx} className="relative p-8 rounded-[30px] border border-gray-300 shadow-[inset_6px_6px_12px_#bebebe,inset_-6px_-6px_12px_#ffffff] bg-white/10">
 
                       {/* Remove Button */}
                       {formData.projects.length > 1 &&
-                  <button
-                    type="button"
-                    onClick={() => removeProject(idx)}
-                    className="absolute top-4 right-6 text-red-500 font-bold text-xs hover:text-red-700">
-                    
+                        <button
+                          type="button"
+                          onClick={() => removeProject(idx)}
+                          className="absolute top-4 right-6 text-red-500 font-bold text-xs hover:text-red-700">
+
                           REMOVE
                         </button>
-                  }
+                      }
 
                       <div className="flex flex-col gap-1 mb-4">
                         <label className="text-xs font-bold text-gray-600 ml-1">Project Name</label>
@@ -365,7 +397,7 @@ const ProfileForm = () => {
                         </div>
                       </div>
                     </div>
-                )}
+                  )}
                 </div>
               </div>
 

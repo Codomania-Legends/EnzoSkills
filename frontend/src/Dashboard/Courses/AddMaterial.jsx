@@ -45,7 +45,7 @@ function AddMaterial() {
             title: "Success!",
             description: `Course ${data.course_name || ''} added successfully!`
           }),
-          error: (err) => {console.log(err);return {
+          error: (err) => {return {
               title: "Error!",
               description: err?.message || "Something went wrong"
             };}

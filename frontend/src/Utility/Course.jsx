@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 export const courseContext = createContext();
 
 export function CourseProvider({ children, id }) {
-    const [courseDetails, setCourseDetails] = useState(null);
+    const [courseDetails, setCourseDetails] = useState([]);
     const [currentCourse, setCurrentCourse] = useState(null);
     const [myCourses, setMyCourses] = useState([]);
 
@@ -155,12 +155,24 @@ export function CourseProvider({ children, id }) {
         fetchMyCourses();
     }, [id]);
 
+    useEffect(() => {
+        const preloadImages = () => {
+            courseDetails.forEach(course => {
+                const image = new Image();
+                image.src = course.image;
+            });
+        };
+        preloadImages();
+    }, [courseDetails]);
+
     return (
         <courseContext.Provider value={{
             courseDetails,
             setCourseDetails,
             currentCourse,
-            setCurrentCourse
+            setCurrentCourse,
+            myCourses,
+            setMyCourses
         }}>
             {children}
         </courseContext.Provider>

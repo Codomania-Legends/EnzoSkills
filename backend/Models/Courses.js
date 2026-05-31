@@ -10,7 +10,6 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     rating: { type: Number, default: 0 }, // Changed to Number for easier sorting/filtering
     roadmap: [{
-        id: { type: String, required: true },
         weekStart: { type: String },
         weekTitle: { type: String },
         levelNumber: { type: Number, required: true },
@@ -28,7 +27,7 @@ const CourseSchema = new mongoose.Schema({
     skills: [{ type: String, default: '' }],
     badges: [{ type: String, default: '' }],
     user_enrolled: [{
-        user_id: { type: String, required: true },
+        user_id: { type: String, required: true, unique: true },
         enrolled_at: { type: Date, default: Date.now } // Useful for tracking
     }],
 

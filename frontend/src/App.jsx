@@ -38,8 +38,9 @@ import Assessment from './Dashboard/CourseDetails/Assessment';
 import Calender from './Utility/Calender';
 import AddProjectForm from './Dashboard/Project/AddProjectForm';
 import LoadImages from './Utility/Loading/LoadImages';
-import Roadmap from './Utility/Roadmap/Roadmap';
 import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
+import JavascriptHeroRoadmap from './Dashboard/CourseDetails/Roadmap';
+import Roadmap from './Dashboard/CourseDetails/Roadmap';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
