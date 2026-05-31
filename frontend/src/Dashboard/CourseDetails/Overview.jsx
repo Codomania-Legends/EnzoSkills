@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useCourse } from '../../Utility/Course';
 import { useNavigate, useParams } from 'react-router';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { sileo } from 'sileo';
+import { useUser } from '../../Utility/UserDetails';
 
 function Overview() {
     const navigate = useNavigate();
-    const { currentCourse, courseDetails, setCurrentCourse } = useCourse();
+    const { currentCourse, courseDetails, myCourses } = useCourse();
+    const { userDetails, setUserDetails } = useUser();
 
     const [thisCourse, setThisCourse] = useState(null);
+    const [isEnrolled, setIsEnrolled] = useState(false);
+    const userId = Cookies.get("user_id");
 
     const colors = [
         { bg: "yellow", text: "black" },
@@ -28,7 +35,62 @@ function Overview() {
         } else {
             setThisCourse(currentCourse)
         }
+        console.log("My courses: ", myCourses)
+        console.log("Current COurse : ", currentCourse)
+        // thisCourse.user_enrolled.some(user => user.user_id == userId ? setIsEnrolled(true) : setIsEnrolled(false))
     }, [courseDetails, currentCourse]);
+
+    useEffect(() => {
+        if (thisCourse) {
+            const courseId = thisCourse.course_id || thisCourse.id;
+            const enrolled = userDetails?.courses?.some(c => String(c.course_id) === String(courseId));
+            
+            if (enrolled) {
+                setIsEnrolled(true);
+            } else if (thisCourse.isEnrolled) {
+                setIsEnrolled(true);
+            } else {
+                setIsEnrolled(false);
+            }
+        }
+    }, [thisCourse, userDetails]);
+
+    const handleEnroll = async () => {
+        if (!userId) {
+            sileo.error("User not found. Please log in.");
+            return;
+        }
+
+        const enrollCall = async () => {
+            const res = await axios.patch("http://localhost:3000/courses/enroll", {
+                user_id: userId,
+                course_id: thisCourse.course_id || thisCourse.id
+            });
+            return res.data;
+        };
+
+        sileo.promise(enrollCall, {
+            success: "Enrolled Successfully!",
+            error: "Failed to enroll. You might already be enrolled.",
+            loading: "Enrolling..."
+        }).then(() => {
+            setIsEnrolled(true);
+            setUserDetails((prev) => (
+                {
+                    ...prev, courses: [...(prev.courses || []), {
+                        course_id: thisCourse.course_id || thisCourse.id,
+                        progress_status: "In Progress",
+                        week_completed: 0,
+                        topics_completed: 0,
+                        subtopics_completed: 0,
+                        progress_percentage: 0
+                    }]
+                }
+            ));
+        }).catch((err) => {
+            console.error(err);
+        });
+    };
 
 
     if (!courseDetails) {
@@ -136,7 +198,7 @@ function Overview() {
 
                     {/* 🎯 Action Buttons */}
                     <div className="flex flex-wrap gap-4 mt-2">
-                        {thisCourse?.isEnrolled ?
+                        {isEnrolled ?
                             <button
                                 onClick={() => navigate(`/dashboard/courses/learning/${thisCourse?.course_id || thisCourse?.id}`)}
                                 style={{ backgroundColor: "#7F77FF" }}
@@ -145,9 +207,10 @@ function Overview() {
                             </button> :
 
                             <button
+                                onClick={handleEnroll}
                                 style={{ backgroundColor: "#7F77FF" }}
                                 className="cursor-pointer text-sm small-box-shadow blue text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all transform hover:-translate-y-0.5">
-                                Enroll Now 🎓
+                                {isEnrolled ? "Continue Learning" : "Enroll Now"} 🎓
                                 <img src="/Dashboard/Courses/enroll.svg" alt="Enroll" className="h-4 w-4" />
                             </button>
                         }

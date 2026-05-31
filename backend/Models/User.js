@@ -29,16 +29,28 @@ const UserSchema = new Schema({
     streak: { type: Number, default: 0 },
 
     // --- Learning & Assessment Progress ---
-    courses: [{ course_id: String, status: String, completed_at: String }],
-    assessments: [{
-        assessment_id: String,
-        status: String,
-        completed_at: String,
-        score: String
-    }],
+    courses: [
+        {
+            course_id: String,
+            progress_status: String,
+            week_completed: Number,
+            topics_completed: Number,
+            subtopics_completed: Number,
+            progress_percentage: Number
+        }
+    ],
+    assessments: [
+        {
+            assessment_id: String,
+            status: String,
+            completed_at: String,
+            score: String
+        }],
     // --------------------------------------
 
 
 }, { timestamps: true });
 
-module.exports = model("User", UserSchema);
+const USER = model("User", UserSchema)
+
+module.exports = USER

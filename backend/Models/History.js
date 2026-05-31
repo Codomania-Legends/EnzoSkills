@@ -8,4 +8,6 @@ const HistorySchema = new Schema({
     timestamp: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = model("History", HistorySchema);
+const HISTORY = model("History", HistorySchema)
+
+module.exports = HISTORY

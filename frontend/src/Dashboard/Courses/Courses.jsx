@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { sileo } from 'sileo';
@@ -11,6 +11,12 @@ function Courses() {
     const navigate = useNavigate();
     const courseContainerRef = useRef(null);
 
+    // Filter states
+    const [statusFilter, setStatusFilter] = useState("All");
+    const [levelFilter, setLevelFilter] = useState("All");
+    const [typeFilter, setTypeFilter] = useState("All");
+
+
     const enrollInCourse = async (courseId) => {
         try {
             // Note: In production, replace the hardcoded localhost string with an environment variable!
@@ -19,7 +25,18 @@ function Courses() {
                 user_id: userDetails.user_id
             });
             sileo.success({ title: "Enrollment Successful", description: response.data.msg });
-            setUserDetails((prev) => ({ ...prev, courses: [...prev.courses, { course_id: courseId }] }));
+            setUserDetails((prev) => (
+                {
+                    ...prev, courses: [...prev.courses, {
+                        course_id: courseId,
+                        progress_status: "In Progress",
+                        week_completed: 0,
+                        topics_completed: 0,
+                        subtopics_completed: 0,
+                        progress_percentage: 0
+                    }]
+                }
+            ));
             return response.data;
         } catch (error) {
             // Extract the specific backend message (e.g., "User is already enrolled"), or default to standard error
@@ -57,7 +74,6 @@ function Courses() {
         ];
 
         try {
-            // Promise.all runs these simultaneously for better performance!
             const createCoursePromises = staticCourseList.map(course =>
                 axios.post("http://localhost:3000/courses/create", course)
             );
@@ -92,17 +108,68 @@ function Courses() {
                 </div>
             </div>
 
+            {/* Filter Options */}
+            <div className="flex gap-4 mb-6 flex-wrap w-full pr-4">
+                <select 
+                    className="px-4 py-2 rounded-xl text-sm small-box-shadow outline-none bg-white font-semibold text-gray-700 cursor-pointer" 
+                    value={statusFilter} 
+                    onChange={e => setStatusFilter(e.target.value)}
+                >
+                    <option value="All">All Status</option>
+                    <option value="Enrolled">Enrolled</option>
+                    <option value="Not Enrolled">Not Enrolled</option>
+                </select>
+                <select 
+                    className="px-4 py-2 rounded-xl text-sm small-box-shadow outline-none bg-white font-semibold text-gray-700 cursor-pointer" 
+                    value={levelFilter} 
+                    onChange={e => setLevelFilter(e.target.value)}
+                >
+                    <option value="All">All Levels</option>
+                    <option value="Beginners">Beginners</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+                <select 
+                    className="px-4 py-2 rounded-xl text-sm small-box-shadow outline-none bg-white font-semibold text-gray-700 cursor-pointer" 
+                    value={typeFilter} 
+                    onChange={e => setTypeFilter(e.target.value)}
+                >
+                    <option value="All">All Types</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                </select>
+            </div>
+
+
             <div className="flex h-[80%] justify-between relative items-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 h-full">
-                    {Array.isArray(courseDetails) && courseDetails.map((course) => {
+                    {Array.isArray(courseDetails) && courseDetails
+                        .filter(course => {
+                            const currentCourseId = course.course_id || course.id;
+                            const isEnrolled = userDetails.courses?.some(c => c.course_id === currentCourseId);
+                            if (statusFilter === "Enrolled" && !isEnrolled) return false;
+                            if (statusFilter === "Not Enrolled" && isEnrolled) return false;
+                            
+                            const normalizeLevel = (lvl) => {
+                                if (!lvl) return "";
+                                const l = lvl.toLowerCase();
+                                if (l.includes("begin")) return "Beginners";
+                                if (l.includes("inter")) return "Intermediate";
+                                if (l.includes("adv") || l.includes("exp")) return "Advanced";
+                                return lvl;
+                            };
+                            
+                            if (levelFilter !== "All" && normalizeLevel(course.level) !== levelFilter) return false;
+                            if (typeFilter !== "All" && course.type !== typeFilter) return false;
+                            return true;
+                        })
+                        .map((course) => {
 
                         // 1. Properly checking inside the array of objects! 🔍
                         const currentCourseId = course.course_id || course.id;
                         const isEnrolled = userDetails.courses?.some(
                             (c) => c.course_id === currentCourseId
                         );
-
-                        console.log(course.course_name, currentCourseId, isEnrolled)
 
                         return (
                             <div onClick={() => setCurrentCourse(currentCourseId)} className='fade_in -y-10 slide_right flex justify-center h-full md:h-[90%] items-center' key={currentCourseId}>
@@ -149,7 +216,10 @@ function Courses() {
                                             {isEnrolled ? "Enrolled" : "Enroll"}
                                             <img src="/Dashboard/Courses/enroll.svg" alt="Enroll" className="h-3 w-3" />
                                         </button>
-                                        <button style={{ backgroundColor: "#7F77FF" }} className="text-xs cursor-pointer small-box-shadow blue text-white px-4 md:px-6 py-2 md:py-2 rounded-xl">View Details</button>
+                                        <button
+                                            style={{ backgroundColor: "#7F77FF" }}
+                                            onClick={() => navigate(`/dashboard/courses/overview/${currentCourseId}`)}
+                                            className="text-xs cursor-pointer small-box-shadow blue text-white px-4 md:px-6 py-2 md:py-2 rounded-xl">View Details</button>
                                     </div>
                                 </div>
                             </div>
