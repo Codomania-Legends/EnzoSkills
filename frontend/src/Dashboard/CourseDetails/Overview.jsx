@@ -31,6 +31,10 @@ function Overview() {
     useEffect(() => {
         if (courseDetails && typeof currentCourse === "string") {
             const course = courseDetails.find((course) => course.course_id === currentCourse);
+            console.log("This Course : ", course)
+            if( !course ){
+                // setThisCourse
+            }
             setThisCourse(course);
         } else {
             setThisCourse(currentCourse)

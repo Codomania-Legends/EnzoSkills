@@ -11,7 +11,7 @@ export function CourseProvider({ children, id }) {
 
     const coursesData = [
         {
-            id: 1,
+            course_id: 1,
             course_name: "Advanced CSS & Tailwind",
             image: "/Dashboard/Courses/Course_Image.png",
             duration: "3 Months",
@@ -33,7 +33,7 @@ export function CourseProvider({ children, id }) {
             ]
         },
         {
-            id: 2,
+            course_id: 2,
             course_name: "React.js Front-End Mastery",
             image: "/Dashboard/Courses/Course_Image.png",
             duration: "6 Months",
@@ -55,7 +55,7 @@ export function CourseProvider({ children, id }) {
             ]
         },
         {
-            id: 3,
+            course_id: 3,
             course_name: "Node.js & Express Backend",
             image: "/Dashboard/Courses/Course_Image.png",
             duration: "5 Months",
@@ -77,7 +77,7 @@ export function CourseProvider({ children, id }) {
             ]
         },
         {
-            id: 4,
+            course_id: 4,
             course_name: "Database Design with MongoDB",
             image: "/Dashboard/Courses/Course_Image.png",
             duration: "2 Months",
