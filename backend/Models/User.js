@@ -22,7 +22,8 @@ const UserSchema = new Schema({
         description: String,
         project_tech: String,
         project_repo: String,
-        deployed_link: String
+        deployed_link: String,
+        project_image: String
     }],
     badges: [{ type: String }],
     awards: [{ type: String }],

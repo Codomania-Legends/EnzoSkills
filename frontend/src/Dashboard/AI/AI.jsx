@@ -8,15 +8,6 @@ import "./Ai.css";
 
 function AI() {
   const containerRef = useRef(null);
-
-
-
-
-
-
-
-
-
   const [doubtQuery, setDoubtQuery] = useState("");
   const [streamedAnswer, setStreamedAnswer] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);

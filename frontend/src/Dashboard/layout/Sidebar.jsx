@@ -34,7 +34,7 @@ function Sidebar() {
       path: "/dashboard/room"
     },
     {
-      name: "Cloura",
+      name: "🤖 Cloura",
       icon: "/Sidebar/AI.svg",
       path: "/dashboard/AI"
     },

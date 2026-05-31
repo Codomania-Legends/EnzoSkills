@@ -134,7 +134,7 @@ const update_All_Skills = async (req, res) => {
 //updating projects for future
 const update_All_Projects = async (req, res) => {
     try {
-        const { user_id, project_name, description, project_tech, project_repo, deployed_link } = req.body;
+        const { user_id, project_name, description, project_tech, project_repo, deployed_link, project_image } = req.body;
 
         if (!user_id || !project_name) {
             return res.status(400).json({ msg: "User ID and Project Name are required" });
@@ -149,7 +149,8 @@ const update_All_Projects = async (req, res) => {
                         description,
                         project_tech,
                         project_repo,
-                        deployed_link
+                        deployed_link,
+                        project_image
                     }
                 }
             },
@@ -282,6 +283,44 @@ const update_User_Gamification = async (req, res) => {
     }
 };
 
+//updating a single project by project_id
+const edit_Single_Project = async (req, res) => {
+    try {
+        const { user_id, project_id, project_name, description, project_tech, project_repo, deployed_link, project_image } = req.body;
+
+        if (!user_id || !project_id) {
+            return res.status(400).json({ msg: "User ID and Project ID are required" });
+        }
+
+        const updatedUser = await USER.findOneAndUpdate(
+            { user_id: user_id, "projects._id": project_id },
+            {
+                $set: {
+                    "projects.$.project_name": project_name,
+                    "projects.$.description": description,
+                    "projects.$.project_tech": project_tech,
+                    "projects.$.project_repo": project_repo,
+                    "projects.$.deployed_link": deployed_link,
+                    "projects.$.project_image": project_image
+                }
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ msg: "User or Project not found" });
+        }
+
+        res.json({
+            msg: "Project updated successfully",
+            projects: updatedUser.projects
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     handle_User_Signup,
     handle_User_Login,
@@ -291,5 +330,6 @@ module.exports = {
     update_All_Skills,
     update_All_Projects,
     update_All_Experience,
-    update_User_Gamification
+    update_User_Gamification,
+    edit_Single_Project
 }
