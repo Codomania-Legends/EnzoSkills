@@ -34,7 +34,7 @@ function Sidebar() {
       path: "/dashboard/room"
     },
     {
-      name: "AI",
+      name: "Cloura",
       icon: "/Sidebar/AI.svg",
       path: "/dashboard/AI"
     },
@@ -62,7 +62,7 @@ function Sidebar() {
               <div className='overflow-hidden'>
                 <img className='slide_left' src={page.icon} alt={page.name} />
               </div>
-              <p className='-z-50 sidename text-sm transition-all duration-300 ease-in-out absolute font-medium bg-white rounded-[5em] shadow-small'>{page.name}</p>
+              <p className={`-z-50 sidename text-sm transition-all duration-300 ease-in-out absolute font-medium bg-white rounded-[5em] shadow-small`}>{page.name}</p>
             </>
           </NavLink>
           {page.name == "Courses" &&

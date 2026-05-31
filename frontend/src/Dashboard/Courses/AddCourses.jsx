@@ -3,8 +3,6 @@ import axios from 'axios';
 import { sileo } from 'sileo';
 import { useNavigate } from 'react-router';
 
-
-
 function AddCourses() {
   const navigate = useNavigate();
   const containerRef = useRef();
@@ -34,7 +32,7 @@ function AddCourses() {
       };
 
       const res = await axios.post("http://localhost:3000/courses/create", payload);
-      console.log(res);
+      // console.log(res);
 
       // Log the action to history
       const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
@@ -148,11 +146,20 @@ function AddCourses() {
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm font-bold text-gray-600 ml-1">Type</label>
-            <input value={allDetails.type} onChange={(e) => setAllDetails({ ...allDetails, type: e.target.value })} type="text" placeholder="Paid / Unpaid" className={inputClass} />
+            <select value={allDetails.type} onChange={(e) => setAllDetails({ ...allDetails, type: e.target.value })} className={inputClass}>
+                <option value="" disabled>Select Type</option>
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+            </select>
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm font-bold text-gray-600 ml-1">Level</label>
-            <input value={allDetails.level} onChange={(e) => setAllDetails({ ...allDetails, level: e.target.value })} type="text" placeholder="Beginner / Intermediate / Expert" className={inputClass} />
+            <select value={allDetails.level} onChange={(e) => setAllDetails({ ...allDetails, level: e.target.value })} className={inputClass}>
+                <option value="" disabled>Select Level</option>
+                <option value="Beginners">Beginners</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
           </div>
         </div>
 

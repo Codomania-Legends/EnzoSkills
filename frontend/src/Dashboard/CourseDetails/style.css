@@ -1,0 +1,340 @@
+/* =====================================================
+   ROADMAP — Clean Vertical Journey Layout
+   ===================================================== */
+
+/* Root container */
+.roadmap-root {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 100vw;
+    /* background: linear-gradient(160deg, #0f0c1a 0%, #1a1033 50%, #0c1a2e 100%); */
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #000;
+    overflow: hidden;
+}
+
+/* ---- Header ---- */
+.roadmap-header {
+    flex-shrink: 0;
+    /* padding: 2rem 2rem 1rem; */
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(8px);
+}
+
+.roadmap-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.roadmap-subtitle {
+    font-size: 0.85rem;
+    color: rgba(44, 44, 44, 0.4);
+    margin: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ---- Scroll Container ---- */
+.roadmap-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2rem 1rem 4rem;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+.roadmap-scroll-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.roadmap-scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.roadmap-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.5);
+    border-radius: 2px;
+}
+
+.roadmap-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.8);
+}
+
+/* ---- Track ---- */
+.roadmap-track {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+/* Central spine line */
+.spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(249, 115, 22, 0.3) 5%,
+            rgba(249, 115, 22, 0.15) 90%,
+            transparent);
+    z-index: 0;
+}
+
+/* ---- Roadmap Row ---- */
+.roadmap-row {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    z-index: 1;
+}
+
+.roadmap-node-wrapper {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.roadmap-node-wrapper.align-left {
+    margin-right: auto;
+    margin-left: 0;
+    align-items: flex-end;
+}
+
+.roadmap-node-wrapper.align-right {
+    margin-left: auto;
+    margin-right: 0;
+    align-items: flex-start;
+}
+
+/* ---- Node Card ---- */
+.node-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    width: 100%;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    cursor: default;
+}
+
+.node-card:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(249, 115, 22, 0.45);
+    background: rgba(249, 115, 22, 0.08);
+}
+
+/* Dot that touches the spine */
+.node-dot {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f97316;
+    border: 2px solid #0f0c1a;
+    transform: translateY(-50%);
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
+}
+
+.align-left .node-dot {
+    right: -16px;
+}
+
+.align-right .node-dot {
+    left: -16px;
+}
+
+/* Horizontal connector from card to spine */
+.node-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 16px;
+    height: 1px;
+    background: rgba(249, 115, 22, 0.4);
+    transform: translateY(-50%);
+}
+
+.align-left .node-card::after {
+    right: -16px;
+}
+
+.align-right .node-card::after {
+    left: -16px;
+}
+
+/* ---- Node Number ---- */
+.node-number {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #f97316;
+    opacity: 0.9;
+    margin-bottom: 0.35rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---- Node Topic ---- */
+.node-topic {
+    font-size: 0.82rem;
+    color: rgba(0, 0, 0, 0.72);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ---- Week Banner ---- */
+.week-banner {
+    width: calc(200% + 32px);
+    margin-bottom: 0.25rem;
+}
+
+.align-left .week-banner {
+    margin-right: calc(-100% - 32px);
+    text-align: center;
+}
+
+.align-right .week-banner {
+    margin-left: calc(-100% - 32px);
+    text-align: center;
+}
+
+.week-banner-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #e9d5ff;
+    white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35);
+}
+
+.week-label {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ---- Achievement Badge ---- */
+.achievement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(234, 179, 8, 0.12);
+    border: 1px solid rgba(234, 179, 8, 0.35);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: 0.02em;
+}
+
+.achievement-icon {
+    font-size: 0.85rem;
+}
+
+/* ---- Finish Marker ---- */
+.finish-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(249, 115, 22, 0.08);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.15);
+}
+
+.finish-marker span {
+    font-size: 1.6rem;
+}
+
+.finish-marker p {
+    font-size: 0.6rem;
+    text-align: center;
+    color: rgba(54, 54, 54, 0.45);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* ---- Vertical connector between rows ---- */
+.vertical-connector {
+    display: none;
+    /* handled by the spine */
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 580px) {
+    .roadmap-node-wrapper {
+        width: 80%;
+    }
+
+    .roadmap-node-wrapper.align-left,
+    .roadmap-node-wrapper.align-right {
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+
+    .week-banner {
+        width: 100%;
+        margin: 0 0 0.3rem;
+    }
+
+    .align-left .week-banner,
+    .align-right .week-banner {
+        margin: 0 0 0.3rem;
+        text-align: left;
+    }
+
+    .node-dot {
+        display: none;
+    }
+
+    .node-card::after {
+        display: none;
+    }
+
+    .spine {
+        left: 10px;
+    }
+}

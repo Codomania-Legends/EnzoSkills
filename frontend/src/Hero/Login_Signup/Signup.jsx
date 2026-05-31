@@ -16,8 +16,8 @@ function Signup() {
         const registrationResult = await handleSignup(event);
 
         if (registrationResult.success) {
-            Cookies.set("username", registrationResult.data.user.user_name);
-            Cookies.set("user_id", registrationResult.data.user.user_id);
+            Cookies.set("username", registrationResult.data.user.user_name, { expires: 7 });
+            Cookies.set("user_id", registrationResult.data.user.user_id, { expires: 7 });
             navigate('/signform');
         } else {
             sileo.error({ title: 'Signup failed', description: registrationResult.error });

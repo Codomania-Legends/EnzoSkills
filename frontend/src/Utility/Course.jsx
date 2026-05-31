@@ -170,7 +170,9 @@ export function CourseProvider({ children, id }) {
             courseDetails,
             setCourseDetails,
             currentCourse,
-            setCurrentCourse
+            setCurrentCourse,
+            myCourses,
+            setMyCourses
         }}>
             {children}
         </courseContext.Provider>

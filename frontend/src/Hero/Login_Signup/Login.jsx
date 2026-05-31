@@ -13,8 +13,8 @@ function Login() {
         e.preventDefault();
         const result = await handleLogin(e);
         if (result.success) {
-            Cookies.set("username", result.data.user.user_name);
-            Cookies.set("user_id", result.data.user.user_id);
+            Cookies.set("username", result.data.user.user_name, { expires: 7 });
+            Cookies.set("user_id", result.data.user.user_id, { expires: 7 });
             navigate("/dashboard/home");
         } else {
             sileo.error({ title: 'Login failed', description: 'Invalid credentials' });

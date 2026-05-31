@@ -1,6 +1,7 @@
 const COURSES = require("../Models/Courses")
 const HISTORY = require("../Models/History")
 const { nanoid } = require("nanoid")
+const USER = require("../Models/User")
 
 // creating courses in function below
 const handle_Course_Creation = async (req, res) => {
@@ -57,16 +58,28 @@ const enrollStudentInCourse = async (req, res) => {
             { returnDocument: 'after' }
         );
 
-        const updatedUser = await USERS.findOneAndUpdate(
+        await USER.findOneAndUpdate(
             {
-                user_id: user_id,
-                "my_courses.course_id": { $ne: course_id } // Prevents duplicate enrollment
+                user_id,
+                "courses.course_id": { $ne: course_id }
             },
             {
-                $push: { my_courses: { course_id: course_id } }
+                $push: {
+                    courses: {
+                        course_id,
+                        progress_status: "In Progress",
+                        week_completed: 0,
+                        topics_completed: 0,
+                        subtopics_completed: 0,
+                        progress_percentage: 0
+                    }
+                }
             },
-            { returnDocument: 'after' }
+            {
+                new: true // Mongoose
+            }
         );
+
 
         // If no document was returned, it means either the course doesn't exist, OR the user is already enrolled
         if (!updatedCourse) {
@@ -92,6 +105,7 @@ const enrollStudentInCourse = async (req, res) => {
         });
 
     } catch (error) {
+        console.group()
         res.status(500).json({ error: error.message });
     }
 };
@@ -221,6 +235,30 @@ const get_My_Courses = async (req, res) => {
     } 4
 }
 
+const createRoadmap = async (req, res) => {
+    try {
+        if (!req.body || Object.keys(req.body).length === 0) throw (new Error("Body not found"))
+        const { course_id, roadmap } = req.body
+
+        const updatedCourse = await COURSES.findOneAndUpdate(
+            { course_id: course_id },
+            {
+                $push: {
+                    roadmap: roadmap
+                }
+            },
+            { new: true, runValidators: true }
+        )
+        if (!updatedCourse) throw (new Error("Course not found"))
+        res.json({
+            msg: "Roadmap Created Successfully",
+            course: updatedCourse
+        })
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
 module.exports = {
     handle_Course_Creation,
     get_All_Courses,
@@ -228,5 +266,6 @@ module.exports = {
     enrollStudentInCourse,
     handle_Material,
     handle_All_Assessments,
-    complete_Assessment
+    complete_Assessment,
+    createRoadmap
 }
