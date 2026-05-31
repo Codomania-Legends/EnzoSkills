@@ -1,12 +1,7 @@
 import React, { useRef, useState } from 'react';
-
 import "./Room.css";
-
-
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
-
-
 
 function Room() {
   const navigate = useNavigate();
@@ -23,7 +18,7 @@ function Room() {
       sileo.error({
         title: "Error",
         description:
-        <p className='flex justify-center items-center font-semibold'>
+          <p className='flex justify-center items-center font-semibold'>
             Please Enter a Valid 6-Digit Room ID
           </p>
 
@@ -88,93 +83,6 @@ function Room() {
     }
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Dedicated useGSAP hook for the copy interaction to handle cleanup safely
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div ref={containerReference} className='flex h-full w-full flex-col pb-8 overflow-hidden'>
       <div className='flex items-center gap-4 w-full h-fit mb-4'>
@@ -193,24 +101,24 @@ function Room() {
             <div className='flex flex-wrap justify-center items-center gap-3 md:gap-4 w-full md:w-auto'>
               <div className='flex gap-1 md:gap-2' onPaste={handlePasteId}>
                 {roomIdArray.map((character, index) =>
-                <input
-                  key={index}
-                  ref={(element) => inputReferences.current[index] = element}
-                  className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
-                  value={character}
-                  onChange={(event) => handleInputChange(event.target, index)}
-                  onKeyDown={(event) => handleBackspaceKey(event, index)} />
+                  <input
+                    key={index}
+                    ref={(element) => inputReferences.current[index] = element}
+                    className='id-boxes font-black white w-8 h-10 md:w-12 md:h-14 flex items-center justify-center rounded-xl shadow-sm border border-gray-100 text-lg md:text-xl text-center outline-none focus:border-blue-500 transition-colors'
+                    value={character}
+                    onChange={(event) => handleInputChange(event.target, index)}
+                    onKeyDown={(event) => handleBackspaceKey(event, index)} />
 
                 )}
               </div>
 
               <div className="relative w-5 h-5 md:w-7 md:h-7 cursor-pointer shrink-0" onClick={handleCopyToClipboard}>
-                <div className="copy-icon-room-outline absolute inset-0 border-2 border-black rounded-md" />
-                <div className="copy-icon-room-fill transition-all duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center" />
+                <div className="copy-icon-room-outline absolute  inset-0 border-2 border-black rounded-md" />
+                <div className="copy-icon-room-fill transition-all translate-x-2 -translate-y-2 hover:translate-x-0 hover:-translate-y-0 active:scale-50 duration-300 absolute inset-0 bg-black rounded-md flex items-center justify-center" />
               </div>
 
               {isIdCopied &&
-              <span className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0'>
+                <span className='green small-box-shadow text-white px-4 py-2 rounded-xl absolute bottom-5 z-50 shadow-lg font-medium left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0'>
                   Copied to clipboard! ✅
                 </span>
               }
@@ -239,13 +147,13 @@ function Room() {
                         action_description: `You joined the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch (e) {}
+                  } catch (e) { }
                 }
 
                 navigate(`/dashboard/room/${roomStr}`);
               }}
               className='button-room-section blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'>
-              
+
               Join Room
             </button>
 
@@ -258,7 +166,7 @@ function Room() {
                   sileo.success({
                     title: "Success",
                     description:
-                    <p className='flex justify-center items-center font-semibold'>
+                      <p className='flex justify-center items-center font-semibold'>
                         Room ID Created! Click Create again to enter.
                       </p>
 
@@ -279,13 +187,13 @@ function Room() {
                         action_description: `You created and entered the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch (e) {}
+                  } catch (e) { }
                 }
 
                 navigate(`/dashboard/room/${roomStr}`);
               }}
               className='button-room-section blue py-3 md:py-4 px-6 rounded-2xl text-white font-bold w-full small-box-shadow'>
-              
+
               Create Room {roomIdArray.join("").length < 6 ? "ID" : ""}
             </button>
           </div>
