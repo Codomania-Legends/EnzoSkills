@@ -19,8 +19,8 @@
     flex-shrink: 0;
     /* padding: 2rem 2rem 1rem; */
     text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    background: rgba(0, 0, 0, 0.03);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.07); */
+    /* background: rgba(0, 0, 0, 0.03); */
     backdrop-filter: blur(8px);
 }
 
@@ -28,7 +28,7 @@
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 700;
     margin: 0 0 0.3rem;
-    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
+    background: linear-gradient(135deg, #3366ff 0%, #0962af 50%, #000000 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -131,8 +131,8 @@
 /* ---- Node Card ---- */
 .node-card {
     position: relative;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* background: rgba(0, 0, 0, 0.05); */
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
     border-radius: 16px;
     padding: 1rem 1.1rem;
     width: 100%;
@@ -143,20 +143,21 @@
 .node-card:hover {
     transform: translateY(-2px) scale(1.02);
     border-color: rgba(249, 115, 22, 0.45);
-    background: rgba(249, 115, 22, 0.08);
+    /* background: rgba(249, 115, 22, 0.08); */
 }
 
 /* Dot that touches the spine */
 .node-dot {
     position: absolute;
     top: 50%;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    /* height: 10px; */
     border-radius: 50%;
-    background: #f97316;
-    border: 2px solid #0f0c1a;
+    background: #0003b8;
+    border: 2px solid #ffffff;
+    aspect-ratio: 1/1;
     transform: translateY(-50%);
-    box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
+    /* box-shadow: 0 0 8px rgba(249, 115, 22, 0.6); */
 }
 
 .align-left .node-dot {
@@ -225,18 +226,19 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    /* background: linear-gradient(135deg, #7c3aed, #4f46e5); */
     border-radius: 999px;
     padding: 0.35rem 1rem;
     font-size: 0.75rem;
     font-weight: 600;
     color: #e9d5ff;
     white-space: nowrap;
-    box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35);
+    /* box-shadow: 0 2px 12px rgba(124, 58, 237, 0.35); */
 }
 
 .week-label {
-    background: rgba(0, 0, 0, 0.2);
+    /* background: rgba(0, 0, 0, 0.2); */
+    border: 1px dashed rgba(0, 0, 0, 0.4);
     border-radius: 999px;
     padding: 0.1rem 0.55rem;
     font-size: 0.68rem;
@@ -251,13 +253,13 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(234, 179, 8, 0.12);
+    /* background: rgba(234, 179, 8, 0.12); */
     border: 1px solid rgba(234, 179, 8, 0.35);
     border-radius: 999px;
-    padding: 0.3rem 0.85rem;
+    padding: 0.5rem 1.5rem;
     font-size: 0.72rem;
     font-weight: 600;
-    color: #000000;
+    /* color: #000000; */
     letter-spacing: 0.02em;
 }
 
@@ -272,14 +274,16 @@
     align-items: center;
     gap: 0.4rem;
     margin-top: 2rem;
-    padding: 1.5rem;
-    background: rgba(249, 115, 22, 0.08);
-    border: 1px solid rgba(249, 115, 22, 0.25);
+    padding: 2rem;
+    /* background: rgba(249, 115, 22, 0.08); */
+    /* border: 1px solid rgba(249, 115, 22, 0.25); */
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    /* height: 90px; */
+
+    aspect-ratio: 1/1;
     justify-content: center;
-    box-shadow: 0 0 40px rgba(249, 115, 22, 0.15);
+    /* box-shadow: 0 0 40px rgba(249, 115, 22, 0.15); */
 }
 
 .finish-marker span {
@@ -289,7 +293,7 @@
 .finish-marker p {
     font-size: 0.6rem;
     text-align: center;
-    color: rgba(54, 54, 54, 0.45);
+    /* color: rgba(54, 54, 54, 0.45); */
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.07em;
