@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { sileo } from "sileo";
 import { useCourse } from '../../../Utility/Course';
+import { useNavigate } from 'react-router';
 
 
 const AnimatedSuccessToast = ({ isDark }) => (
@@ -17,6 +18,7 @@ const AnimatedSuccessToast = ({ isDark }) => (
 
 function Learning() {
     const { currentCourse } = useCourse();
+    const navigate = useNavigate();
     const [theme, setTheme] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);

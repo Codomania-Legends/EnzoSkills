@@ -206,9 +206,17 @@ function Assessment() {
           {/* Restored the original mt-10 style for your motivational text box! */}
           <div className="w-full mt-10 flex justify-between items-center bg-white p-8 rounded-3xl medium-box-shadow white mb-10">
             <div className="finalBox">
-              <button className="border-none py-4 px-8 rounded-2xl bg-[#4e53e6] text-white font-bold shadow-md hover:bg-blue-600 transition-colors small-box-shadow blue">
-                Final Assessment 🏆
-              </button>
+              {completedTests.includes("final") ? (
+                <button className="border-none py-4 px-8 rounded-2xl bg-[#5ae45a] text-white font-bold shadow-md cursor-default small-box-shadow green">
+                  Final Assessment Completed ✅
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate(`/dashboard/courses/assessment/final/${courseId}`)}
+                  className="border-none cursor-pointer py-4 px-8 rounded-2xl bg-[#4e53e6] text-white font-bold shadow-md hover:bg-blue-600 transition-colors small-box-shadow blue">
+                  Final Assessment 🏆
+                </button>
+              )}
             </div>
 
             <div className="text-right border-r-4 border-[#6c72ff] pr-6">
