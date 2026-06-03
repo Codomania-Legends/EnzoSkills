@@ -2,7 +2,7 @@
   "scripts": {
     "_install": "npm i && cd ./frontend && npm i && cd ../backend && npm i",
     "start": "concurrently \"cd ./frontend && npm run dev\" \"cd ./backend && npm start\" \"cd ./backend && npm run socket\"",
-    "backend": "nodemon backend/server.js",
+    "backend": "cd ./backend && npm start",
     "frontend": "cd ./frontend && npm run dev",
     "socket": "nodemon socket/index.js",
     "push": "node push.js"

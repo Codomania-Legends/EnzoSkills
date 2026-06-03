@@ -9,11 +9,26 @@ function TopicAssessment() {
 
   // Read the assessment data passed from Assessment.jsx
   const assessmentData = location.state?.assessment || {
-    title: "Default Test",
+    id: "mock-1",
+    title: "React Fundamentals Assessment",
     timeLimit: "30 Mins",
     questions: [
-    { question: "No questions provided.", options: ["A", "B", "C", "D"], correctAnswer: "A" }]
-
+      { question: "What is the virtual DOM in React?", options: ["A complete copy of the browser's DOM", "A lightweight JavaScript representation of the DOM", "A backend database", "A CSS framework"], correctAnswer: "A lightweight JavaScript representation of the DOM" },
+      { question: "Which hook should be used to fetch data when a component mounts?", options: ["useState", "useContext", "useEffect", "useReducer"], correctAnswer: "useEffect" },
+      { question: "What is JSX?", options: ["A new programming language", "A syntax extension for JavaScript", "A built-in React component", "A styling methodology"], correctAnswer: "A syntax extension for JavaScript" },
+      { question: "How do you pass data from a parent component to a child component?", options: ["Using state", "Using props", "Using context", "Using Redux"], correctAnswer: "Using props" },
+      { question: "Which hook is used to manage complex state logic?", options: ["useState", "useContext", "useReducer", "useCallback"], correctAnswer: "useReducer" },
+      { question: "What does the React.memo higher-order component do?", options: ["Memoizes the whole application", "Prevents a component from re-rendering if props haven't changed", "Memoizes a function definition", "Caches API responses"], correctAnswer: "Prevents a component from re-rendering if props haven't changed" },
+      { question: "What is a 'key' in React lists used for?", options: ["To define inline CSS styles", "To uniquely identify elements to help React track changes", "To bind event handlers", "To pass props to children"], correctAnswer: "To uniquely identify elements to help React track changes" },
+      { question: "Which lifecycle method is invoked immediately after a component is mounted?", options: ["componentWillMount", "componentDidMount", "componentDidUpdate", "componentWillUnmount"], correctAnswer: "componentDidMount" },
+      { question: "How can you prevent a default behavior in React (e.g., form submission)?", options: ["return false;", "event.preventDefault();", "event.stopPropagation();", "React.prevent();"], correctAnswer: "event.preventDefault();" },
+      { question: "What is the Context API primarily used for?", options: ["Handling API requests", "Managing local component state", "Passing data deeply through the component tree without prop drilling", "Styling components"], correctAnswer: "Passing data deeply through the component tree without prop drilling" },
+      { question: "Which of the following is true about React state?", options: ["It can be mutated directly.", "It is accessible from outside the component.", "It should be updated using a setter function.", "It is shared among all components by default."], correctAnswer: "It should be updated using a setter function." },
+      { question: "What does the useMemo hook do?", options: ["Returns a memoized callback", "Returns a memoized value", "Runs side effects", "Manages state"], correctAnswer: "Returns a memoized value" },
+      { question: "In React, what are controlled components?", options: ["Components that control other components", "Components whose state is managed by the DOM", "Components whose value is controlled by React state", "Components strictly wrapped in error boundaries"], correctAnswer: "Components whose value is controlled by React state" },
+      { question: "What is a React Fragment used for?", options: ["To add CSS styling without a wrapper", "To group a list of children without adding extra nodes to the DOM", "To fragment the state into smaller pieces", "To create reusable components"], correctAnswer: "To group a list of children without adding extra nodes to the DOM" },
+      { question: "Which method in a class component is used to change the state?", options: ["changeState()", "updateState()", "setState()", "set()"], correctAnswer: "setState()" }
+    ]
   };
 
   const questions = assessmentData.questions;
@@ -21,10 +36,6 @@ function TopicAssessment() {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const container = React.useRef(null);
-
-
-
-
 
   const handleCircleClick = (index) => {
     if (!isSubmitted) setCurrentQIndex(index);
@@ -104,15 +115,15 @@ function TopicAssessment() {
 
   return (
     <div ref={container} className="container h-full mx-auto px-4 mt-5">
-        <div className="flex justify-start gap-2 items-center w-2/10 mb-5 cursor-pointer" onClick={() => navigate(-1)}>
-            <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
-            <h1 className="text-2xl h-[10%] font-bold">Topic Assessment</h1>
-        </div>
-        <div className="flex h-[90%] justify-between relative items-center gap-10">
-            {/* Left Nav Pane */}
-            <div className="flex h-[90%] small-box-shadow rounded-[2em] white w-[25%] justify-center items-start overflow-y-auto custom-scrollbar">
-                <div className='w-full grid grid-cols-5 gap-4 py-8 px-8'>
-                   {questions.map((_, index) => {
+      <div className="flex justify-start gap-2 items-center w-2/10 mb-5 cursor-pointer" onClick={() => navigate(-1)}>
+        <img src="/Dashboard/Courses/Back.svg" alt="Back" className="h-4 w-4" />
+        <h1 className="text-2xl h-[10%] font-bold">Topic Assessment</h1>
+      </div>
+      <div className="flex h-[90%] justify-between relative items-center gap-10">
+        {/* Left Nav Pane */}
+        <div className="flex h-[90%] small-box-shadow rounded-[2em] white w-[25%] justify-center items-start overflow-y-auto custom-scrollbar">
+          <div className='w-full grid grid-cols-5 gap-4 py-8 px-8'>
+            {questions.map((_, index) => {
               const isAnswered = selectedAnswers[index] !== undefined;
               return (
                 <button
@@ -127,41 +138,41 @@ function TopicAssessment() {
                                     inset -5px -5px 10px 0px rgba(58, 62, 108, 0.6)
                                 `
                   }}>
-                  
-                            {index + 1}
-                        </button>);
+
+                  {index + 1}
+                </button>);
 
             })}
-                </div>
+          </div>
+        </div>
+
+        {/* Right Question Pane */}
+        <div className="flex h-full w-[70%] justify-center items-center">
+          <div className="test-container w-full h-full flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between font-bold mb-5">
+                <div className="flex items-center text-lg">{assessmentData.title}</div>
+                <div className="flex items-center text-red-500 gap-2"><i className="fa-regular fa-clock"></i> {assessmentData.timeLimit}</div>
+              </div>
+              <div className="test-heading font-[Syne] flex justify-center items-center mb-5">
+                <h1 className="text-3xl font-[900]">Topic Assessment</h1>
+              </div>
             </div>
 
-            {/* Right Question Pane */}
-            <div className="flex h-full w-[70%] justify-center items-center">
-                <div className="test-container w-full h-full flex flex-col justify-between">
-                    <div>
-                        <div className="flex justify-between font-bold mb-5">
-                            <div className="flex items-center text-lg">{assessmentData.title}</div>
-                            <div className="flex items-center text-red-500 gap-2"><i className="fa-regular fa-clock"></i> {assessmentData.timeLimit}</div>
-                        </div>
-                        <div className="test-heading font-[Syne] flex justify-center items-center mb-5">
-                            <h1 className="text-3xl font-[900]">Topic Assessment</h1>
-                        </div>
-                    </div>
+            <div className="flex justify-center flex-col items-center w-full flex-grow">
+              {/* Question Box */}
+              <div className="question-container mb-8 relative w-full flex justify-center">
+                <div className="question-number small-box-shadow white w-12 h-12 rounded-full flex items-center justify-center font-bold text-black text-xl shrink-0 absolute -left-4 top-1/2 -translate-y-1/2 z-40">
+                  {currentQIndex + 1}
+                </div>
+                <div className="flex items-center small-box-shadow rounded-[2em] blue text-white px-8 py-8 w-[90%] relative ">
+                  <p className="font-semibold text-xl pl-6">{currentQ?.question}</p>
+                </div>
+              </div>
 
-                    <div className="flex justify-center flex-col items-center w-full flex-grow">
-                        {/* Question Box */}
-                        <div className="question-container mb-8 relative w-full flex justify-center">
-                            <div className="question-number small-box-shadow white w-12 h-12 rounded-full flex items-center justify-center font-bold text-black text-xl shrink-0 absolute -left-4 top-1/2 -translate-y-1/2 z-40">
-                                {currentQIndex + 1}
-                            </div>
-                            <div className="flex items-center small-box-shadow rounded-[2em] blue text-white px-8 py-8 w-[90%] relative ">
-                                <p className="font-semibold text-xl pl-6">{currentQ?.question}</p>
-                            </div>
-                        </div>
-
-                        {/* Options Grid */}
-                        <div className="grid grid-cols-2 gap-x-12 gap-y-10 w-full px-12">
-                            {currentQ?.options?.map((opt, i) => {
+              {/* Options Grid */}
+              <div className="grid grid-cols-2 gap-x-12 gap-y-10 w-full px-12">
+                {currentQ?.options?.map((opt, i) => {
                   const isSelected = selectedAnswers[currentQIndex] === opt;
                   const isCorrect = opt === currentQ.correctAnswer;
 
@@ -188,54 +199,54 @@ function TopicAssessment() {
 
                   return (
                     <div key={i} className="flex justify-center items-center relative pt-4 cursor-pointer" onClick={() => handleOptionSelect(opt)}>
-                                        <div className={`w-12 h-12 rounded-full small-box-shadow ${iconClass} flex items-center justify-center font-bold absolute top-[30%] left-[-1%] left-1/2 -translate-x-1/2 z-10 text-lg transition-all`}>
-                                            {letters[i]}
-                                        </div>
-                                        <button className={`w-[80%] small-box-shadow ${buttonClass} font-medium py-6 px-6 rounded-[2em] border-b-4 text-center active:scale-95 transition-all duration-200`}>
-                                            <span>{opt}</span>
-                                        </button>
-                                    </div>);
+                      <div className={`w-12 h-12 rounded-full small-box-shadow ${iconClass} flex items-center justify-center font-bold absolute top-[30%] left-[-1%] left-1/2 -translate-x-1/2 z-10 text-lg transition-all`}>
+                        {letters[i]}
+                      </div>
+                      <button className={`w-[80%] small-box-shadow ${buttonClass} font-medium py-6 px-6 rounded-[2em] border-b-4 text-center active:scale-95 transition-all duration-200`}>
+                        <span>{opt}</span>
+                      </button>
+                    </div>);
 
                 })}
-                        </div>
-                    </div>
+              </div>
+            </div>
 
-                    {/* Navigation Buttons */}
-                    <div className="w-full flex justify-between items-center px-12 pb-8">
-                        <button
+            {/* Navigation Buttons */}
+            <div className="w-full flex justify-between items-center px-12 pb-8">
+              <button
                 onClick={handlePrev}
                 disabled={currentQIndex === 0 || isSubmitted}
                 className={`w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-all duration-150 active:scale-95 small-box-shadow ${currentQIndex === 0 || isSubmitted ? 'bg-gray-300 opacity-50 cursor-not-allowed' : 'gray'}`}>
-                
-                            <svg className="w-6 h-6 stroke-[3] text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                            </svg>
-                        </button>
 
-                        {currentQIndex === questions.length - 1 ?
-              <button
-                onClick={handleSubmitTest}
-                disabled={isSubmitted}
-                className={`px-8 py-3 rounded-2xl font-bold text-white small-box-shadow transition-transform ${isSubmitted ? 'gray opacity-50 cursor-not-allowed' : 'green hover:opacity-90 active:scale-95'}`}>
-                
-                                {isSubmitted ? 'Evaluating...' : 'Submit Test ✅'}
-                            </button> :
+                <svg className="w-6 h-6 stroke-[3] text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                </svg>
+              </button>
 
-              <button
-                onClick={handleNext}
-                disabled={isSubmitted}
-                className={`w-14 h-14 rounded-full flex items-center justify-center text-white cursor-pointer transition-all duration-150 active:scale-95 small-box-shadow ${isSubmitted ? 'bg-gray-300 opacity-50 cursor-not-allowed' : 'blue'}`}>
-                
-                                <svg className="w-6 h-6 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </button>
+              {currentQIndex === questions.length - 1 ?
+                <button
+                  onClick={handleSubmitTest}
+                  disabled={isSubmitted}
+                  className={`px-8 py-3 rounded-2xl font-bold text-white small-box-shadow transition-transform ${isSubmitted ? 'gray opacity-50 cursor-not-allowed' : 'green hover:opacity-90 active:scale-95'}`}>
+
+                  {isSubmitted ? 'Evaluating...' : 'Submit Test ✅'}
+                </button> :
+
+                <button
+                  onClick={handleNext}
+                  disabled={isSubmitted}
+                  className={`w-14 h-14 rounded-full flex items-center justify-center text-white cursor-pointer transition-all duration-150 active:scale-95 small-box-shadow ${isSubmitted ? 'bg-gray-300 opacity-50 cursor-not-allowed' : 'blue'}`}>
+
+                  <svg className="w-6 h-6 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
               }
-                    </div>
-                </div>
-
             </div>
+          </div>
+
         </div>
+      </div>
     </div>);
 
 }

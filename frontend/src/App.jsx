@@ -29,7 +29,6 @@ import AddMaterial from './Dashboard/Courses/AddMaterial';
 import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
-import Learning from './Dashboard/CourseDetails/Learning';
 import { CourseProvider } from './Utility/Course';
 import Signup from './Hero/Login_Signup/Signup';
 import TopicAssessment from './Dashboard/CourseDetails/Assessment/TopicAssessment';
@@ -41,6 +40,7 @@ import LoadImages from './Utility/Loading/LoadImages';
 import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
 import JavascriptHeroRoadmap from './Dashboard/CourseDetails/Roadmap';
 import Roadmap from './Dashboard/CourseDetails/Roadmap';
+import Learning from './Dashboard/CourseDetails/Learning/Learning';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -74,7 +74,10 @@ function App() {
 
   return (
     <>
-      <Toaster position='top-center' />
+      <Toaster position='top-center' theme='dark' options={{
+        fill: "#171717",
+        styles: { description: "text-white/75!" },
+      }} />
       <Router>
         <Routes>
           <Route path='/' element={<Loading />} />
