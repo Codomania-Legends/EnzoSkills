@@ -137,21 +137,15 @@ function Learning() {
                 <div className={`lg:w-3/4 p-8 md:p-10 rounded-3xl transition-all slide_up ${theme ? 'bg-gray-900 text-white medium-box-shadow-black' : 'white text-black medium-box-shadow'}`}>
                     {displayMaterials[selectedDayIndex] && (
                         <div className="fade-in" key={selectedDayIndex}>
-                            <div className="mb-10 -b pb-8" style={{ Color: theme ? '#374151' : '#f3f4f6' }}>
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span className="px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#7F77FF]/10 text-[#7F77FF]">Day {displayMaterials[selectedDayIndex].day || selectedDayIndex + 1}</span>
-                                </div>
+                            <div className="mb-10 -b " style={{ Color: theme ? '#374151' : '#f3f4f6' }}>
                                 <h2 className="text-4xl font-bold mb-4 font-[Plus_Jakarta_Sans] leading-tight">{displayMaterials[selectedDayIndex].title}</h2>
-                                <div className="flex items-center gap-3 flex-wrap">
-                                    <span className={`px-3 py-1.5 rounded-lg text-xs font-bold ${theme ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Topics Covered:</span>
-                                    <p className="text-sm font-medium opacity-80">{displayMaterials[selectedDayIndex].topics}</p>
-                                </div>
+                                
                             </div>
 
                             <div className="flex flex-col gap-8">
                                 {displayMaterials[selectedDayIndex].material && displayMaterials[selectedDayIndex].material.map((mat, i) => (
                                     <div key={i} className={`p-8 rounded-3xl ${theme ? 'bg-gray-800' : 'bg-gray-200'} transition-all hover:shadow-md slide_up`} style={{ animationDelay: `${(i + 1) * 150}ms` }}>
-                                        <h3 className="text-2xl font-bold mb-4 text-[#7F77FF]">{mat.heading}</h3>
+                                        <h3 className="text-2xl font-bold mb-4 text-gray-500">{mat.heading}</h3>
                                         <p className="text-base md:text-lg leading-relaxed opacity-90 whitespace-pre-line font-medium">
                                             {mat.learning_para}
                                         </p>
