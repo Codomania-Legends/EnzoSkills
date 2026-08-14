@@ -22,7 +22,8 @@ export function UserProvider({ children }) {
         sileo.promise(getUserDetails, {
             success: "Details fetched successfully",
             error: "Failed to fetch details",
-            loading: "Fetching details..."
+            loading: "Fetching details...",
+            duration: 10
         })
     }, [])
 

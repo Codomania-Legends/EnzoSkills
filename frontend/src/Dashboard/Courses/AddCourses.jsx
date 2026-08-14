@@ -32,7 +32,6 @@ function AddCourses() {
       };
 
       const res = await axios.post("http://localhost:3000/courses/create", payload);
-      // console.log(res);
 
       // Log the action to history
       const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];

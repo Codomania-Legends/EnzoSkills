@@ -85,7 +85,6 @@ function TopicAssessment() {
           score: score
         })
       });
-      console.log("Score synced with backend!");
     } catch (error) {
       console.error("Failed to sync score to backend", error);
     }

@@ -7,7 +7,6 @@ function LoadImages({ images }) {
         const img = new Image();
         img.src = images[i];
         img.onload = () => {
-            console.log(img, "loaded")
         }
     }
     setImagesLoaded(true);

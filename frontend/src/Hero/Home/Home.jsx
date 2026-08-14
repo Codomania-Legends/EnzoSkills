@@ -67,12 +67,10 @@ function Home() {
           </div>
 
           <div onClick={() => {
-            console.log("startlearning button clicked")
             navigate("/dashboard/home")
           }} className="leftContentBottom z-20 w-[70%] md:h-[10%] md:w-[90%] lg:hidden flex justify-center md:justify-start items-center fade-in" style={{ animationDelay: '1s' }}>
             <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart bottom-[25%] md:hidden right-[15%]' />
             <button onClick={() => {
-              console.log("Main button clicke")
               navigate("/dashboard/home")
             }} className='start-learning-btn text-white rounded-full pt-[1em] pr-[8em] pb-[1em] pl-[3em] small-box-shadow black md:text-xl text-sm hover:scale-105 transition-transform'>Start Learning</button>
           </div>

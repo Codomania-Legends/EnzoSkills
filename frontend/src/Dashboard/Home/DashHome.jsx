@@ -31,8 +31,6 @@ function DashHome() {
 
   const { courseDetails, myCourses } = useCourse()
   useEffect(() => {
-    console.log("courseDetails", courseDetails);
-    console.log("myCourses", myCourses);
   }, [courseDetails, myCourses])
 
   return (

@@ -8,8 +8,6 @@ async function DoubtSolver(req, res) {
             Doubt: ${req.body.doubt}
         `;
 
-        console.log(req.body.doubt);
-
         // 1. Set headers for a continuous text stream
         res.setHeader("Content-Type", "text/plain");
         res.setHeader("Cache-Control", "no-cache");

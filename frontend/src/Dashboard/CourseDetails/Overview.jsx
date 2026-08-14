@@ -31,7 +31,6 @@ function Overview() {
     useEffect(() => {
         if (courseDetails && typeof currentCourse === "string") {
             const course = courseDetails.find((course) => course.course_id === currentCourse);
-            console.log("This Course : ", course)
             if( !course ){
                 // setThisCourse
             }
@@ -39,8 +38,6 @@ function Overview() {
         } else {
             setThisCourse(currentCourse)
         }
-        console.log("My courses: ", myCourses)
-        console.log("Current COurse : ", currentCourse)
         // thisCourse.user_enrolled.some(user => user.user_id == userId ? setIsEnrolled(true) : setIsEnrolled(false))
     }, [courseDetails, currentCourse]);
 

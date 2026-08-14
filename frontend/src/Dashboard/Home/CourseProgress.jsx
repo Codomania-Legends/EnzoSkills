@@ -1,16 +1,17 @@
 import React from 'react';
 import { useRef } from 'react';
+import { Link } from 'react-router';
 function CourseProgress({ Courses }) {
-    console.log(Courses)
     const container = useRef();
     return (
         <>
             <h2 className=' font-["Plus_Jakarta_Sans"] text-base font-semibold mb-4 text-center md:text-left'>Course Progress</h2>
             <div ref={container} className='fade_in grid gap-y-6 px-2 md:px-8'>
                 {
-                    Courses?.map((course, index) =>
-                        <div className='fade_in w-full flex flex-col lg:flex-row justify-between items-center rounded-2xl p-4 gap-4 relative white small-box-shadow' key={index}>
-                            <img src={course.image} alt="" className="fade_in w-16 md:w-20 lg:w-auto object-contain" />
+                    Courses?.length > 0 &&
+                    Courses?.map((course, index) => {
+                        return (<Link to={`/dashboard/courses/overview/${course.course_id}`} className='fade_in w-full flex flex-col lg:flex-row justify-between items-center rounded-2xl p-4 gap-4 relative white small-box-shadow' key={index}>
+                            <img src={course.image} alt="" className="fade_in  h-16 md:w-20 lg:w-auto object-contain" />
 
                             <div className='fade_in h-full w-full lg:w-[70%] flex flex-col justify-between items-center lg:items-start gap-4 lg:gap-0'>
                                 <h3 className='fade_in font-bold font-["Plus_Jakarta_Sans"] text-center lg:text-left'>{course.name}</h3>
@@ -25,13 +26,13 @@ function CourseProgress({ Courses }) {
                                     </div>
 
                                     <div className='relative flex justify-center items-center flex-col w-[30%] lg:w-auto'>
-                                        <p className='fade_in font-bold text-xs md:text-sm'>{course.assignments[0]} / {course.assignments[1]}</p>
+                                        {/* <p className='fade_in font-bold text-xs md:text-sm'>{course.assignments[0] ?? 1} / {course.assignments[1] ?? 1}</p> */}
                                         <span className='fade_in text-[8px] md:text-xxs text-center'>Assignments</span>
                                         <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#6073FF50]" />
                                     </div>
 
                                     <div className='fade_in relative flex justify-center items-center flex-col w-[30%] lg:w-auto'>
-                                        <p className='fade_in font-bold text-xs md:text-sm'>{course.assessments[0]} / {course.assessments[1]}</p>
+                                        {/* <p className='fade_in font-bold text-xs md:text-sm'>{course.assessments[0]} / {course.assessments[1]}</p> */}
                                         <span className='fade_in text-[8px] md:text-xxs text-center'>Assessments</span>
                                         <div className="h-[0.5em] w-full lg:w-[60%] absolute top-[30%] lg:top-[30%] bg-[#FF383C50]" />
                                     </div>
@@ -43,7 +44,9 @@ function CourseProgress({ Courses }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
+                        )
+                    }
                     )
                 }
             </div>

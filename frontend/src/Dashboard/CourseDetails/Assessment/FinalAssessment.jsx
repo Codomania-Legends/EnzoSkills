@@ -171,7 +171,6 @@ function FinalAssessment() {
           score: score
         })
       });
-      console.log("Final Assessment score synced with backend!");
     } catch (error) {
       console.error("Failed to sync score to backend", error);
     }

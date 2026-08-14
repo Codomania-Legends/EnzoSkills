@@ -117,7 +117,6 @@ export function CourseProvider({ children }) {
                 const allResults = await axios.get("http://localhost:3000/courses/get");
                 setCourseDetails(allResults.data.course);
             } catch (error) {
-                console.log("Error fetching all courses:", error.message);
                 setCourseDetails(coursesData);
             }
         };
@@ -135,7 +134,6 @@ export function CourseProvider({ children }) {
                         const singleResult = await axios.get(`http://localhost:3000/courses/get/${activeId}`);
                         setCurrentCourse(singleResult.data.course);
                     } catch (error) {
-                        console.log("Error fetching single course:", error.message);
                         const fallbackCourse = coursesData.find(c => String(c.course_id || c.id) === String(activeId));
                         setCurrentCourse(fallbackCourse || null);
                     }
@@ -154,7 +152,6 @@ export function CourseProvider({ children }) {
                 const myCoursesResult = await axios.get(`http://localhost:3000/courses/user/${id}`);
                 setMyCourses(myCoursesResult.data.courses || myCoursesResult.data.course || []);
             } catch (error) {
-                console.log("Error fetching my courses:", error.message);
                 setMyCourses([]);
             }
         };
