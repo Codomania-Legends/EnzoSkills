@@ -11,7 +11,7 @@ function TopicAssessment() {
   const assessmentData = location.state?.assessment || {
     id: "mock-1",
     title: "React Fundamentals Assessment",
-    timeLimit: "30 Mins",
+    timeLimit: 30,
     questions: [
       { question: "What is the virtual DOM in React?", options: ["A complete copy of the browser's DOM", "A lightweight JavaScript representation of the DOM", "A backend database", "A CSS framework"], correctAnswer: "A lightweight JavaScript representation of the DOM" },
       { question: "Which hook should be used to fetch data when a component mounts?", options: ["useState", "useContext", "useEffect", "useReducer"], correctAnswer: "useEffect" },
@@ -76,7 +76,7 @@ function TopicAssessment() {
 
     // Connect to Backend
     try {
-      await fetch('http://localhost:3000/course/assessment/complete', {
+      await fetch('http://localhost:3000/courses/assessment/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

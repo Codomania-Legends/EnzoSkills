@@ -162,7 +162,7 @@ function FinalAssessment() {
 
     // Connect to Backend
     try {
-      await fetch('http://localhost:3000/course/assessment/complete', {
+      await fetch('http://localhost:3000/courses/assessment/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

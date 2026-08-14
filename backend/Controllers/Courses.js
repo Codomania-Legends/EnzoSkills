@@ -259,6 +259,20 @@ const createRoadmap = async (req, res) => {
     }
 }
 
+async function get_User_Courses(req, res) {
+    try {
+        const userId = req.params.id || req.params.user_id;
+        const fetchedCourses = await COURSES.find({ "user_enrolled.user_id": userId });
+        res.json({
+            msg: "Courses Fetched Successfully",
+            courses: fetchedCourses,
+            course: fetchedCourses
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message })
+    }
+}
+
 module.exports = {
     handle_Course_Creation,
     get_All_Courses,
@@ -267,5 +281,6 @@ module.exports = {
     handle_Material,
     handle_All_Assessments,
     complete_Assessment,
-    createRoadmap
+    createRoadmap,
+    get_User_Courses
 }

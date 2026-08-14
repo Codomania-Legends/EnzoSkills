@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "./Utility/global.css";
-import "./index.css"
-import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router';
+import "./index.css";
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router';
 
-// ... (Keep all your existing imports exactly as they are) ...
 import Home from './Hero/Home/Home';
 import AboutPage from './Hero/AboutUS/AboutPage';
 import MoreAboutUS from './Hero/AboutUS/MoreAboutUS';
@@ -38,9 +37,9 @@ import Calender from './Utility/Calender';
 import AddProjectForm from './Dashboard/Project/AddProjectForm';
 import LoadImages from './Utility/Loading/LoadImages';
 import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
-import JavascriptHeroRoadmap from './Dashboard/CourseDetails/Roadmap';
 import Roadmap from './Dashboard/CourseDetails/Roadmap';
 import Learning from './Dashboard/CourseDetails/Learning/Learning';
+import { UserProvider } from './Utility/UserDetails';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -52,6 +51,15 @@ const HomeLayout = () => (
   </div>
 );
 
+// ✅ Single Dashboard Wrapper to preserve User & Course context across all dashboard sub-routes
+const DashboardLayoutWrapper = () => (
+  <UserProvider>
+    <CourseProvider>
+      <Dash_Layout />
+    </CourseProvider>
+  </UserProvider>
+);
+
 function App() {
   const [isImagesLoaded, setIsImagesLoaded] = useState(false);
 
@@ -61,16 +69,14 @@ function App() {
     "/HomeImg/HomeBG.svg"
   ];
 
-  // ✅ Replaced useMemo with useEffect for side-effects
   useEffect(() => {
     const fetchImages = async () => {
-      // Assuming LoadImages returns a boolean or resolves when done
       const result = await LoadImages({ images: preloadImageUrls });
       setIsImagesLoaded(result);
     };
 
     fetchImages();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   return (
     <>
@@ -81,6 +87,8 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Loading />} />
+          
+          {/* Public / Landing Routes */}
           <Route element={<HomeLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
@@ -88,7 +96,8 @@ function App() {
             <Route path="/features" element={<Features />} />
           </Route>
 
-          <Route element={<Dash_Layout />}>
+          {/* Dashboard Routes with Persistent State & Single Context Providers */}
+          <Route element={<DashboardLayoutWrapper />}>
             <Route path="/dashboard/home" element={<DashHome />} />
             <Route path="/dashboard/library" element={<Library />} />
             <Route path="/dashboard/project" element={<Project />} />
@@ -98,23 +107,19 @@ function App() {
             <Route path="/dashboard/history" element={<History />} />
             <Route path="/dashboard/room/:id" element={<Main_RoomPage />} />
 
-            <Route path="/dashboard/courses" element={
-              <CourseProvider>
-                <Outlet />
-              </CourseProvider>
-            } >
-              <Route index element={<Courses />} />
-              <Route path="overview/:id" element={<Overview />} />
-              <Route path="learning/:id" element={<Learning />} />
-              <Route path="assessment/:id" element={<Assessment />} />
-              <Route path="assessment/topic/:id" element={<TopicAssessment />} />
-              <Route path="assessment/final/:id" element={<FinalAssessment />} />
-              <Route path="scorecard/:id" element={<ScoreCard />} />
-              <Route path="doubts/:id" element={<Doubts />} />
-              <Route path="roadmap/:id" element={<Roadmap />} />
-            </Route>
+            {/* Courses & Course Details Sub-routes */}
+            <Route path="/dashboard/courses" element={<Courses />} />
+            <Route path="/dashboard/courses/overview/:id" element={<Overview />} />
+            <Route path="/dashboard/courses/learning/:id" element={<Learning />} />
+            <Route path="/dashboard/courses/assessment/:id" element={<Assessment />} />
+            <Route path="/dashboard/courses/assessment/topic/:id" element={<TopicAssessment />} />
+            <Route path="/dashboard/courses/assessment/final/:id" element={<FinalAssessment />} />
+            <Route path="/dashboard/courses/scorecard/:id" element={<ScoreCard />} />
+            <Route path="/dashboard/courses/doubts/:id" element={<Doubts />} />
+            <Route path="/dashboard/courses/roadmap/:id" element={<Roadmap />} />
           </Route>
 
+          {/* Auth & Utility Routes */}
           <Route path='/dashload' element={<DashLoad />} />
           <Route path='/login' element={<Login />} />
           <Route path='/login-page' element={<Login />} />
@@ -125,12 +130,10 @@ function App() {
           <Route path='/addmaterial' element={<AddMaterial />} />
           <Route path='/calender' element={<Calender />} />
           <Route path='/add-project' element={<AddProjectForm />} />
-
-          {/* <Route path="*" element={<Navigate to="/home" replace />} /> */}
         </Routes>
       </Router>
     </>
   );
 }
 
-export default App;
+export default App;

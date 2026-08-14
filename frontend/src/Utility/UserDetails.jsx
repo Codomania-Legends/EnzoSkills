@@ -13,7 +13,6 @@ export function UserProvider({ children }) {
         if (username == "USER") {
             const id = Cookies.get("user_id")
             const data = await axios.get(`http://localhost:3000/user/getuser/${id}`)
-            console.log(data.data.user)
             setUserDetails(data.data.user)
             setUsername(data.data.user.user_name)
         }

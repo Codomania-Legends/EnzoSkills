@@ -1,11 +1,11 @@
 
-import React, { useRef, useState, useEffect } from 'react';
-
-import axios from 'axios';
+import React, { useRef } from 'react';
+import { useUser } from '../../Utility/UserDetails';
 
 function ProgressBox() {
   const containerRef = useRef(null);
-  const [userData, setUserData] = useState({ streak: 0, badges: [] });
+  const { userDetails } = useUser();
+  const userData = userDetails || { streak: 0, badges: [] };
 
 
 
@@ -16,25 +16,7 @@ function ProgressBox() {
 
 
 
-  // <-- Fix: Passed as a config object! ✨
 
-  useEffect(() => {
-    const fetchUserGamification = async () => {
-      try {
-        const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
-        if (userId) {
-          const res = await axios.get(`http://localhost:3000/user/getuser/${userId}`);
-          if (res.data && res.data.user) {
-            setUserData(res.data.user);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch user gamification data", err);
-      }
-    };
-
-    fetchUserGamification();
-  }, []);
 
   const ProgressBoxItems = [
   { name: "Streak", value: `${userData.streak || 0}`, image: "/Dashboard/Home/streak.svg" },

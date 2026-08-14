@@ -48,17 +48,15 @@ function Dash_Layout() {
     // Render the layout INSTANTLY, passing the quote down as it updates!
     return (
         <div className='h-screen w-full'>
-            <UserProvider>
-                <Dash_Navbar />
-                <div className="md:h-[90%] h-full w-full flex justify-center items-center">
-                    <Sidebar />
-                    <div className='h-full w-[90%] flex justify-center items-center pl-[4%] box-border bg-transparent md:overflow-visible overflow-scroll'>
-                        {/* The quote will update in the child Greet component automatically once the promise resolves */}
-                        <Outlet context={{ dailyQuote }} />
-                    </div>
-                    <MobileSidebar />
+            <Dash_Navbar />
+            <div className="md:h-[90%] h-full w-full flex justify-center items-center">
+                <Sidebar />
+                <div className='h-full w-[90%] flex justify-center items-center pl-[4%] box-border bg-transparent md:overflow-visible overflow-scroll'>
+                    {/* The quote will update in the child Greet component automatically once the promise resolves */}
+                    <Outlet context={{ dailyQuote }} />
                 </div>
-            </UserProvider>
+                <MobileSidebar />
+            </div>
         </div>
     );
 }

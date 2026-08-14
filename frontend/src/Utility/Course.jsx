@@ -1,10 +1,15 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import Cookies from "js-cookie";
 
 export const courseContext = createContext();
 
-export function CourseProvider({ children, id }) {
+export function CourseProvider({ children }) {
+    const [id, setId] = useState(null);
+    useEffect(() => {
+        setId(Cookies.get("user_id"))
+    }, [])
     const [courseDetails, setCourseDetails] = useState([]);
     const [currentCourse, setCurrentCourse] = useState(null);
     const [myCourses, setMyCourses] = useState([]);
@@ -104,7 +109,7 @@ export function CourseProvider({ children, id }) {
 
     const match = location.pathname.match(/\/dashboard\/courses\/(?:overview|learning|assessment|roadmap|doubts)\/([^/]+)/);
     const idFromUrl = match ? match[1] : null;
-    const activeId = id || idFromUrl;
+    const activeId = idFromUrl;
 
     useEffect(() => {
         const fetchAllCourses = async () => {
@@ -143,10 +148,11 @@ export function CourseProvider({ children, id }) {
     }, [activeId, courseDetails]);
 
     useEffect(() => {
+        if (!id) return;
         const fetchMyCourses = async () => {
             try {
-                const myCoursesResult = await axios.get(`http://localhost:3000/courses/get/${id}`);
-                setMyCourses(myCoursesResult.data.course);
+                const myCoursesResult = await axios.get(`http://localhost:3000/courses/user/${id}`);
+                setMyCourses(myCoursesResult.data.courses || myCoursesResult.data.course || []);
             } catch (error) {
                 console.log("Error fetching my courses:", error.message);
                 setMyCourses([]);

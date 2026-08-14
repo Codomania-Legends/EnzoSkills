@@ -40,8 +40,9 @@ function Profile({ showProfile }) {
   ].filter(Boolean) : education;
 
   // 4. Process Projects neatly (Now Dynamic!)
-  const currentProjects = userDetails?.projects?.length > 0
-    ? userDetails.projects.map((p) => ({
+  const validUserProjects = (userDetails?.projects || []).filter(proj => proj && proj.project_name);
+  const currentProjects = validUserProjects.length > 0
+    ? validUserProjects.map((p) => ({
       name: p.project_name, description: p.description, repo: p.project_repo, demo: p.deployed_link
     }))
     : projects;

@@ -36,15 +36,27 @@ export const experience = [
 ]
 export const projects = [
     {
-        name: "Choco Pebble",
-        description: "A Chocolate based Company",
-        repo: "https://github.com/Anshul-Vishwakarma/ChocoPebble",
+        name: "Choco-Pebble",
+        description: "Not a Work of a Beginner",
+        repo: "https://github.com/Codomania-Legends/ChocoPebble",
         demo: "https://choco-pebble.vercel.app/"
     },
     {
+        name: "ContriZee",
+        description: "Smart group expense management and settlement application with real-time tracking.",
+        repo: "https://github.com/Codomania-Legends/ContriZee",
+        demo: "https://github.com/Codomania-Legends/ContriZee"
+    },
+    {
+        name: "SIPVision",
+        description: "Financial visualization tool for projecting historical stock and mutual fund investment returns.",
+        repo: "https://github.com/Codomania-Legends/SIPVision",
+        demo: "https://github.com/Codomania-Legends/SIPVision"
+    },
+    {
         name: "EnzoSkills",
-        description: "An AI based platform for skill development",
-        repo: "https://github.com/Anshul-Vishwakarma/EnzoSkills",
+        description: "A structured, interactive learning path dashboard designed to track coding skills and monitor progress.",
+        repo: "https://github.com/Codomania-Legends/EnzoSkills",
         demo: "https://enzoskills.vercel.app/"
     }
 ]

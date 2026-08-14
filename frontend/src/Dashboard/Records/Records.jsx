@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useUser } from "../../Utility/UserDetails";
 import "./Records.css";
 
 
@@ -93,7 +94,8 @@ function Records() {
 
 
   const [records, setRecords] = useState(data);
-  const [userData, setUserData] = useState({ badges: [], awards: [], streak: 0 });
+  const { userDetails } = useUser();
+  const userData = userDetails || { badges: [], awards: [], streak: 0 };
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -107,22 +109,7 @@ function Records() {
       }
     };
 
-    const fetchUserGamification = async () => {
-      try {
-        const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
-        if (userId) {
-          const res = await axios.get(`http://localhost:3000/user/getuser/${userId}`);
-          if (res.data && res.data.user) {
-            setUserData(res.data.user);
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch user gamification data", err);
-      }
-    };
-
     fetchRecords();
-    fetchUserGamification();
   }, []);
 
   return (
