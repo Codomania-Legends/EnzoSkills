@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { FiLink } from "react-icons/fi";
 import { IoSend } from "react-icons/io5";
 import { FaChartBar, FaBook, FaRegUser, FaImage } from "react-icons/fa";
@@ -8,7 +8,6 @@ import "./Ai.css";
 import { useUser } from '../../Utility/UserDetails';
 
 function AI() {
-  const containerRef = useRef(null);
   const [doubtQuery, setDoubtQuery] = useState("");
   const [streamedAnswer, setStreamedAnswer] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);

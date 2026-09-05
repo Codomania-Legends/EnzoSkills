@@ -43,6 +43,7 @@ function Navbar() {
 
             <div className="slide-down Navbar-right flex justify-center items-center" style={{ animationDelay: '0.4s' }}>
                 <button onClick={() => navigate("/login")} className='cursor-pointer hover:text-gray-700 transition-all duration-200 login-signup-btn text-[0.5rem] md:text-xs py-4 px-6 rounded-full small-box-shadow blue flex justify-center items-center'>
+                    
                     Login <span className='hidden md:flex'>/Sign Up</span>
                 </button>
             </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCourse } from '../../Utility/Course';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { sileo } from 'sileo';
@@ -8,7 +8,7 @@ import { useUser } from '../../Utility/UserDetails';
 
 function Overview() {
     const navigate = useNavigate();
-    const { currentCourse, courseDetails, myCourses } = useCourse();
+    const { currentCourse, courseDetails } = useCourse();
     const { userDetails, setUserDetails } = useUser();
 
     const [thisCourse, setThisCourse] = useState(null);
@@ -31,7 +31,6 @@ function Overview() {
     useEffect(() => {
         if (courseDetails && typeof currentCourse === "string") {
             const course = courseDetails.find((course) => course.course_id === currentCourse);
-            console.log("This Course : ", course)
             if( !course ){
                 // setThisCourse
             }
@@ -39,8 +38,6 @@ function Overview() {
         } else {
             setThisCourse(currentCourse)
         }
-        console.log("My courses: ", myCourses)
-        console.log("Current COurse : ", currentCourse)
         // thisCourse.user_enrolled.some(user => user.user_id == userId ? setIsEnrolled(true) : setIsEnrolled(false))
     }, [courseDetails, currentCourse]);
 

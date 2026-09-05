@@ -19,6 +19,10 @@ app.use(express.urlencoded({ extended: false }))
 //connecting mongoDB with nodejs
 connectToDatabase()
 
+//mail checker
+const generateOtp = require("./MiddleWares/mailChecker")
+app.post("/user/generate-otp", generateOtp)
+
 //user router e.g. http://localhost:3000/user/getusers
 app.use("/user", userRouter)
 

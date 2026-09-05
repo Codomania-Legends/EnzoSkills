@@ -32,7 +32,6 @@ function AddCourses() {
       };
 
       const res = await axios.post("http://localhost:3000/courses/create", payload);
-      // console.log(res);
 
       // Log the action to history
       const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
@@ -43,7 +42,7 @@ function AddCourses() {
             action_title: "Created Course",
             action_description: `You successfully authored and published the course: ${payload.course_name}`
           });
-        } catch (e) { }
+        } catch { }
       }
 
       if (res.data.error) throw new Error(res.data.error);
@@ -197,7 +196,7 @@ function AddCourses() {
               try {
                 const data = await sileo.promise(handleAddCourse(), {
                   loading: "Adding Course...",
-                  success: (data) => ({ title: "Success!", description: `Course added successfully!` }),
+                  success: () => ({ title: "Success!", description: `Course added successfully!` }),
                   error: (err) => ({ title: "Error!", description: err?.message || "Something went wrong" })
                 });
                 // Navigate to detailed courses section using the backend generated ID

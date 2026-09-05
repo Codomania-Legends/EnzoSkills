@@ -6,7 +6,6 @@ const HISTORY = require("../Models/History");
 
 //signup function for users
 const handle_User_Signup = async (req, res) => {
-    console.log("Got user Details")
     try {
         if (!req.body) throw (new Error("Body not Found"))
         const { user_name, email, user_post, password } = req.body

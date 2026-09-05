@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router';
 import Profile from './Profile/Profile';
 

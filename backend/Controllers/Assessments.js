@@ -12,10 +12,6 @@ exports.createAssessment = async (req, res) => {
             }
         }
 
-        // Add these logs to verify it worked (should print 'object' and 'true' now!) 🔍
-        console.log("What is the exact data type? ->", typeof req.body.assessment_questions);
-        console.log("Is it a real JavaScript Array? ->", Array.isArray(req.body.assessment_questions));
-
         // 2. SECOND: Now extract the variables (assessment_questions is safely an array now!) 📦
         const {
             course_id,
@@ -45,8 +41,6 @@ exports.createAssessment = async (req, res) => {
             assessment_questions, // This is now guaranteed to be an Array!
             assessment_reviews
         });
-
-        console.log(assessment.assessment_questions)
 
         await assessment.save();
         res.status(201).json({ message: "Assessment created successfully" });

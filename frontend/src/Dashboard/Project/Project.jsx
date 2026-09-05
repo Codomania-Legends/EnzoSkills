@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
 import AddProjectForm from './AddProjectForm';
 import { useUser } from '../../Utility/UserDetails';
 import { sileo } from 'sileo';
@@ -66,7 +65,6 @@ function Project() {
   ];
 
 
-  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const containerRef = useRef(null);
 

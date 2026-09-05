@@ -5,7 +5,7 @@ import { sileo } from 'sileo';
 
 function Room() {
   const navigate = useNavigate();
-  const [roomIdArray, setRoomIdArray] = useState(new Array(6).fill(""));
+  const [roomIdArray, setRoomIdArray] = useState(Array.from({ length: 6 }, () => ""));
   const [isIdCopied, setIsIdCopied] = useState(false);
 
   const containerReference = useRef(null);
@@ -147,7 +147,7 @@ function Room() {
                         action_description: `You joined the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch (e) { }
+                  } catch { }
                 }
 
                 navigate(`/dashboard/room/${roomStr}`);
@@ -161,7 +161,7 @@ function Room() {
               onClick={async () => {
                 const roomStr = roomIdArray.join("");
                 if (roomStr.length < 6) {
-                  const generatedRoomId = new Array(6).fill(0).map(() => Math.floor(Math.random() * 10).toString());
+                  const generatedRoomId = Array.from({ length: 6 }, () => Math.floor(Math.random() * 10).toString());
                   setRoomIdArray(generatedRoomId);
                   sileo.success({
                     title: "Success",
@@ -187,7 +187,7 @@ function Room() {
                         action_description: `You created and entered the coding discussion room ID: ${roomStr}`
                       })
                     });
-                  } catch (e) { }
+                  } catch { }
                 }
 
                 navigate(`/dashboard/room/${roomStr}`);

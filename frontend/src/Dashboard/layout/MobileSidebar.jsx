@@ -42,7 +42,7 @@ function MobileSidebar() {
   return (
     <div className='md:hidden absolute bottom-10 w-full flex justify-center items-center'>
       <div className='w-8/10 flex justify-around items-center white small-box-shadow px-2 py-5 rounded-full'>
-        {pages.map((page, index) => (
+        {pages.map((page) => (
           <NavLink to={page.path} key={page.path + page.name} className="flex flex-col justify-center items-center">
             <img src={page.icon} alt={page.name} className='h-3 w-3' />
             <p className='text-xs'>{page.name}</p>

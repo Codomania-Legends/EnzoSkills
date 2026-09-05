@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import "./AboutPage.css";
-import Navbar from '../Navbar/Navbar';
 import "../../Utility/global.css";
 import { useNavigate } from 'react-router';
 import { useScrollReveal } from '../../Utility/useScrollReveal';

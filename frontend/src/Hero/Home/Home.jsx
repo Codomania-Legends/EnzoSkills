@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router';
 import "./Home.css";
 import "../../Utility/global.css";
 
 function Home() {
+  const navigate = useNavigate();
   const containerRef = useRef();
   const preloadDashboardImages = () => {
     const imagesToPreload = [
@@ -64,9 +66,13 @@ function Home() {
             </div>
           </div>
 
-          <div className="leftContentBottom h-[40%] w-[70%] md:h-[10%] md:w-[90%] lg:hidden flex justify-center md:justify-start items-center fade-in" style={{ animationDelay: '1s' }}>
+          <div onClick={() => {
+            navigate("/dashboard/home")
+          }} className="leftContentBottom z-20 w-[70%] md:h-[10%] md:w-[90%] lg:hidden flex justify-center md:justify-start items-center fade-in" style={{ animationDelay: '1s' }}>
             <img src="/HomeImg/HomeArrow.svg" alt="Arrow Decoration" className='arrowPart bottom-[25%] md:hidden right-[15%]' />
-            <button className='start-learning-btn text-white rounded-full pt-[1em] pr-[8em] pb-[1em] pl-[3em] small-box-shadow black md:text-xl text-sm hover:scale-105 transition-transform'>Start Learning</button>
+            <button onClick={() => {
+              navigate("/dashboard/home")
+            }} className='start-learning-btn text-white rounded-full pt-[1em] pr-[8em] pb-[1em] pl-[3em] small-box-shadow black md:text-xl text-sm hover:scale-105 transition-transform'>Start Learning</button>
           </div>
         </div>
 
