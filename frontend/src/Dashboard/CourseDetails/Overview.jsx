@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCourse } from '../../Utility/Course';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { sileo } from 'sileo';
@@ -8,7 +8,7 @@ import { useUser } from '../../Utility/UserDetails';
 
 function Overview() {
     const navigate = useNavigate();
-    const { currentCourse, courseDetails, myCourses } = useCourse();
+    const { currentCourse, courseDetails } = useCourse();
     const { userDetails, setUserDetails } = useUser();
 
     const [thisCourse, setThisCourse] = useState(null);

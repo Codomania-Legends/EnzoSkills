@@ -42,7 +42,7 @@ function AddCourses() {
             action_title: "Created Course",
             action_description: `You successfully authored and published the course: ${payload.course_name}`
           });
-        } catch (e) { }
+        } catch { }
       }
 
       if (res.data.error) throw new Error(res.data.error);
@@ -196,7 +196,7 @@ function AddCourses() {
               try {
                 const data = await sileo.promise(handleAddCourse(), {
                   loading: "Adding Course...",
-                  success: (data) => ({ title: "Success!", description: `Course added successfully!` }),
+                  success: () => ({ title: "Success!", description: `Course added successfully!` }),
                   error: (err) => ({ title: "Error!", description: err?.message || "Something went wrong" })
                 });
                 // Navigate to detailed courses section using the backend generated ID

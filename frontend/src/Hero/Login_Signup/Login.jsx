@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
-import { FaLinkedinIn, FaGoogle, FaGithub, FaGasPump } from 'react-icons/fa';
+import { FaLinkedinIn, FaGoogle, FaGithub } from 'react-icons/fa';
 import "./LoginSignup.css";
 import { handleLogin } from './handleAuthentication';
 import { sileo } from 'sileo';

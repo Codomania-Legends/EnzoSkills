@@ -6,8 +6,7 @@ import { sileo } from 'sileo';
 import Dash_Navbar from './Dash_Navbar';
 import Sidebar from './Sidebar';
 import MobileSidebar from './MobileSidebar';
-// You can remove DashLoad from here if you want an instant shell!
-import { UserProvider } from '../../Utility/UserDetails';
+
 
 function Dash_Layout() {
     const currentUserId = Cookies.get("user_id");

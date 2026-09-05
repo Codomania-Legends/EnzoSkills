@@ -7,14 +7,72 @@ export const userContext = createContext()
 
 export function UserProvider({ children }) {
     const [username, setUsername] = useState("USER")
-    const [userDetails, setUserDetails] = useState([])
+    const [userDetails, setUserDetails] = useState({})
 
     async function getUserDetails() {
-        if (username == "USER") {
-            const id = Cookies.get("user_id")
+        const id = Cookies.get("user_id")
+        if (!id) return;
+        
+        try {
             const data = await axios.get(`http://localhost:3000/user/getuser/${id}`)
-            setUserDetails(data.data.user)
-            setUsername(data.data.user.user_name)
+            if (data.data && data.data.user) {
+                const user = data.data.user;
+                setUserDetails(user);
+                setUsername(user.user_name || "USER");
+                
+                checkDailyStreak(user);
+            }
+        } catch (err) {
+            console.error("Failed to fetch user details", err);
+        }
+    }
+
+    async function updateStreak(newStreak) {
+        const id = Cookies.get("user_id");
+        if (!id) return;
+
+        try {
+            await axios.patch("http://localhost:3000/user/gamification", {
+                user_id: id,
+                streak: newStreak
+            });
+
+            setUserDetails(prev => ({ ...prev, streak: newStreak }));
+        } catch (err) {
+            console.error("Failed to update streak:", err);
+        }
+    }
+
+    async function checkDailyStreak(user) {
+        const lastLogin = localStorage.getItem("last_login_date");
+        const today = new Date().toDateString();
+
+        if (!lastLogin) {
+            localStorage.setItem("last_login_date", today);
+            if (!user.streak || user.streak === 0) {
+                updateStreak(1);
+            }
+            return;
+        }
+
+        if (lastLogin === today) {
+            return;
+        }
+
+        const lastDate = new Date(lastLogin);
+        const currentDate = new Date(today);
+        const diffTime = Math.abs(currentDate - lastDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        localStorage.setItem("last_login_date", today);
+
+        if (diffDays === 1) {
+            // Logged in on consecutive day: Increment Streak
+            const nextStreak = (user.streak || 0) + 1;
+            updateStreak(nextStreak);
+        } else if (diffDays > 1) {
+            // Missed one or more days: Reset Streak to 1
+            updateStreak(1);
         }
     }
 
@@ -27,12 +85,17 @@ export function UserProvider({ children }) {
         })
     }, [])
 
+    const streak = userDetails?.streak || 0;
+
     return (
         <userContext.Provider value={{
             username,
-            setUserDetails,
+            setUsername,
             userDetails,
-            setUsername
+            setUserDetails,
+            streak,
+            updateStreak,
+            getUserDetails
         }}>
             {children}
         </userContext.Provider>

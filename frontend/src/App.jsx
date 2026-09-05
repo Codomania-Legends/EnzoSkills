@@ -61,7 +61,7 @@ const DashboardLayoutWrapper = () => (
 );
 
 function App() {
-  const [isImagesLoaded, setIsImagesLoaded] = useState(false);
+  const [_isImagesLoaded, setIsImagesLoaded] = useState(false);
 
   const preloadImageUrls = [
     "/Dashboard/projectImg.svg",
@@ -87,7 +87,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Loading />} />
-          
+
           {/* Public / Landing Routes */}
           <Route element={<HomeLayout />}>
             <Route path="/home" element={<Home />} />
@@ -136,4 +136,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

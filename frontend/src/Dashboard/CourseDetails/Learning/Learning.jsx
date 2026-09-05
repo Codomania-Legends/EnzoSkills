@@ -91,7 +91,6 @@ function Learning() {
     ];
 
     const displayMaterials = materials.length > 0 ? materials : dummyMaterials;
-    const isDummy = materials.length === 0;
 
     return (
         <div className="container h-full overflow-y-auto mx-auto px-4 mt-5 flex flex-col items-center pb-10">

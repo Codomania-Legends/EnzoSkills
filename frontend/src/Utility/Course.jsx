@@ -116,7 +116,7 @@ export function CourseProvider({ children }) {
             try {
                 const allResults = await axios.get("http://localhost:3000/courses/get");
                 setCourseDetails(allResults.data.course);
-            } catch (error) {
+            } catch {
                 setCourseDetails(coursesData);
             }
         };
@@ -133,7 +133,7 @@ export function CourseProvider({ children }) {
                     try {
                         const singleResult = await axios.get(`http://localhost:3000/courses/get/${activeId}`);
                         setCurrentCourse(singleResult.data.course);
-                    } catch (error) {
+                    } catch {
                         const fallbackCourse = coursesData.find(c => String(c.course_id || c.id) === String(activeId));
                         setCurrentCourse(fallbackCourse || null);
                     }
@@ -151,7 +151,7 @@ export function CourseProvider({ children }) {
             try {
                 const myCoursesResult = await axios.get(`http://localhost:3000/courses/user/${id}`);
                 setMyCourses(myCoursesResult.data.courses || myCoursesResult.data.course || []);
-            } catch (error) {
+            } catch {
                 setMyCourses([]);
             }
         };

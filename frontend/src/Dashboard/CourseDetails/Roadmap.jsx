@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import "./style.css";
 import { useCourse } from '../../Utility/Course';
 import gsap from 'gsap';

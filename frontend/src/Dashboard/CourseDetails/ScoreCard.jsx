@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useCourse } from '../../Utility/Course';
 import { useNavigate, useLocation } from 'react-router';
 

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import "./profile.css";
 
 import { WHITE_BOX, Bluish_Box, Project_Box } from './Boxes';

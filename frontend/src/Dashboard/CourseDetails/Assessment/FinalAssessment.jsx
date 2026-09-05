@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import React, { useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { useCourse } from '../../../Utility/Course';
 
 const finalQuestionsMap = {
@@ -112,7 +112,7 @@ const defaultFinalQuestions = {
 };
 
 function FinalAssessment() {
-  const { currentCourse } = useCourse();
+  useCourse();
   const { id: courseId } = useParams();
   const navigate = useNavigate();
   const container = useRef(null);

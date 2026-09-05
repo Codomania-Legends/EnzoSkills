@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import "../../Utility/global.css";
 import "./layout.css";
 import { NavLink } from 'react-router';
