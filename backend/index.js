@@ -1,49 +1,49 @@
-const express = require("express")
-const app = express()
-const mongoose = require("mongoose")
-const cors = require("cors")
-const userRouter = require("./Routes/User")
-const courseRouter = require("./Routes/Course")
-const libraryRouter = require("./Routes/Library")
-const recordsRouter = require("./Routes/Records")
-const historyRouter = require("./Routes/History")
-const DoubtRouter = require("./Routes/Doubts")
-const assessmentRouter = require("./Routes/Assessments")
-const connectToDatabase = require("./MongoDB_Connect")
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
+const connectToDatabase = require("./MongoDB_Connect");
+const setupRoomSocket = require("./Controllers/Room");
 
-app.use(cors())
+const userRouter = require("./Routes/User");
+const courseRouter = require("./Routes/Course");
+const libraryRouter = require("./Routes/Library");
+const recordsRouter = require("./Routes/Records");
+const historyRouter = require("./Routes/History");
+const DoubtRouter = require("./Routes/Doubts");
+const assessmentRouter = require("./Routes/Assessments");
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+const app = express();
+const server = http.createServer(app);
 
-//connecting mongoDB with nodejs
-connectToDatabase()
+// Initialize Socket.io on the SAME server/port
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
-//mail checker
-const generateOtp = require("./MiddleWares/mailChecker")
-app.post("/user/generate-otp", generateOtp)
+// Attach socket event handlers
+setupRoomSocket(io);
 
-//user router e.g. http://localhost:3000/user/getusers
-app.use("/user", userRouter)
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-//course router e.g. http://localhost:3000/courses/get
-app.use("/courses", courseRouter)
+// Connect to MongoDB
+connectToDatabase();
 
-//assessments router e.g. http://localhost:3000/assessments/create
-app.use("/assessments", assessmentRouter)
+// API Routes
+app.use("/user", userRouter);
+app.use("/courses", courseRouter);
+app.use("/assessments", assessmentRouter);
+app.use("/library", libraryRouter);
+app.use("/doubts", DoubtRouter);
+app.use("/records", recordsRouter);
+app.use("/history", historyRouter);
 
-//library router e.g. http://localhost:3000/library/get
-app.use("/library", libraryRouter)
-
-//doubts router e.g. http://localhost:3000/doubts/solve
-app.use("/doubts", DoubtRouter)
-
-//records router e.g. http://localhost:3000/records/get
-app.use("/records", recordsRouter)
-
-//history router e.g. http://localhost:3000/history/get/:userId
-app.use("/history", historyRouter)
-
-app.listen(3000, () => {
-    console.log("Server started on port 3000")
-})
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server started on port ${PORT} (HTTP + WebSockets)`);
+});

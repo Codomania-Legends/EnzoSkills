@@ -1,5 +1,4 @@
 const USER = require("../Models/User")
-const { v4: uuid } = require("uuid")
 const { nanoid } = require("nanoid")
 
 const HISTORY = require("../Models/History");

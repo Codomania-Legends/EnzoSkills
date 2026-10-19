@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router';
 import "./Main_RoomPage.css";
 
 // Initialize socket connection outside the component lifecycle 🔌
-const chatSocketClient = io("http://localhost:4000");
+const chatSocketClient = io("http://localhost:3000");
 
 function MainRoomPage() {
     // Safely capture the parameters regardless of how they are named in your App Router! 🧭
