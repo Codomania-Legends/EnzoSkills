@@ -12,6 +12,8 @@ const recordsRouter = require("./Routes/Records");
 const historyRouter = require("./Routes/History");
 const DoubtRouter = require("./Routes/Doubts");
 const assessmentRouter = require("./Routes/Assessments");
+const helmet = require("helmet");
+const Rate_Limiter = require("./MiddleWares/rateLimiter");
 
 const app = express();
 const server = http.createServer(app);
@@ -19,7 +21,7 @@ const server = http.createServer(app);
 // Initialize Socket.io on the SAME server/port
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: ["http://localhost:5173", "http://localhost:5174"],
         methods: ["GET", "POST"]
     }
 });
@@ -27,8 +29,15 @@ const io = new Server(server, {
 // Attach socket event handlers
 setupRoomSocket(io);
 
-app.use(cors());
-app.use(express.json());
+app.use(Rate_Limiter)
+
+app.use(helmet())
+
+app.use(cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true
+}));
+app.use(express.json({limit: "10kb"}));
 app.use(express.urlencoded({ extended: false }));
 
 // Connect to MongoDB

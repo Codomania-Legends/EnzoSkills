@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
-const databaseConnectionString = process.env.MongoDB_URL;
+const databaseConnectionString = "";
 
 const connectToDatabase = async () => {
     try {
@@ -13,6 +13,7 @@ const connectToDatabase = async () => {
         console.log("Successfully connected to the database!");
     } catch (databaseConnectionError) {
         console.error("MongoDB connection failed:", databaseConnectionError);
+        process.exit(1);
     }
 };
 
