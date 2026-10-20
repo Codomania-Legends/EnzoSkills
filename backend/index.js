@@ -37,11 +37,8 @@ app.use(cors({
     origin: ["http://localhost:5173", "http://localhost:5174"],
     credentials: true
 }));
-app.use(express.json({limit: "10kb"}));
-app.use(express.urlencoded({ extended: false }));
-
-// Connect to MongoDB
-connectToDatabase();
+app.use(express.json({ limit: "10mb", type: ["application/json", "text/plain"] }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // API Routes
 app.use("/user", userRouter);
@@ -53,6 +50,18 @@ app.use("/records", recordsRouter);
 app.use("/history", historyRouter);
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server started on port ${PORT} (HTTP + WebSockets)`);
-});
+
+// Start server only after database is connected
+const startServer = async () => {
+    try {
+        await connectToDatabase();
+        server.listen(PORT, () => {
+            console.log(`Server started on port ${PORT} (HTTP + WebSockets)`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error);
+        process.exit(1);
+    }
+};
+
+startServer();

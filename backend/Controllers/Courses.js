@@ -118,15 +118,41 @@ const handle_Material = async (req, res) => {
             return res.status(400).json({ error: "Body not found" });
         }
 
-        const { course_id, daywise_material } = req.body;
+        let { course_id, daywise_material } = req.body;
+
+        // If daywise_material is sent as a string (e.g. from x-www-form-urlencoded), parse it
+        if (typeof daywise_material === "string") {
+            try {
+                daywise_material = JSON.parse(daywise_material);
+            } catch (err) {
+                return res.status(400).json({ error: "daywise_material must be valid JSON or an array/object" });
+            }
+        }
+
+        // Handle case where user pastes a full object or array containing { course_id, daywise_material }
+        if (daywise_material && !Array.isArray(daywise_material) && daywise_material.daywise_material) {
+            course_id = course_id || daywise_material.course_id;
+            daywise_material = daywise_material.daywise_material;
+        } else if (Array.isArray(daywise_material) && daywise_material.length > 0 && daywise_material[0].daywise_material) {
+            course_id = course_id || daywise_material[0].course_id;
+            daywise_material = daywise_material[0].daywise_material;
+        }
+
+        if (!course_id) {
+            return res.status(400).json({ error: "course_id is required" });
+        }
+
+        if (!daywise_material) {
+            return res.status(400).json({ error: "daywise_material is required" });
+        }
+
+        const itemsToPush = Array.isArray(daywise_material) ? daywise_material : [daywise_material];
 
         const updatedCourse = await COURSES.findOneAndUpdate(
             { course_id: course_id },
             {
                 $push: {
-                    daywise_material: Array.isArray(daywise_material)
-                        ? { $each: daywise_material }
-                        : daywise_material
+                    daywise_material: { $each: itemsToPush }
                 }
             },
             { new: true, runValidators: true }

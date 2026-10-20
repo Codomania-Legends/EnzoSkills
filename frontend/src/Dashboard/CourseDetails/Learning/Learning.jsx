@@ -90,7 +90,7 @@ function Learning() {
         }
     ];
 
-    const displayMaterials = materials.length > 0 ? materials : dummyMaterials;
+    const displayMaterials = materials.length > 0 ? materials : [];
 
     return (
         <div className="container h-full overflow-y-auto mx-auto px-4 mt-5 flex flex-col items-center pb-10">
@@ -102,13 +102,13 @@ function Learning() {
                     </h1>
                     {/* {isDummy && <p className="text-sm text-amber-500 font-bold mt-1">⚠️ Showing Sample Data (No material uploaded yet)</p>} */}
                 </div>
-                <button
+                {/* <button
                     disabled={isButtonDisabled}
                     className={`cursor-pointer disabled:opacity-50 px-6 py-2 rounded-xl font-bold transition-all small-box-shadow slide_left ${theme ? 'bg-gray-800 text-white hover:bg-gray-700' : 'white text-black hover:bg-gray-50'}`}
                     onClick={handleThemeToggle}
                 >
                     {theme ? "🌙 Dark Mode" : "☀️ Light Mode"}
-                </button>
+                </button> */}
             </div>
 
             <div className="flex flex-col lg:flex-row gap-8 w-[95%]">
@@ -135,15 +135,14 @@ function Learning() {
                 </div>
 
                 {/* Right Content Area */}
-                <div className={`lg:w-3/4 p-8 md:p-10 rounded-3xl transition-all slide_up ${theme ? 'bg-gray-900 text-white medium-box-shadow-black' : 'white text-black medium-box-shadow'}`}>
+                <div className={`lg:w-3/4 p-8 h-fit md:p-10 rounded-3xl transition-all slide_up ${theme ? 'bg-gray-900 text-white medium-box-shadow-black' : 'white text-black medium-box-shadow'}`}>
                     {displayMaterials[selectedDayIndex] && (
                         <div className="fade-in" key={selectedDayIndex}>
                             <div className="mb-10 -b " style={{ Color: theme ? '#374151' : '#f3f4f6' }}>
                                 <h2 className="text-4xl font-bold mb-4 font-[Plus_Jakarta_Sans] leading-tight">{displayMaterials[selectedDayIndex].title}</h2>
-                                
                             </div>
 
-                            <div className="flex flex-col gap-8">
+                            <div className="flex h-fit flex-col gap-8">
                                 {displayMaterials[selectedDayIndex].material && displayMaterials[selectedDayIndex].material.map((mat, i) => (
                                     <div key={i} className={`p-8 rounded-3xl ${theme ? 'bg-gray-800' : 'bg-gray-200'} transition-all hover:shadow-md slide_up`} style={{ animationDelay: `${(i + 1) * 150}ms` }}>
                                         <h3 className="text-2xl font-bold mb-4 text-gray-500">{mat.heading}</h3>

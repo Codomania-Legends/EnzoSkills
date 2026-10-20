@@ -35,7 +35,7 @@ function Loading() {
   }, [navigate]);
 
   return (
-    <div className="relative container h-screen w-screen overflow-hidden bg-neutral-950 flex justify-center items-center z-0">
+    <div className="relative h-screen! w-screen! overflow-hidden bg-neutral-950 flex justify-center items-center z-0">
       <svg
         className="absolute h-full w-full"
         fill="none"

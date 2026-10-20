@@ -1,3 +1,9 @@
+.container-loading {
+    height: 100vh !important;
+    width: 100vw !important;
+    background: #000;
+}
+
 /* I fixed a slight typo here from transfromMe to transformMe! */
 .transformMe {
     animation: transformMe 1s ease-in-out 1 forwards;
