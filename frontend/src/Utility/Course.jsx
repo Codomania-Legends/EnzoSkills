@@ -111,30 +111,43 @@ export function CourseProvider({ children }) {
     const idFromUrl = match ? match[1] : null;
     const activeId = idFromUrl;
 
+    const fetchAllCourses = async () => {
+        try {
+            const allResults = await axios.get("http://localhost:3000/courses/get");
+            const courses = allResults.data.course || [];
+            setCourseDetails(courses);
+            return courses;
+        } catch {
+            setCourseDetails(coursesData);
+            return coursesData;
+        }
+    };
+
     useEffect(() => {
-        const fetchAllCourses = async () => {
-            try {
-                const allResults = await axios.get("http://localhost:3000/courses/get");
-                setCourseDetails(allResults.data.course);
-            } catch {
-                setCourseDetails(coursesData);
-            }
-        };
         fetchAllCourses();
     }, []);
 
     useEffect(() => {
-        if (activeId && courseDetails) {
-            const matchedCourse = courseDetails.find(c => String(c.course_id || c.id) === String(activeId));
+        if (activeId && courseDetails && courseDetails.length > 0) {
+            const matchedCourse = courseDetails.find(c => 
+                String(c.course_id) === String(activeId) ||
+                String(c._id) === String(activeId) ||
+                String(c.id) === String(activeId)
+            );
             if (matchedCourse) {
                 setCurrentCourse(matchedCourse);
             } else {
                 const fetchSingle = async () => {
                     try {
                         const singleResult = await axios.get(`http://localhost:3000/courses/get/${activeId}`);
-                        setCurrentCourse(singleResult.data.course);
+                        if (singleResult.data.course) {
+                            setCurrentCourse(singleResult.data.course);
+                        }
                     } catch {
-                        const fallbackCourse = coursesData.find(c => String(c.course_id || c.id) === String(activeId));
+                        const fallbackCourse = coursesData.find(c => 
+                            String(c.course_id) === String(activeId) ||
+                            String(c.id) === String(activeId)
+                        );
                         setCurrentCourse(fallbackCourse || null);
                     }
                 };
@@ -144,6 +157,27 @@ export function CourseProvider({ children }) {
             setCurrentCourse(null);
         }
     }, [activeId, courseDetails]);
+
+    const updateCourseInState = (updatedCourse) => {
+        if (!updatedCourse) return;
+        setCourseDetails((prev) =>
+            prev.map((c) =>
+                String(c.course_id || c._id || c.id) === String(updatedCourse.course_id || updatedCourse._id || updatedCourse.id)
+                    ? updatedCourse
+                    : c
+            )
+        );
+        setCurrentCourse((prev) => {
+            if (
+                prev &&
+                String(prev.course_id || prev._id || prev.id) ===
+                    String(updatedCourse.course_id || updatedCourse._id || updatedCourse.id)
+            ) {
+                return updatedCourse;
+            }
+            return prev;
+        });
+    };
 
     useEffect(() => {
         if (!id) return;
@@ -175,7 +209,9 @@ export function CourseProvider({ children }) {
             currentCourse,
             setCurrentCourse,
             myCourses,
-            setMyCourses
+            setMyCourses,
+            refreshCourses: fetchAllCourses,
+            updateCourseInState
         }}>
             {children}
         </courseContext.Provider>

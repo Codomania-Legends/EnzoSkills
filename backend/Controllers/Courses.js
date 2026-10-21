@@ -1,7 +1,8 @@
-const COURSES = require("../Models/Courses")
-const HISTORY = require("../Models/History")
-const { nanoid } = require("nanoid")
-const USER = require("../Models/User")
+const mongoose = require("mongoose");
+const COURSES = require("../Models/Courses");
+const HISTORY = require("../Models/History");
+const { nanoid } = require("nanoid");
+const USER = require("../Models/User");
 
 // creating courses in function below
 const handle_Course_Creation = async (req, res) => {
@@ -124,7 +125,7 @@ const handle_Material = async (req, res) => {
         if (typeof daywise_material === "string") {
             try {
                 daywise_material = JSON.parse(daywise_material);
-            } catch (err) {
+            } catch {
                 return res.status(400).json({ error: "daywise_material must be valid JSON or an array/object" });
             }
         }
@@ -148,23 +149,42 @@ const handle_Material = async (req, res) => {
 
         const itemsToPush = Array.isArray(daywise_material) ? daywise_material : [daywise_material];
 
-        const updatedCourse = await COURSES.findOneAndUpdate(
-            { course_id: course_id },
-            {
-                $push: {
-                    daywise_material: { $each: itemsToPush }
-                }
-            },
-            { new: true, runValidators: true }
-        );
+        let query = { course_id: course_id };
+        if (mongoose.Types.ObjectId.isValid(course_id)) {
+            query = { $or: [{ course_id: course_id }, { _id: course_id }] };
+        }
 
-        if (!updatedCourse) {
+        const course = await COURSES.findOne(query);
+
+        if (!course) {
             return res.status(404).json({ error: "Course not found with that ID" });
         }
 
+        if (!Array.isArray(course.daywise_material)) {
+            course.daywise_material = [];
+        }
+
+        // Upsert each item by day number so we never create duplicate days
+        for (const item of itemsToPush) {
+            const itemDay = Number(item.day);
+            const existingIndex = course.daywise_material.findIndex(
+                (m) => Number(m.day) === itemDay
+            );
+            if (existingIndex !== -1) {
+                course.daywise_material[existingIndex] = item;
+            } else {
+                course.daywise_material.push(item);
+            }
+        }
+
+        // Keep daywise material sorted chronologically by day
+        course.daywise_material.sort((a, b) => (Number(a.day) || 0) - (Number(b.day) || 0));
+
+        await course.save();
+
         res.status(200).json({
             msg: "Material updated/added successfully",
-            course: updatedCourse
+            course: course
         });
 
     } catch (error) {
@@ -226,7 +246,10 @@ const get_All_Courses = async (req, res) => {
 const get_Single_Course = async (req, res) => {
     try {
         const courseId = req.params.id;
-        const getCourse = await COURSES.findOne({ course_id: courseId });
+        const query = mongoose.Types.ObjectId.isValid(courseId)
+            ? { $or: [{ course_id: courseId }, { _id: courseId }] }
+            : { course_id: courseId };
+        const getCourse = await COURSES.findOne(query);
         if (!getCourse) throw (new Error("Course not found"));
         res.json({
             msg: "Course Fetched Successfully",
@@ -239,26 +262,12 @@ const get_Single_Course = async (req, res) => {
 
 const complete_Assessment = async (req, res) => {
     try {
-        const { course_id, assessment_id, score } = req.body;
+        const { assessment_id, score } = req.body;
         // Mock backend saving logic here. Would typically find User and push to completed_assessments
         res.json({ msg: "Assessment marked as complete", assessment_id, score });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
-
-const get_My_Courses = async (req, res) => {
-    try {
-        const courseId = req.params.id;
-        const getCourse = await COURSES.findOne({ course_id: courseId });
-        if (!getCourse) throw (new Error("Course not found"));
-        res.json({
-            msg: "Course Fetched Successfully",
-            course: getCourse
-        });
-    } catch (error) {
-        res.status(404).json({ error: error.message });
-    } 4
 }
 
 const createRoadmap = async (req, res) => {

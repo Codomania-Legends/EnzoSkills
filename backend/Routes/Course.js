@@ -12,8 +12,11 @@ courseRouter.get( "/user/:id" , get_User_Courses)
 // courseRouter.get("/mycourses/:id", get_My_Courses)
 courseRouter.patch("/enroll", enrollStudentInCourse)
 
+const { generateDaywiseMaterial } = require("../AI_Models/generateMaterial")
+
 //material Routers
 courseRouter.patch("/material", handle_Material)
+courseRouter.post("/material/generate", generateDaywiseMaterial)
 
 //Assessment Router
 courseRouter.patch("/assessment", handle_All_Assessments)

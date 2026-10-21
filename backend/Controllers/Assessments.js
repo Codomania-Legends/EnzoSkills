@@ -7,7 +7,7 @@ exports.createAssessment = async (req, res) => {
         if (typeof req.body.assessment_questions === 'string') {
             try {
                 req.body.assessment_questions = JSON.parse(req.body.assessment_questions);
-            } catch (err) {
+            } catch {
                 return res.status(400).json({ message: "Invalid JSON format in assessment_questions" });
             }
         }
@@ -31,10 +31,10 @@ exports.createAssessment = async (req, res) => {
         let assessment = new ASSESSMENTS({
             assessment_id,
             course_id,
-            week,
-            day,
+            week: week || "Topic",
+            day: day || "Topic",
             assessment_name,
-            assessment_type,
+            assessment_type: assessment_type || "Topic Assessment",
             assessment_duration,
             assessment_total_marks,
             assessment_pass_marks,
@@ -56,7 +56,7 @@ exports.getAssessment = async (req, res) => {
         const assessment = await ASSESSMENTS.find();
         res.status(200).json(assessment);
     } catch (error) {
-        res.status(500).json({ message: "Error getting assessment" });
+        res.status(500).json({ message: "Error getting assessment", error: error.message });
     }
 };
 
@@ -66,6 +66,6 @@ exports.getSpecificAssessment = async (req, res) => {
         const assessment = await ASSESSMENTS.findOne({ assessment_id });
         res.status(200).json(assessment);
     } catch (error) {
-        res.status(500).json({ message: "Error getting specific assessment" });
+        res.status(500).json({ message: "Error getting specific assessment", error: error.message });
     }
-}
+};

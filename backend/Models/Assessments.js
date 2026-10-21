@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const AssessmentSchema = new mongoose.Schema({
     assessment_id: { type: String, required: true, unique: true },
     course_id: { type: String, required: true },
-    week: { type: String, required: true },
-    day: { type: String, required: true },
+    week: { type: String, default: "Topic" },
+    day: { type: String, default: "Topic" },
     assessment_name: { type: String, required: true },
     assessment_type: { type: String, required: true },
     assessment_duration: { type: String, required: true },

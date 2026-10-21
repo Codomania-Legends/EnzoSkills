@@ -1,6 +1,4 @@
-const RECORDS = require("../Models/Records")
-
-const COURSES = require("../Models/Courses");
+const RECORDS = require("../Models/Records");
 
 const handle_Records_Section = async (req, res) => {
     try {

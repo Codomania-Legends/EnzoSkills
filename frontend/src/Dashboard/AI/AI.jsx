@@ -72,7 +72,7 @@ function MarkdownMessage({ content, isUser = false }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        code({ node, inline, className, children, ...props }) {
+        code({ _node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           const codeString = String(children).replace(/\n$/, "");
 

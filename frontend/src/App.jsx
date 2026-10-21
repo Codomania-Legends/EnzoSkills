@@ -23,7 +23,6 @@ import Features from './Hero/Features/Features';
 import Navbar from './Hero/Navbar/Navbar';
 import { Toaster } from 'sileo';
 import AddCourses from './Dashboard/Courses/AddCourses';
-import AddMaterial from './Dashboard/Courses/AddMaterial';
 import SignUpForm from './Hero/Login_Signup/SignUpForm';
 import Overview from './Dashboard/CourseDetails/Overview';
 import Doubts from './Dashboard/CourseDetails/Doubts';
@@ -39,6 +38,8 @@ import ScoreCard from './Dashboard/CourseDetails/ScoreCard';
 import Roadmap from './Dashboard/CourseDetails/Roadmap';
 import Learning from './Dashboard/CourseDetails/Learning/Learning';
 import { UserProvider } from './Utility/UserDetails';
+import CourseAdmin from './Admin/CourseAdmin/CourseAdmin';
+import MaterialAdmin from './Admin/MaterialAdmin/MaterialAdmin';
 
 const HomeLayout = () => (
   <div className='home-main-container'>
@@ -108,6 +109,9 @@ function App() {
 
             {/* Courses & Course Details Sub-routes */}
             <Route path="/dashboard/courses" element={<Courses />} />
+            <Route path='/dashboard/admin/course' element={<CourseAdmin />} />
+            <Route path='/dashboard/admin/material' element={<MaterialAdmin />} />
+            <Route path='/dashboard/admin/daywise' element={<MaterialAdmin />} />
             <Route path="/dashboard/courses/overview/:id" element={<Overview />} />
             <Route path="/dashboard/courses/learning/:id" element={<Learning />} />
             <Route path="/dashboard/courses/assessment/:id" element={<Assessment />} />
@@ -125,7 +129,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/signform' element={<SignUpForm />} />
           <Route path='/addcourses' element={<AddCourses />} />
-          <Route path='/addmaterial' element={<AddMaterial />} />
+          <Route path='/addmaterial' element={<MaterialAdmin />} />
           <Route path='/calender' element={<Calender />} />
           <Route path='/add-project' element={<AddProjectForm />} />
         </Routes>

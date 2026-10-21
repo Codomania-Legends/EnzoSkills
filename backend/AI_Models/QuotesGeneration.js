@@ -21,7 +21,7 @@ async function getMotivationalQuotes(req, res) {
     try {
         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
         res.json({ success: true, quote: randomQuote });
-    } catch (error) {
+    } catch {
         res.json({ success: true, quote: "The future belongs to builders." });
     }
 }

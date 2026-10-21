@@ -2,43 +2,71 @@ const axios = require("axios");
 
 exports.generateAssessment = async (clientRequest, serverResponse) => {
   try {
-    const { course_id, course_name, week, day, assessment_name } = clientRequest.body;
+    const { course_name, assessment_name, numberOfQuestions } = clientRequest.body;
 
     // 🛑 1. Input Validation
-    if (!course_name || !week || !day || !assessment_name) {
+    if (!course_name || !assessment_name) {
       return serverResponse.status(400).json({
         message: "Missing required fields. Please provide course_name, week, day, and assessment_name."
       });
     }
 
-    const assessmentGenerationPrompt = `
-You are an expert educator and a strict JSON generator. 🎓🤖
-I am currently learning the course: ${course_name} at Week: ${week}, Day: ${day}. 📅
+    const count = Number.isInteger(Number(numberOfQuestions)) && Number(numberOfQuestions) > 0
+  ? Number(numberOfQuestions)
+  : 10;
 
-Please generate a ${assessment_name} containing exactly 10 multiple-choice questions. 📝
+const assessmentGenerationPrompt = `
+ROLE
+You are an expert educator and a strict JSON generator. Your entire response is consumed by a program, so it must be valid JSON and nothing else.
 
-CRITICAL RULES THAT MUST BE FOLLOWED: ⚠️
-1. OUTPUT STRICTLY VALID JSON ONLY. 🧱
-2. Every single question object MUST contain exactly 4 options in the "options" array. 🔢
-3. Every single question object MUST contain an "answer" key. 🔑
-4. The string provided in the "answer" key MUST be an exact, word-for-word copy of one of the strings inside the "options" array. 📋
-5. Ensure the JSON is perfectly formed. ✅ All arrays and objects must be properly closed without trailing commas. 🛑
+TASK
+Create a multiple-choice assessment.
+- Course: ${course_name}
+- Assessment title: ${assessment_name}
+- Number of questions: ${count}
 
-FOLLOW THIS EXACT JSON STRUCTURE: 🏗️
+The questions must test knowledge of the course topic above and match the focus of the assessment title.
+
+OUTPUT FORMAT
+Return a single JSON object with this exact structure:
+
 {
   "questions": [
     {
       "id": "question_1",
-      "question": "What is the primary purpose of console.log()?",
-      "options": ["A", "B", "C", "D"],
-      "answer": "A"
+      "question": "What is the primary purpose of console.log() in JavaScript?",
+      "options": [
+        "To print output to the console",
+        "To declare a variable",
+        "To create a function",
+        "To import a module"
+      ],
+      "answer": "To print output to the console"
     }
   ]
 }
+
+RULES
+1. Output only the JSON object. Do not add markdown, code fences, comments, or any text before or after it.
+2. The "questions" array must contain exactly ${count} objects.
+3. Each "id" must be sequential: "question_1", "question_2", up to "question_${count}".
+4. Each "question" must be a clear, complete question string.
+5. Each "options" array must contain exactly 4 strings, all different from each other, with only one correct option.
+6. Each "answer" must be an exact, word-for-word copy of one of the 4 strings in that question's "options" array.
+7. Place the correct option at varied positions across questions. Do not always make it the first one.
+8. Do not use labels like "A)", "B)" or "1." inside the option strings.
+9. The JSON must be perfectly formed. Close all arrays and objects, escape special characters inside strings, and do not use trailing commas.
+
+BEFORE YOU RESPOND
+Check that:
+- The array has exactly ${count} questions.
+- Every question has 4 options and an "answer" key.
+- Every "answer" matches one option exactly.
+- The output parses with JSON.parse without errors.
 `;
 
     const ollamaRequestPayload = {
-      model: "llama3.1",
+      model: "qwen2.5:0.5b",
       prompt: assessmentGenerationPrompt,
       stream: true, // 🌊 2. TURN STREAMING ON!
       format: "json"

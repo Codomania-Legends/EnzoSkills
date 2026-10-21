@@ -1,5 +1,4 @@
-const mongoose = require("mongoose")
-const {Schema, model} = require("mongoose")
+const { Schema, model } = require("mongoose");
 
 const LibrarySchema = new Schema({
     books : [{
