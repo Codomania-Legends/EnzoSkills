@@ -54,7 +54,7 @@ RULES
 `;
 
     const ollamaRequestPayload = {
-      model: "qwen2.5:0.5b",
+      model: "llama3.1:latest",
       prompt: materialGenerationPrompt,
       stream: false,
       format: "json"
