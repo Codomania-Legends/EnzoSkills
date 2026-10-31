@@ -71,7 +71,7 @@ CRITICAL:
 
     // 🎲 3. Request Payload with dynamic seed & sampling options to prevent duplicate questions
     const ollamaRequestPayload = {
-      model: "llama3.1:latest",
+      model: "lfm3:latest",
       prompt: assessmentGenerationPrompt,
       stream: true,
       format: "json",
