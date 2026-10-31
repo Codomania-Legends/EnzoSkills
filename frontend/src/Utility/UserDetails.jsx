@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { sileo } from 'sileo';
+import { syncProgressFromBackend } from "./CourseProgressHelper";
 
 export const userContext = createContext()
 
@@ -21,6 +22,9 @@ export function UserProvider({ children }) {
                 setUsername(user.user_name || "USER");
                 
                 checkDailyStreak(user);
+                if (Array.isArray(user.courses)) {
+                    syncProgressFromBackend(user.courses);
+                }
             }
         } catch (err) {
             console.error("Failed to fetch user details", err);

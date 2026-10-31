@@ -26,6 +26,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { sileo } from 'sileo';
 import { saveCourseProgress } from '../../../Utility/CourseProgressHelper';
+import dummyMaterials from './dummyData';
 
 // ─── Code Block Component with Syntax Highlighting and Copy Button ────────────
 function CodeBlock({ language, value }) {
@@ -160,6 +161,11 @@ function Learning() {
             const updated = isCompleted ? prev.filter((d) => d !== dayNum) : [...prev, dayNum];
             try {
                 localStorage.setItem(`completed_days_${courseId}`, JSON.stringify(updated));
+                if (!isCompleted) {
+                    localStorage.setItem(`completed_time_${courseId}_${dayNum}`, new Date().toISOString());
+                } else {
+                    localStorage.removeItem(`completed_time_${courseId}_${dayNum}`);
+                }
             } catch (e) {
                 console.error("Failed to save completed days", e);
             }
@@ -258,12 +264,12 @@ function Learning() {
         return allLearningDays.find((d) => !completedDays.includes(d.day)) || null;
     }, [allLearningDays, completedDays]);
 
-    // Sync completion percentage to LocalStorage & broadcast so Dashboard stays 100% in sync
+    // Sync completion percentage to LocalStorage & Backend MongoDB Atlas
     useEffect(() => {
         if (courseId) {
-            saveCourseProgress(courseId, completionPercentage, completedDays);
+            saveCourseProgress(courseId, completionPercentage, completedDays, currentCourse?.course_name);
         }
-    }, [courseId, completionPercentage, completedDays]);
+    }, [courseId, completionPercentage, completedDays, currentCourse?.course_name]);
 
     // Filtered by active week, search query, and completion status
     const displayedDays = useMemo(() => {

@@ -1,6 +1,9 @@
+import axios from "axios";
+import Cookies from "js-cookie";
+
 /**
  * Utility functions to manage and calculate real-time course progress across EnzoSkills.
- * Bridges LocalStorage curriculum progress with Dashboard overviews.
+ * Bridges LocalStorage curriculum progress with Backend API and MongoDB database.
  */
 
 /**
@@ -131,9 +134,9 @@ export function getCourseProgress(course, fallbackTotalDays = 20) {
 }
 
 /**
- * Persists course progress to LocalStorage and notifies other dashboard components.
+ * Persists course progress to LocalStorage AND syncs to Backend & MongoDB Atlas.
  */
-export function saveCourseProgress(courseId, percentage, completedDays = null) {
+export function saveCourseProgress(courseId, percentage, completedDays = null, courseName = "") {
     if (!courseId && courseId !== 0) return;
 
     try {
@@ -147,9 +150,66 @@ export function saveCourseProgress(courseId, percentage, completedDays = null) {
             window.dispatchEvent(new CustomEvent('course_progress_updated', {
                 detail: { courseId, progress: percentage }
             }));
+            window.dispatchEvent(new CustomEvent('user_activity_updated', {
+                detail: { actionType: "LESSON_LEARN", courseId }
+            }));
+        }
+
+        // Wisely sync to backend database in the background
+        const userId = Cookies.get("user_id");
+        if (userId) {
+            axios.post("http://localhost:3000/courses/progress/update", {
+                user_id: userId,
+                course_id: String(courseId),
+                course_name: courseName || "",
+                progress_percentage: percentage,
+                completed_days: completedDays || [],
+                topics_completed: Array.isArray(completedDays) ? completedDays.length : 0,
+                week_completed: Array.isArray(completedDays) && completedDays.length > 0 ? Math.ceil(completedDays.length / 5) : 0
+            }).catch(err => {
+                // Graceful fallback for offline mode
+                console.warn("Backend progress sync skipped (offline or server unreachable):", err.message);
+            });
         }
     } catch (e) {
-        console.error("Failed to persist course progress to localStorage", e);
+        console.error("Failed to persist course progress", e);
+    }
+}
+
+/**
+ * Syncs user course progress from MongoDB database into LocalStorage.
+ * Used upon login or profile load to restore user progress on any device.
+ */
+export function syncProgressFromBackend(userCourses = []) {
+    if (!Array.isArray(userCourses) || userCourses.length === 0) return;
+
+    try {
+        userCourses.forEach(uc => {
+            const cId = uc.course_id;
+            if (!cId) return;
+
+            // If backend has completed_days and local doesn't, restore it
+            if (Array.isArray(uc.completed_days) && uc.completed_days.length > 0) {
+                const localDays = localStorage.getItem(`completed_days_${cId}`);
+                if (!localDays) {
+                    localStorage.setItem(`completed_days_${cId}`, JSON.stringify(uc.completed_days));
+                }
+            }
+
+            // If backend has progress_percentage and local doesn't, restore it
+            if (typeof uc.progress_percentage === 'number' && uc.progress_percentage > 0) {
+                const localProgress = localStorage.getItem(`course_progress_${cId}`);
+                if (!localProgress || localProgress === "0") {
+                    localStorage.setItem(`course_progress_${cId}`, String(uc.progress_percentage));
+                }
+            }
+        });
+
+        if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('course_progress_updated', {}));
+        }
+    } catch (e) {
+        console.warn("Failed to sync backend progress to localStorage:", e);
     }
 }
 

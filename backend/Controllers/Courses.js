@@ -96,6 +96,7 @@ const enrollStudentInCourse = async (req, res) => {
         // Log the action
         await HISTORY.create({
             user_id: user_id,
+            action_type: "COURSE_ENROLL",
             action_title: "Enrolled in Course",
             action_description: `You have successfully enrolled in the course: ${updatedCourse.course_name}. Happy learning!`
         });
@@ -262,8 +263,33 @@ const get_Single_Course = async (req, res) => {
 
 const complete_Assessment = async (req, res) => {
     try {
-        const { assessment_id, score } = req.body;
-        // Mock backend saving logic here. Would typically find User and push to completed_assessments
+        const { user_id, course_id, assessment_id, score } = req.body;
+        
+        if (user_id) {
+            // Push to user assessments
+            await USER.findOneAndUpdate(
+                { user_id },
+                {
+                    $push: {
+                        assessments: {
+                            assessment_id: assessment_id || "final_assessment",
+                            status: "Completed",
+                            completed_at: new Date().toISOString(),
+                            score: String(score)
+                        }
+                    }
+                }
+            );
+
+            // Log activity strictly for Action 3: Give assessment
+            await HISTORY.create({
+                user_id,
+                action_type: "ASSESSMENT_GIVEN",
+                action_title: "Assessment Completed",
+                action_description: `Completed assessment for ${course_id || 'course'} with score ${score}%.`
+            });
+        }
+
         res.json({ msg: "Assessment marked as complete", assessment_id, score });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -308,6 +334,160 @@ async function get_User_Courses(req, res) {
     }
 }
 
+// Update progress for a user in a course
+const update_Course_Progress = async (req, res) => {
+    try {
+        const {
+            user_id,
+            course_id,
+            course_name,
+            progress_percentage,
+            completed_days,
+            topics_completed,
+            week_completed
+        } = req.body;
+
+        if (!user_id || !course_id) {
+            return res.status(400).json({ error: "user_id and course_id are required" });
+        }
+
+        const percentage = Math.min(100, Math.max(0, Number(progress_percentage) || 0));
+        const completedDaysList = Array.isArray(completed_days) ? completed_days.map(Number) : [];
+        const completedCount = completedDaysList.length || Number(topics_completed) || 0;
+        const weekCount = Number(week_completed) || (completedCount > 0 ? Math.max(1, Math.ceil(completedCount / 5)) : 0);
+        const status = percentage >= 100 ? "Completed" : "In Progress";
+
+        // Find user
+        const user = await USER.findOne({ user_id });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (!Array.isArray(user.courses)) {
+            user.courses = [];
+        }
+
+        const courseIndex = user.courses.findIndex(c => String(c.course_id) === String(course_id));
+
+        if (courseIndex !== -1) {
+            user.courses[courseIndex].progress_percentage = percentage;
+            user.courses[courseIndex].completed_days = completedDaysList;
+            user.courses[courseIndex].topics_completed = completedCount;
+            user.courses[courseIndex].week_completed = weekCount;
+            user.courses[courseIndex].progress_status = status;
+            user.courses[courseIndex].last_activity = new Date();
+            if (course_name && !user.courses[courseIndex].course_name) {
+                user.courses[courseIndex].course_name = course_name;
+            }
+        } else {
+            user.courses.push({
+                course_id: String(course_id),
+                course_name: course_name || "Course",
+                progress_percentage: percentage,
+                completed_days: completedDaysList,
+                topics_completed: completedCount,
+                week_completed: weekCount,
+                progress_status: status,
+                last_activity: new Date()
+            });
+        }
+
+        await user.save();
+
+        // Also ensure COURSES user_enrolled contains user
+        await COURSES.findOneAndUpdate(
+            { course_id: String(course_id), "user_enrolled.user_id": { $ne: user_id } },
+            { $push: { user_enrolled: { user_id } } }
+        );
+
+        // Auto-log to history strictly for Action 2: Learn something
+        if (completedCount > 0) {
+            await HISTORY.create({
+                user_id,
+                action_type: "LESSON_LEARN",
+                action_title: "Curriculum Lesson Completed",
+                action_description: `Completed learning day in ${course_name || 'Course'} (${percentage}% total progress).`
+            });
+
+            // Upsert real day records in the RECORDS collection in MongoDB
+            const RECORDS = require("../Models/Records");
+            for (const dayNum of completedDaysList) {
+                const badgeType = dayNum % 5 === 0 ? "Gold" : dayNum % 2 === 0 ? "Silver" : "Bronze";
+                await RECORDS.findOneAndUpdate(
+                    { user_id, course_id: String(course_id), day_num: dayNum },
+                    {
+                        $set: {
+                            user_id,
+                            course_id: String(course_id),
+                            course_name: course_name || "Course",
+                            day: `Day ${dayNum}`,
+                            day_num: dayNum,
+                            tasks: "5/5 Tasks",
+                            badge: badgeType,
+                            badgeImage: `/Records/${badgeType.toLowerCase()}.png`,
+                            score: 100,
+                            rating: 5.0,
+                            review: `Successfully completed Day ${dayNum} curriculum lesson.`
+                        }
+                    },
+                    { upsert: true, new: true }
+                );
+            }
+        }
+
+        res.status(200).json({
+            msg: "Progress saved successfully",
+            progress: {
+                course_id,
+                progress_percentage: percentage,
+                completed_days: completedDaysList,
+                topics_completed: completedCount,
+                week_completed: weekCount,
+                progress_status: status
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Get specific course progress for a user
+const get_Course_Progress = async (req, res) => {
+    try {
+        const { userId, courseId } = req.params;
+        if (!userId || !courseId) {
+            return res.status(400).json({ error: "userId and courseId are required" });
+        }
+
+        const user = await USER.findOne({ user_id: userId });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const courseProgress = (user.courses || []).find(c => String(c.course_id) === String(courseId));
+        if (!courseProgress) {
+            return res.status(200).json({
+                msg: "No progress found for course",
+                progress: {
+                    course_id: courseId,
+                    progress_percentage: 0,
+                    completed_days: [],
+                    week_completed: 0,
+                    topics_completed: 0,
+                    progress_status: "Not Started"
+                }
+            });
+        }
+
+        res.status(200).json({
+            msg: "Course progress fetched successfully",
+            progress: courseProgress
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     handle_Course_Creation,
     get_All_Courses,
@@ -317,5 +497,7 @@ module.exports = {
     handle_All_Assessments,
     complete_Assessment,
     createRoadmap,
-    get_User_Courses
+    get_User_Courses,
+    update_Course_Progress,
+    get_Course_Progress
 }

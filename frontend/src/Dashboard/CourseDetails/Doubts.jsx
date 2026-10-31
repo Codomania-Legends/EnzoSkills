@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { sileo } from 'sileo';
 import { useUser } from '../../Utility/UserDetails';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 function Doubts() {
   const containerRef = useRef(null);
@@ -108,6 +109,7 @@ function Doubts() {
       const res = await axios.post("http://localhost:3000/doubts/create", payload);
       if (res.data.success) {
         sileo.success("Doubt posted to the community! 📣");
+        trackUserAction("AI_LEARN", "Posted Doubt", newTitle);
         setDoubts((prev) => [res.data.doubt, ...prev]);
         setNewTitle('');
         setNewText('');
@@ -230,8 +232,13 @@ function Doubts() {
       const response = await fetch("http://localhost:3000/doubts/solve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ doubt: aiQuery })
+        body: JSON.stringify({ 
+          doubt: aiQuery,
+          user_id: currentUserId 
+        })
       });
+
+      trackUserAction("AI_LEARN", "Learned with AI", `Asked AI: ${aiQuery.slice(0, 70)}`);
 
       if (!response.ok) {
         throw new Error("AI solver server error");

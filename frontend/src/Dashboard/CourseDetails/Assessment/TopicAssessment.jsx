@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
-
+import Cookies from 'js-cookie';
+import { trackUserAction } from '../../../Utility/ActivityLogger';
 import { useLocation, useNavigate } from 'react-router';
 
 function TopicAssessment() {
@@ -73,6 +73,7 @@ function TopicAssessment() {
     });
 
     const courseId = location.pathname.split('/').pop();
+    const userId = Cookies.get("user_id");
 
     // Connect to Backend
     try {
@@ -80,11 +81,13 @@ function TopicAssessment() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          user_id: userId,
           course_id: courseId,
           assessment_id: assessmentData.id,
           score: score
         })
       });
+      trackUserAction("ASSESSMENT_GIVEN", "Assessment Completed", `Completed ${assessmentData.title || 'Topic Assessment'} with score ${score}%`);
     } catch (error) {
       console.error("Failed to sync score to backend", error);
     }

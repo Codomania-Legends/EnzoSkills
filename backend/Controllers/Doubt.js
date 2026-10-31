@@ -1,4 +1,5 @@
 const Doubt = require("../Models/Doubt");
+const HISTORY = require("../Models/History");
 
 // Get all doubts for a specific course
 const get_Course_Doubts = async (req, res) => {
@@ -27,6 +28,14 @@ const create_Doubt = async (req, res) => {
             doubt_title,
             doubt_text,
             replies: []
+        });
+
+        // Log Action 4: Learn with AI
+        await HISTORY.create({
+            user_id,
+            action_type: "AI_LEARN",
+            action_title: "Learned with AI",
+            action_description: `Asked question: ${doubt_title}`
         });
 
         res.json({ success: true, doubt: newDoubt });

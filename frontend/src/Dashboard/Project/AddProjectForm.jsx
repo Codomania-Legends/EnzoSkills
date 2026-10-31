@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { sileo } from 'sileo';
 import { useUser } from '../../Utility/UserDetails';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 // Added setShowForm to props so the back button can close the form overlay
 function AddProjectForm({ showForm, setShowForm, projectToEdit, setProjectToEdit }) {
@@ -114,6 +115,7 @@ function AddProjectForm({ showForm, setShowForm, projectToEdit, setProjectToEdit
     try {
       const res = await axios.patch(url, payload);
       sileo.success(isEditMode ? "Project updated successfully! 🎉" : "Project added successfully! 🎉");
+      trackUserAction("PROJECT_CREATE", isEditMode ? "Updated Project" : "Created Project", `Project: ${formData.projectName}`);
       
       setUserDetails((prev) => {
         let updatedProjects;

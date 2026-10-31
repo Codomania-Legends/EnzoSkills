@@ -159,6 +159,14 @@ const update_All_Projects = async (req, res) => {
             return res.status(404).json({ msg: "User not found" });
         }
 
+        // Action 7: Create Project log in History
+        await HISTORY.create({
+            user_id,
+            action_type: "PROJECT_CREATE",
+            action_title: "Project Created",
+            action_description: `Added new project: ${project_name}`
+        });
+
         res.json({
             msg: "New project added successfully",
             projects: updatedUser.projects
@@ -267,6 +275,14 @@ const update_User_Gamification = async (req, res) => {
             return res.status(404).json({ msg: "User not found" });
         }
 
+        // Action 7: Create Project log in History
+        await HISTORY.create({
+            user_id,
+            action_type: "PROJECT_CREATE",
+            action_title: "Project Created",
+            action_description: `Added new project: ${project_name}`
+        });
+
         res.json({
             msg: "User gamification updated successfully",
             gamification: {
@@ -319,6 +335,159 @@ const edit_Single_Project = async (req, res) => {
     }
 };
 
+// Get activity graph data for a user strictly based on the 7 core user actions:
+// 1. Course Enrollment
+// 2. Learning Lessons
+// 3. Giving Assessments
+// 4. Learning with AI (Doubts)
+// 5. Library clicks/exploration
+// 6. Creating a Room
+// 7. Creating a Project
+const get_User_Activity = async (req, res) => {
+    try {
+        const userId = req.params.userId || req.query.user_id;
+        if (!userId) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+
+        const user = await USER.findOne({ user_id: userId });
+        const historyLogs = await HISTORY.find({ user_id: userId }).sort({ createdAt: 1 });
+
+        const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const currentMonthIndex = new Date().getMonth();
+
+        // Track exact action counts per month across the 7 user actions
+        const monthlyActionCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        const breakdown = {
+            courseEnrollments: 0,
+            lessonsLearned: 0,
+            assessmentsGiven: 0,
+            aiLearned: 0,
+            libraryClicks: 0,
+            roomsCreated: 0,
+            projectsCreated: 0
+        };
+
+        // 1. Categorize and count History logs
+        historyLogs.forEach(log => {
+            const date = new Date(log.timestamp || log.createdAt);
+            const m = date.getMonth();
+
+            const type = log.action_type || "";
+            const title = (log.action_title || "").toLowerCase();
+
+            let isRecognizedAction = false;
+
+            if (type === "COURSE_ENROLL" || title.includes("enrolled") || title.includes("enroll")) {
+                breakdown.courseEnrollments++;
+                isRecognizedAction = true;
+            } else if (type === "LESSON_LEARN" || title.includes("curriculum") || title.includes("lesson") || title.includes("progress")) {
+                breakdown.lessonsLearned++;
+                isRecognizedAction = true;
+            } else if (type === "ASSESSMENT_GIVEN" || title.includes("assessment") || title.includes("test")) {
+                breakdown.assessmentsGiven++;
+                isRecognizedAction = true;
+            } else if (type === "AI_LEARN" || title.includes("ai") || title.includes("doubt")) {
+                breakdown.aiLearned++;
+                isRecognizedAction = true;
+            } else if (type === "LIBRARY_CLICK" || title.includes("library") || title.includes("book") || title.includes("pdf")) {
+                breakdown.libraryClicks++;
+                isRecognizedAction = true;
+            } else if (type === "ROOM_CREATE" || title.includes("created a room") || title.includes("create room") || title.includes("joined a room")) {
+                breakdown.roomsCreated++;
+                isRecognizedAction = true;
+            } else if (type === "PROJECT_CREATE" || title.includes("project")) {
+                breakdown.projectsCreated++;
+                isRecognizedAction = true;
+            }
+
+            if (isRecognizedAction && m >= 0 && m < 12) {
+                monthlyActionCounts[m]++;
+            }
+        });
+
+        // 2. Cross-verify against User document items if direct collections had entries
+        if (user) {
+            // Count courses enrolled
+            const enrolledCount = (user.courses || []).length;
+            if (enrolledCount > breakdown.courseEnrollments) {
+                const diff = enrolledCount - breakdown.courseEnrollments;
+                breakdown.courseEnrollments += diff;
+                monthlyActionCounts[currentMonthIndex] += diff;
+            }
+
+            // Count completed curriculum days
+            let totalDaysLearned = 0;
+            (user.courses || []).forEach(c => {
+                if (Array.isArray(c.completed_days)) {
+                    totalDaysLearned += c.completed_days.length;
+                } else if (c.topics_completed) {
+                    totalDaysLearned += c.topics_completed;
+                }
+            });
+            if (totalDaysLearned > breakdown.lessonsLearned) {
+                const diff = totalDaysLearned - breakdown.lessonsLearned;
+                breakdown.lessonsLearned += diff;
+                monthlyActionCounts[currentMonthIndex] += diff;
+            }
+
+            // Count assessments
+            const assessCount = (user.assessments || []).length;
+            if (assessCount > breakdown.assessmentsGiven) {
+                const diff = assessCount - breakdown.assessmentsGiven;
+                breakdown.assessmentsGiven += diff;
+                monthlyActionCounts[currentMonthIndex] += diff;
+            }
+
+            // Count projects
+            const projCount = (user.projects || []).length;
+            if (projCount > breakdown.projectsCreated) {
+                const diff = projCount - breakdown.projectsCreated;
+                breakdown.projectsCreated += diff;
+                monthlyActionCounts[currentMonthIndex] += diff;
+            }
+        }
+
+        const totalActivities = Object.values(breakdown).reduce((a, b) => a + b, 0);
+
+        res.status(200).json({
+            msg: "Activity data fetched successfully",
+            labels: monthLabels,
+            data: monthlyActionCounts,
+            breakdown,
+            totalActivities
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Log a user activity specifically for one of the 7 actions
+const log_User_Activity = async (req, res) => {
+    try {
+        const { user_id, action_type, action_title, action_description } = req.body;
+        if (!user_id || !action_title) {
+            return res.status(400).json({ error: "user_id and action_title are required" });
+        }
+
+        const log = await HISTORY.create({
+            user_id,
+            action_type: action_type || "OTHER",
+            action_title,
+            action_description: action_description || action_title,
+            timestamp: new Date()
+        });
+
+        res.status(201).json({
+            msg: "Activity logged successfully",
+            log
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     handle_User_Signup,
     handle_User_Login,
@@ -329,5 +498,7 @@ module.exports = {
     update_All_Projects,
     update_All_Experience,
     update_User_Gamification,
-    edit_Single_Project
+    edit_Single_Project,
+    get_User_Activity,
+    log_User_Activity
 }

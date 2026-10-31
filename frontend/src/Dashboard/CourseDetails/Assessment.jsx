@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useCourse } from '../../Utility/Course';
+import { useUser } from '../../Utility/UserDetails';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 import Calender from "../../Utility/Calender";
 
 
@@ -107,8 +109,38 @@ function Assessment() {
   }];
 
 
+  const [assessmentsList, setAssessmentsList] = useState(assessmentData);
+  const { userDetails } = useUser();
+
+  // Fetch assessments from Backend MongoDB
+  useEffect(() => {
+    const fetchAssessments = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/assessments/get");
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          const formatted = res.data.map(item => ({
+            id: item.assessment_id || item._id,
+            week: item.week || "Week 1",
+            day: item.day || "Day 3",
+            title: item.assessment_name || "Assessment",
+            timeLimit: item.assessment_duration || "45 Mins",
+            questions: (item.assessment_questions || []).map(q => ({
+              question: q.question,
+              options: q.options || [],
+              correctAnswer: q.answer
+            }))
+          }));
+          setAssessmentsList(prev => [...formatted, ...prev]);
+        }
+      } catch (err) {
+        console.warn("Could not fetch remote assessments, using local assessments:", err.message);
+      }
+    };
+    fetchAssessments();
+  }, []);
+
   // Logic to filter assessments when you click the calendar
-  const filteredAssessments = assessmentData.filter((test) => {
+  const filteredAssessments = assessmentsList.filter((test) => {
     if (!selectedDay) return false; // Hide all until a day is clicked
     const cleanDay = selectedDay.replace(" Test", "");
     return test.week === selectedWeek && test.day === cleanDay;
@@ -120,7 +152,11 @@ function Assessment() {
   };
 
   const courseId = currentCourse?.course_id || currentCourse?.id;
-  const completedTests = JSON.parse(localStorage.getItem('completed_assessments') || '{}')[courseId] || [];
+  
+  // Calculate completed tests from both database profile and local storage
+  const localCompleted = JSON.parse(localStorage.getItem('completed_assessments') || '{}')[courseId] || [];
+  const dbCompleted = (userDetails?.assessments || []).map(a => a.assessment_id);
+  const completedTests = Array.from(new Set([...localCompleted, ...dbCompleted]));
 
   return (
     <div ref={container} className="w-full h-[90vh] p-5">

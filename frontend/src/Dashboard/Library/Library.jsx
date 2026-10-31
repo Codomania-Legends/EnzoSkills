@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Library.css";
 import { useNavigate } from 'react-router';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 
 
@@ -102,6 +103,13 @@ function Library() {
 
 
 
+  const handleResourceClick = (type, title, link) => {
+    trackUserAction("LIBRARY_CLICK", `Explored Library ${type}`, `Opened ${title}`);
+    if (link) {
+      window.open(link, "_blank");
+    }
+  };
+
   return (
     <div ref={containerRef} className="container mx-auto px-4 h-full">
 
@@ -130,7 +138,7 @@ function Library() {
 
           <div ref={scrollRefBooks} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
             {books.map((item, index) =>
-            <div key={index} onClick={() => window.open(item.book_pdf, "_blank")} className="flex flex-col items-center gap-3 flex-none w-36 cursor-pointer group">
+            <div key={index} onClick={() => handleResourceClick('Book', item.book_name, item.book_pdf)} className="flex flex-col items-center gap-3 flex-none w-36 cursor-pointer group">
                 <div className="h-32 w-full overflow-hidden rounded-lg transition-transform group-hover:scale-105">
                   <img src={item.book_img} alt={item.book_name} className="h-full w-full p-5 object-cover small-box-shadow" />
                 </div>
@@ -159,7 +167,7 @@ function Library() {
 
           <div ref={scrollRefVideos} className="flex flex-nowrap overflow-x-scroll no-scrollbar gap-8 pb-4 scroll-smooth">
             {videos.map((item, index) =>
-            <div key={index} onClick={() => window.open(item.video_link, "_blank")} className="flex flex-col items-center gap-3 flex-none w-64 cursor-pointer group">
+            <div key={index} onClick={() => handleResourceClick('Video', item.video_name, item.video_link)} className="flex flex-col items-center gap-3 flex-none w-64 cursor-pointer group">
                 <div className="relative h-36 w-full overflow-hidden rounded-xl small-box-shadow transition-transform group-hover:scale-105">
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all z-10">
                     <div className="w-10 h-10 bg-white/80 rounded-full flex items-center justify-center pl-1 text-black">▶</div>

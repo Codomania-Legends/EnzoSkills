@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import Cookies from 'js-cookie';
+import { trackUserAction } from '../../../Utility/ActivityLogger';
 import { useNavigate, useParams } from 'react-router';
 import { useCourse } from '../../../Utility/Course';
 
@@ -162,15 +164,18 @@ function FinalAssessment() {
 
     // Connect to Backend
     try {
+      const userId = Cookies.get("user_id");
       await fetch('http://localhost:3000/courses/assessment/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          user_id: userId,
           course_id: courseId,
           assessment_id: assessmentData.id,
           score: score
         })
       });
+      trackUserAction("ASSESSMENT_GIVEN", "Final Assessment Completed", `Completed ${assessmentData.title || 'Final Exam'} with score ${score}/${questions.length}`);
     } catch (error) {
       console.error("Failed to sync score to backend", error);
     }

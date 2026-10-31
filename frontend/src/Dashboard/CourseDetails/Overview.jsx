@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { sileo } from 'sileo';
 import { useUser } from '../../Utility/UserDetails';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 function Overview() {
     const navigate = useNavigate();
@@ -76,6 +77,7 @@ function Overview() {
             loading: "Enrolling..."
         }).then(() => {
             setIsEnrolled(true);
+            trackUserAction("COURSE_ENROLL", "Enrolled in Course", `Enrolled in ${thisCourse?.course_name || 'Course'}`);
             setUserDetails((prev) => (
                 {
                     ...prev, courses: [...(prev.courses || []), {

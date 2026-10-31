@@ -8,6 +8,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import "./Ai.css";
+import Cookies from 'js-cookie';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 import { useUser } from '../../Utility/UserDetails';
 
 // ─── Thinking Process Collapsible Component ──────────────────────────────────
@@ -315,9 +317,12 @@ function AI() {
         },
         body: JSON.stringify({
           doubt: query,
-          context: chatHistory
+          context: chatHistory,
+          user_id: Cookies.get("user_id")
         })
       });
+
+      trackUserAction("AI_LEARN", "Learned with AI", `Asked AI: ${query.slice(0, 70)}`);
 
       if (!response.ok) {
         throw new Error(`Server returned status ${response.status}`);

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { sileo } from 'sileo';
 import { useCourse } from '../../Utility/Course';
 import { useUser } from '../../Utility/UserDetails';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 function Courses() {
     const { setCurrentCourse, courseDetails } = useCourse();
@@ -25,6 +26,7 @@ function Courses() {
                 user_id: userDetails.user_id
             });
             sileo.success({ title: "Enrollment Successful", description: response.data.msg });
+            trackUserAction("COURSE_ENROLL", "Enrolled in Course", `Enrolled in course ID: ${courseId}`);
             setUserDetails((prev) => (
                 {
                     ...prev, courses: [...prev.courses, {

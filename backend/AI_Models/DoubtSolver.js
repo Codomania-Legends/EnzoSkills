@@ -1,4 +1,5 @@
 const axiosClient = require("axios");
+const HISTORY = require("../Models/History");
 
 async function DoubtSolver(req, res) {
     try {
@@ -35,6 +36,17 @@ async function DoubtSolver(req, res) {
             Current Student Doubt: ${req.body.doubt}
             `;
 
+        // Log Action 4: Learn with AI
+        const activeUserId = req.body.user_id || req.body.userId;
+        if (activeUserId) {
+            HISTORY.create({
+                user_id: activeUserId,
+                action_type: "AI_LEARN",
+                action_title: "Learned with AI",
+                action_description: `Asked AI technical doubt: ${(req.body.doubt || "").slice(0, 80)}`
+            }).catch(e => console.error("Error logging AI activity:", e.message));
+        }
+
         // 1. Set headers for a continuous streaming response
         res.setHeader("Content-Type", "application/x-ndjson; charset=utf-8");
         res.setHeader("Cache-Control", "no-cache");
@@ -44,9 +56,9 @@ async function DoubtSolver(req, res) {
         const ollamaStreamResponse = await axiosClient.post(
             'http://localhost:11434/api/generate',
             {
-                // model: "qwen2.5:0.5b",
+                model: "qwen2.5:0.5b",
                 // model: "bonsai-2:9b",
-                model: "lfm3:latest",
+                // model: "lfm3:latest",
                 prompt: prompt,
                 stream: true
             },

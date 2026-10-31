@@ -33,11 +33,14 @@ const UserSchema = new Schema({
     courses: [
         {
             course_id: String,
-            progress_status: String,
-            week_completed: Number,
-            topics_completed: Number,
-            subtopics_completed: Number,
-            progress_percentage: Number
+            course_name: String,
+            progress_status: { type: String, default: 'In Progress' },
+            week_completed: { type: Number, default: 0 },
+            topics_completed: { type: Number, default: 0 },
+            subtopics_completed: { type: Number, default: 0 },
+            progress_percentage: { type: Number, default: 0 },
+            completed_days: [{ type: Number }],
+            last_activity: { type: Date, default: Date.now }
         }
     ],
     assessments: [

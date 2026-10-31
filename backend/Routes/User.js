@@ -1,5 +1,18 @@
 const express = require("express")
-const { handle_User_Signup, handle_User_Login, get_All_Users, get_Single_User, handle_All_User_Details, update_All_Skills, update_All_Projects, update_All_Experience, update_User_Gamification, edit_Single_Project } = require("../Controllers/User")
+const { 
+    handle_User_Signup, 
+    handle_User_Login, 
+    get_All_Users, 
+    get_Single_User, 
+    handle_All_User_Details, 
+    update_All_Skills, 
+    update_All_Projects, 
+    update_All_Experience, 
+    update_User_Gamification, 
+    edit_Single_Project,
+    get_User_Activity,
+    log_User_Activity
+} = require("../Controllers/User")
 const getMotivationalQuotes = require("../AI_Models/QuotesGeneration")
 const userRouter = express.Router()
 
@@ -33,6 +46,11 @@ userRouter.patch("/updateexperience", update_All_Experience)
 
 //router for updating gamification
 userRouter.patch("/gamification", update_User_Gamification)
+
+// Activity graph routes
+userRouter.get("/activity/:userId", get_User_Activity)
+userRouter.get("/activity", get_User_Activity)
+userRouter.post("/activity/log", log_User_Activity)
 
 module.exports = userRouter
 

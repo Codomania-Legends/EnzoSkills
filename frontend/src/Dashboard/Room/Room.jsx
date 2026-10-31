@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import "./Room.css";
 import { useNavigate } from 'react-router';
 import { sileo } from 'sileo';
+import { trackUserAction } from '../../Utility/ActivityLogger';
 
 function Room() {
   const navigate = useNavigate();
@@ -174,21 +175,8 @@ function Room() {
                   return;
                 }
 
-                // Log the action!
-                const userId = document.cookie.split('; ').find((row) => row.startsWith('user_id='))?.split('=')[1];
-                if (userId) {
-                  try {
-                    await fetch("http://localhost:3000/history/add", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        user_id: userId,
-                        action_title: "Created a Room",
-                        action_description: `You created and entered the coding discussion room ID: ${roomStr}`
-                      })
-                    });
-                  } catch { }
-                }
+                // Log the action strictly for Action 6: Create Room
+                trackUserAction("ROOM_CREATE", "Created a Room", `Created and entered coding room ID: ${roomStr}`);
 
                 navigate(`/dashboard/room/${roomStr}`);
               }}

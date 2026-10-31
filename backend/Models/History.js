@@ -2,12 +2,17 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const HistorySchema = new Schema({
-    user_id: { type: String, required: true },
+    user_id: { type: String, required: true, index: true },
+    action_type: { 
+        type: String, 
+        default: "OTHER",
+        index: true 
+    },
     action_title: { type: String, required: true },
     action_description: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-const HISTORY = model("History", HistorySchema)
+const HISTORY = model("History", HistorySchema);
 
-module.exports = HISTORY
+module.exports = HISTORY;
