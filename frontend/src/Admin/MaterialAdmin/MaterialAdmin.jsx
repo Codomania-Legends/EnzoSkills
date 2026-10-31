@@ -17,7 +17,10 @@ import {
   FiCheckCircle,
   FiClock,
   FiMapPin,
-  FiAward
+  FiAward,
+  FiCpu,
+  FiChevronDown,
+  FiChevronUp
 } from 'react-icons/fi';
 
 function MaterialAdmin() {
@@ -41,6 +44,8 @@ function MaterialAdmin() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [activeTab, setActiveTab] = useState("editor"); // "editor" or "preview"
+  const [aiThinking, setAiThinking] = useState(null);
+  const [showThinking, setShowThinking] = useState(true);
 
   // Match selected course
   const currentCourse = useMemo(() => {
@@ -95,6 +100,7 @@ function MaterialAdmin() {
 
     if (existing && Array.isArray(existing.material) && existing.material.length > 0) {
       setSections(existing.material);
+      setAiThinking(null);
       if (existing.title) setLessonTitle(existing.title);
       if (existing.topics) setTopicsSummary(existing.topics);
       sileo.success({
@@ -103,6 +109,7 @@ function MaterialAdmin() {
       });
     } else {
       setSections([]);
+      setAiThinking(null);
       if (levelItem) {
         setLessonTitle(levelItem.topic || "");
         setTopicsSummary(levelItem.achievement || levelItem.topic || "");
@@ -267,6 +274,12 @@ function MaterialAdmin() {
         setSections(data.material);
         if (data.title) setLessonTitle(data.title);
         if (data.topics) setTopicsSummary(data.topics);
+        if (data.thinking) {
+          setAiThinking(data.thinking);
+          setShowThinking(true);
+        } else {
+          setAiThinking(null);
+        }
 
         sileo.success({
           title: "Daywise Material Generated! 🎉",
@@ -690,6 +703,45 @@ function MaterialAdmin() {
             The AI educator is crafting comprehensive headings and structured explanations for{" "}
             <strong className="text-[#112D55]">{lessonTitle}</strong>.
           </p>
+        </div>
+      )}
+
+      {/* AI Reasoning / Thought Process Card */}
+      {!isGenerating && aiThinking && (
+        <div className="w-full max-w-6xl mb-6 bg-slate-900 border border-indigo-500/30 rounded-3xl overflow-hidden shadow-lg transition-all text-left">
+          <button
+            type="button"
+            onClick={() => setShowThinking(!showThinking)}
+            className="w-full flex items-center justify-between px-6 py-4 bg-indigo-950/40 hover:bg-indigo-950/60 transition-colors text-white cursor-pointer select-none"
+          >
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300">
+                <FiCpu className="text-lg" />
+              </div>
+              <div>
+                <div className="text-sm font-bold flex items-center gap-2 text-indigo-200">
+                  <span>Bonsai 9B Model Thought Process</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono border border-indigo-500/30">
+                    Reasoning Engine
+                  </span>
+                </div>
+                <div className="text-xs text-gray-400">
+                  Pedagogical reasoning used to structure Day {dayNumber} lessons
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs text-indigo-300 bg-indigo-900/40 px-3 py-1.5 rounded-xl border border-indigo-700/40">
+              <span>{showThinking ? "Hide Thoughts" : "Inspect Thoughts"}</span>
+              {showThinking ? <FiChevronUp /> : <FiChevronDown />}
+            </div>
+          </button>
+
+          {showThinking && (
+            <div className="p-6 pt-3 text-xs font-mono leading-relaxed text-indigo-100/90 bg-slate-950/70 border-t border-indigo-500/20 max-h-72 overflow-y-auto whitespace-pre-wrap select-text">
+              {aiThinking}
+            </div>
+          )}
         </div>
       )}
 

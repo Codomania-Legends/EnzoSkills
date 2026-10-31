@@ -54,7 +54,7 @@ RULES
 `;
 
     const ollamaRequestPayload = {
-      model: "llama3.1:latest",
+      model: "lfm3:latest",
       prompt: materialGenerationPrompt,
       stream: false,
       format: "json"
@@ -64,10 +64,12 @@ RULES
       const ollamaRes = await axios.post(
         "http://localhost:11434/api/generate",
         ollamaRequestPayload,
-        { timeout: 60000 }
+        { timeout: 180000 }
       );
 
       const generatedText = ollamaRes.data?.response;
+      const thinkingProcess = ollamaRes.data?.thinking || null;
+
       let parsed = null;
       if (typeof generatedText === "string") {
         try {
@@ -81,6 +83,9 @@ RULES
       }
 
       if (parsed && Array.isArray(parsed.material)) {
+        if (thinkingProcess) {
+          parsed.thinking = thinkingProcess;
+        }
         return res.status(200).json(parsed);
       }
     } catch (ollamaErr) {
