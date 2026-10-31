@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { FiX } from 'react-icons/fi';
 import Cookies from 'js-cookie';
 import "./profile.css";
 
@@ -7,9 +8,10 @@ import { WHITE_BOX, Bluish_Box, Project_Box } from './Boxes';
 import { skills, education, experience, projects } from './DummyData';
 import { useUser } from '../../../Utility/UserDetails';
 
-function Profile({ showProfile }) {
+function Profile({ showProfile, onClose, containerRef }) {
   const navigate = useNavigate();
-  const profileRef = useRef(null);
+  const localRef = useRef(null);
+  const profileRef = containerRef || localRef;
   const { userDetails } = useUser();
 
   const [educationIndex, setEducationIndex] = useState(0);
@@ -57,6 +59,16 @@ function Profile({ showProfile }) {
   return (
     <div ref={profileRef} className={`profile-container blue medium-box-shadow w-full md:w-[50%] lg:w-[35%] absolute top-15 z-50 rounded-l-[3rem] right-0 transition-all duration-300 ease-in-out ${showProfile ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-[110%] opacity-0 pointer-events-none'}`}>
       <div className='flex flex-col items-center w-full h-full relative'>
+        {/* Close Button */}
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-6 z-20 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all cursor-pointer flex items-center justify-center"
+            title="Close Profile"
+          >
+            <FiX className="text-xl" />
+          </button>
+        )}
 
         {/* TOP HALF - Info & Skills */}
         <div className='flex flex-col justify-evenly items-center relative -top-15 md:top-0 w-full h-[40%]'>

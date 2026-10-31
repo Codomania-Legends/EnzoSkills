@@ -19,20 +19,51 @@ function Dash_Navbar() {
     const [showProfile, setShowProfile] = useState(false);
     const [showAdminMenu, setShowAdminMenu] = useState(false);
     const adminMenuRef = useRef(null);
+    const profileRef = useRef(null);
+    const profileBtnRef = useRef(null);
 
     // Derived safely from params, currentCourse, or first real course in database! 🧠
     const id = params.id || currentCourse?.course_id || currentCourse?._id || courseDetails?.[0]?.course_id || 1;
 
-    // Close admin dropdown on click outside
+    // Close admin dropdown and profile on click outside or escape key
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (adminMenuRef.current && !adminMenuRef.current.contains(event.target)) {
                 setShowAdminMenu(false);
             }
+            if (
+                showProfile &&
+                profileRef.current &&
+                !profileRef.current.contains(event.target) &&
+                profileBtnRef.current &&
+                !profileBtnRef.current.contains(event.target)
+            ) {
+                setShowProfile(false);
+            }
         };
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setShowAdminMenu(false);
+                setShowProfile(false);
+            }
+        };
+
         document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        document.addEventListener('touchstart', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showProfile]);
+
+    // Close dropdowns on route changes
+    useEffect(() => {
+        setShowProfile(false);
+        setShowAdminMenu(false);
+    }, [location.pathname]);
 
     const navLinks = [
         { name: "Overview", path: "/dashboard/courses/overview/" },
@@ -102,8 +133,8 @@ function Dash_Navbar() {
 
                         {/* Admin Dropdown Popover */}
                         {showAdminMenu && (
-                            <div className="absolute right-0 top-full mt-2 w-72 bg-white/95 backdrop-blur-md rounded-2xl medium-box-shadow white border border-indigo-100 p-2 shadow-2xl z-50">
-                                <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between">
+                            <div className="absolute right-0 top-full mt-2 w-80 bg-white/95 backdrop-blur-md rounded-2xl medium-box-shadow white  p-2 shadow-2xl z-50">
+                                <div className="px-3 py-2 flex items-center justify-between">
                                     <span className="text-[10px] font-extrabold uppercase tracking-wider text-gray-500">
                                         Admin Management
                                     </span>
@@ -119,7 +150,7 @@ function Dash_Navbar() {
                                             setShowAdminMenu(false);
                                             navigate('/dashboard/admin/material');
                                         }}
-                                        className={`flex items-start gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer ${
+                                        className={`flex items-start gap-3 p-2.5 rounded-xl text-left transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
                                             currentPath.includes('/admin/material') || currentPath.includes('/addmaterial')
                                                 ? 'bg-indigo-50/80 text-[#534DB4]'
                                                 : 'hover:bg-gray-50 text-gray-700'
@@ -142,7 +173,7 @@ function Dash_Navbar() {
                                             setShowAdminMenu(false);
                                             navigate('/dashboard/admin/course');
                                         }}
-                                        className={`flex items-start gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer ${
+                                        className={`flex items-start gap-3 p-2.5 rounded-xl text-left transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
                                             currentPath.includes('/admin/course')
                                                 ? 'bg-indigo-50/80 text-[#534DB4]'
                                                 : 'hover:bg-gray-50 text-gray-700'
@@ -165,6 +196,7 @@ function Dash_Navbar() {
 
                     {/* Profile & History Controls */}
                     <div
+                        ref={profileBtnRef}
                         onMouseOver={(e) => e.target.style.setProperty("--boxColor", "#7a97ffff")}
                         onMouseLeave={(e) => e.target.style.setProperty("--boxColor", "#e7ecfe")}
                         onClick={() => setShowProfile(!showProfile)}
@@ -185,7 +217,11 @@ function Dash_Navbar() {
                     </div>
                 </div>
 
-                <Profile showProfile={showProfile} />
+                <Profile
+                    showProfile={showProfile}
+                    onClose={() => setShowProfile(false)}
+                    containerRef={profileRef}
+                />
             </div>
         </div>
     );

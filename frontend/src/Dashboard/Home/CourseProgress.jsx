@@ -1,10 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router';
+import { getCourseProgress, getCompletedDaysCount } from '../../Utility/CourseProgressHelper';
 
 function CourseProgress({ Courses, User }) {
     const container = useRef();
     const [extraDetails, setExtraDetails] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [, setRefreshKey] = useState(0);
+
+    // Listen for progress updates so dashboard updates in real time
+    useEffect(() => {
+        const handleProgressUpdate = () => {
+            setRefreshKey(prev => prev + 1);
+        };
+
+        window.addEventListener('course_progress_updated', handleProgressUpdate);
+        window.addEventListener('storage', handleProgressUpdate);
+
+        return () => {
+            window.removeEventListener('course_progress_updated', handleProgressUpdate);
+            window.removeEventListener('storage', handleProgressUpdate);
+        };
+    }, []);
 
     useEffect(() => {
         let courseList = [];
@@ -19,7 +36,7 @@ function CourseProgress({ Courses, User }) {
 
         if (courseList.length > 0) {
             const mergedCourses = courseList.map(course => {
-                const cId = course.course_id || course.id;
+                const cId = course.course_id || course._id || course.id;
                 const userProgress = userCourses.find(uc => String(uc.course_id) === String(cId)) || {};
                 return {
                     ...course,
@@ -49,13 +66,14 @@ function CourseProgress({ Courses, User }) {
                     </div>
                 ) : extraDetails.length > 0 ? (
                     extraDetails.map((course, index) => {
-                        const courseId = course.course_id || course.id || index;
+                        const courseId = course.course_id || course._id || course.id || index;
                         const courseTitle = course.course_name || course.name || 'Untitled Course';
-                        const progress = course.progress_percentage ?? course.progress ?? 0;
-                        const weeks = course.week_completed ?? 0;
+                        const progress = getCourseProgress(course);
+                        const completedCount = getCompletedDaysCount(course);
+                        const weeks = course.week_completed || (completedCount > 0 ? Math.max(1, Math.floor(completedCount / 5)) : 0);
                         const assessmentsCount = Array.isArray(course.assessments)
                             ? `${course.assessments[0]} / ${course.assessments[1]}`
-                            : (course.topics_completed ?? 0);
+                            : (course.topics_completed || completedCount || 0);
 
                         return (
                             <Link

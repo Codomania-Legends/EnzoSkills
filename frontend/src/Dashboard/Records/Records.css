@@ -57,10 +57,10 @@ img[alt="Badges"]:hover{
 img[alt="Java"]{
   animation: pulse 2s infinite;
 }
-button{
+.records-scroll-btn{
   transition: all 0.3s ease;
 }
-button:hover{
+.records-scroll-btn:hover{
   transform: scale(1.08);
 }
 .fa-angles-down{

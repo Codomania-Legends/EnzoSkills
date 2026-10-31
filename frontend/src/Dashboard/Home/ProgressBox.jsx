@@ -1,27 +1,47 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useUser } from '../../Utility/UserDetails';
+import { useCourse } from '../../Utility/Course';
+import { getOverallAverageProgress, getCourseProgress } from '../../Utility/CourseProgressHelper';
 
 function ProgressBox() {
   const containerRef = useRef(null);
   const { userDetails } = useUser();
+  const { myCourses } = useCourse();
   const userData = userDetails || { streak: 0, badges: [] };
+  const [, setRefreshKey] = useState(0);
 
+  // Live listen for progress changes
+  useEffect(() => {
+    const handleProgressUpdate = () => {
+      setRefreshKey(prev => prev + 1);
+    };
 
+    window.addEventListener('course_progress_updated', handleProgressUpdate);
+    window.addEventListener('storage', handleProgressUpdate);
 
+    return () => {
+      window.removeEventListener('course_progress_updated', handleProgressUpdate);
+      window.removeEventListener('storage', handleProgressUpdate);
+    };
+  }, []);
 
-
-
-
-
-
-
-
+  const overallProgress = useMemo(() => {
+    if (Array.isArray(myCourses) && myCourses.length > 0) {
+      return getOverallAverageProgress(myCourses);
+    }
+    if (Array.isArray(userDetails?.courses) && userDetails.courses.length > 0) {
+      return getOverallAverageProgress(userDetails.courses);
+    }
+    // Fallback: check course 1 directly
+    return getCourseProgress({ course_id: 1 });
+  }, [myCourses, userDetails]);
 
   const ProgressBoxItems = [
-  { name: "Streak", value: `${userData.streak || 0}`, image: "/Dashboard/Home/streak.svg" },
-  { name: "Badges", value: `${userData.badges?.length || 0}`, image: "/Dashboard/Home/star.svg" },
-  { name: "Progress", value: "25%", image: "/Dashboard/Home/progress.svg" }];
+    { name: "Streak", value: `${userData.streak || 0}`, image: "/Dashboard/Home/streak.svg" },
+    { name: "Badges", value: `${userData.badges?.length || 0}`, image: "/Dashboard/Home/star.svg" },
+    { name: "Progress", value: `${overallProgress}%`, image: "/Dashboard/Home/progress.svg" }
+  ];
 
 
   return (

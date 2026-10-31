@@ -161,7 +161,7 @@ function Records() {
 
         {/* #many Bottom Navigation Scroll Indicator Trigger */}
         <div className="absolute bottom-[-60px] max-md:relative max-md:bottom-0 max-md:left-0 max-md:translate-x-0 max-md:w-full max-md:flex max-md:justify-center max-md:mt-6 left-[45%]">
-          <button className="h-12 w-12 border-none rounded-full small-box-shadow blue flex items-center justify-center cursor-pointer">
+          <button className="records-scroll-btn h-12 w-12 border-none rounded-full small-box-shadow blue flex items-center justify-center cursor-pointer">
             <i className="fa-solid fa-angles-down text-white text-xs"></i>
           </button>
         </div>
